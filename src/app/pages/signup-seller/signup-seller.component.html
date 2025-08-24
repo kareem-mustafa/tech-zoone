@@ -1,0 +1,195 @@
+<div class="signup-container">
+    <form [formGroup]="sellerForm" (ngSubmit)="onSubmit()" class="signup-form">
+        <h2>Signup - Seller</h2>
+        <p class="subtitle">Complete your details in 2 steps</p>
+
+        <!-- Progress Steps -->
+        <div class="progress-container">
+            <div class="step" [class.active]="step === 1">Step 1</div>
+            <div class="step" [class.active]="step === 2">Step 2</div>
+        </div>
+
+        <!-- === STEP 1 === -->
+        <div *ngIf="step === 1" class="form-step">
+            <div class="form-row">
+                <!-- Full Name -->
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" formControlName="username" placeholder="Enter full name" />
+                    <small class="error" *ngIf="f['username'].touched && f['username'].errors?.['required']">
+                        Full name is required.
+                    </small>
+                    <small class="error" *ngIf="f['username'].dirty && f['username'].errors?.['pattern']">
+                        Name must be 5–40 letters <br> (English/Arabic only)
+                    </small>
+                </div>
+
+                <!-- Age -->
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" formControlName="age" placeholder="18+" min="1" pattern="[1-9][0-9]*"
+                        (keypress)="allowOnlyNumbers($event)" />
+
+                    <small class="error" *ngIf="f['age'].touched && f['age'].errors?.['required']">
+                        Age is required.
+                    </small>
+                    <small class="error"
+                        *ngIf="f['age'].dirty && (f['age'].errors?.['min'] || f['age'].errors?.['max'])">
+                        Age must be between 18 and 100.
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <!-- Email -->
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" formControlName="email" placeholder="example@email.com" />
+                    <small class="error" *ngIf="f['email'].touched && f['email'].errors?.['required']">
+                        Email is required.
+                    </small>
+                    <small class="error" *ngIf="f['email'].dirty && f['email'].errors?.['email']">
+                        Please enter a valid email address.
+                    </small>
+                </div>
+
+                <!-- Phone -->
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" formControlName="phonenumber" placeholder="01XXXXXXXXX" />
+                    <small class="error" *ngIf="f['phonenumber'].touched && f['phonenumber'].errors?.['required']">
+                        Phone number is required.
+                    </small>
+                    <small class="error" *ngIf="f['phonenumber'].dirty && f['phonenumber'].errors?.['pattern']">
+                        Phone must be a valid Egyptian number <br> (e.g. 010/011/012/015).
+                    </small>
+                </div>
+            </div>
+
+            <!-- Address -->
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" formControlName="address" placeholder="Enter your address" />
+                <small class="error" *ngIf="f['address'].touched && f['address'].errors?.['required']">
+                    Address is required.
+                </small>
+            </div>
+
+            <button type="button" class="btn next" (click)="nextStep()">Next →</button>
+        </div>
+
+        <!-- === STEP 2 === -->
+        <div *ngIf="step === 2" class="form-step">
+            <!-- Uploads -->
+            <div class="upload-row">
+                <!-- Bank Image -->
+                <div class="upload-box">
+                    <label>Bank Account Image</label>
+                    <div class="custom-file">
+                        <input type="file" id="bankFile" (change)="onbankImageSelected($event)" accept="image/*" />
+                        <label for="bankFile" class="file-label">Choose File</label>
+                        <span class="file-name">{{ bankFileName || 'No file chosen' }}</span>
+                    </div>
+                    <small class="error"
+                        *ngIf="f['bankAccountImage'].touched && f['bankAccountImage'].errors?.['required']">
+                        Bank account image is required.
+                    </small>
+                    <div *ngIf="bankAccountPreview" class="image-preview">
+                        <img [src]="bankAccountPreview" alt="Bank Account Preview" class="bank-image" />
+                    </div>
+                </div>
+
+                <!-- Profile Image -->
+                <div class="upload-box">
+                    <label>Profile Image</label>
+                    <div class="custom-file">
+                        <input type="file" id="profileFile" (change)="onProfileImageSelected($event)"
+                            accept="image/*" />
+                        <label for="profileFile" class="file-label">Choose File</label>
+                        <span class="file-name">{{ profileFileName || 'No file chosen' }}</span>
+                    </div>
+                    <small class="error" *ngIf="f['profileImage'].touched && f['profileImage'].errors?.['required']">
+                        Profile image is required.
+                    </small>
+                    <div *ngIf="profilePreview" class="image-preview">
+                        <img [src]="profilePreview" alt="Profile Preview" class="profile-image" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bank Account -->
+            <div class="form-group">
+                <label>Bank Account Number</label>
+                <input type="text" formControlName="BankAccount" placeholder="Enter account number" />
+                <small class="error" *ngIf="f['BankAccount'].touched && f['BankAccount'].errors?.['required']">
+                    Bank account number is required.
+                </small>
+                <small class="error" *ngIf="f['BankAccount'].dirty && f['BankAccount'].errors?.['pattern']">
+                    Bank account number must be exactly 14 digits.
+                </small>
+            </div>
+
+            <div class="form-row">
+                <!-- Store Name -->
+                <div class="form-group">
+                    <label>Store Name</label>
+                    <input type="text" formControlName="storename" placeholder="Your store name" />
+                    <small class="error" *ngIf="f['storename'].touched && f['storename'].errors?.['required']">
+                        Store name is required.
+                    </small>
+                </div>
+
+                <!-- Gender -->
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select formControlName="gender">
+                        <option value="">Select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                    <small class="error" *ngIf="f['gender'].touched && f['gender'].errors?.['required']">
+                        Gender is required.
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <!-- Password -->
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" formControlName="password" placeholder="Enter password" />
+                    <small class="error" *ngIf="f['password'].touched && f['password'].errors?.['required']">
+                        Password is required.
+                    </small>
+                    <small class="error" *ngIf="f['password'].dirty && f['password'].errors?.['pattern']">
+                        Password must be at least 8 characters <br> include upper & lowercase letters, a number, and a
+                        symbol.
+                    </small>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" formControlName="confirmPassword" placeholder="Confirm password" />
+                    <small class="error"
+                        *ngIf="f['confirmPassword'].touched && f['confirmPassword'].errors?.['required']">
+                        Confirm password is required.
+                    </small>
+                    <small class="error" *ngIf="f['confirmPassword'].dirty && sellerForm.errors?.['passwordMismatch']">
+                        Passwords do not match.
+                    </small>
+                </div>
+            </div>
+
+            <div class="btn-row">
+                <button type="button" class="btn back" (click)="prevStep()">← Back</button>
+                <button type="submit" class="btn submit" [disabled]="loading">
+                    {{ loading ? 'Registering...' : 'Submit' }}
+                </button>
+            </div>
+        </div>
+
+        <!-- Global Error -->
+        <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+    </form>
+</div>

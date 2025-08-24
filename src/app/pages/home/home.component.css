@@ -1,0 +1,130 @@
+.card {
+    height: 400px;
+    /* حجم الكارد الكبير */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    height: 100%;
+    /* تغطي ارتفاع الكارد */
+    width: 100%;
+    object-fit: contain;
+    /* الصورة تظهر كاملة */
+    background-color: #f8f9fa;
+    /* خلفية فاتحة لملء الفراغ */
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-top {
+    transform: scale(1.03);
+}
+
+/* الأزرار تبقى بدون تأثير hover */
+.card .btn {
+    transition: none !important;
+    z-index: 2;
+}
+
+.card .btn:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Hover effect on image */
+.card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+/* Buttons inside card remain unaffected */
+.card .btn {
+    transition: none !important;
+    z-index: 2;
+}
+
+/* Prevent hover effects on buttons from propagating */
+.card .btn:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Carousel controls بعيد عن الكارد */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-size: 100%, 100%;
+}
+
+/* العنوان والزر */
+.card h5 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.card button {
+    font-size: 0.85rem;
+}
+
+/* المسافة بين الكارد والزر */
+.carousel-control-prev {
+    left: -25px;
+    /* بعيد عن الكارد */
+}
+
+.carousel-control-next {
+    right: -25px;
+    /* بعيد عن الكارد */
+}
+
+/* Overlay غير مستخدم الآن */
+.card-overlay {
+    display: none;
+}
+
+/* Card Hover */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Image inside card */
+.card-img-top {
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+/* Buttons inside card remain unaffected */
+.card .btn {
+    transition: none !important;
+    z-index: 2;
+}
+
+/* Prevent hover effects on buttons from propagating */
+.card .btn:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}

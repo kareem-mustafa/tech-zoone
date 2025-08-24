@@ -1,0 +1,36 @@
+<div *ngIf="loading">Loading orders...</div>
+
+<div *ngIf="!loading && orders.length === 0">
+    No orders Requested Yet
+</div>
+
+<table *ngIf="!loading && orders.length > 0" border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>User</th>
+      <th>Products</th>
+      <th>Total</th>
+      <th>Status</th>
+      <th>Created At</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of orders">
+      <td>{{ order._id }}</td>
+      <td>{{ order.user.username }}</td>
+      <td>
+        <ul>
+          <li *ngFor="let item of order.items">{{ item.product.title }} x {{ item.quantity }}</li>
+        </ul>
+      </td>
+      <td>{{ order.totalOrderPrice | currency:'EGP' }}</td>
+      <td>{{ order.paymentStatus }}</td>
+      <td>{{ order.createdAt | date:'short' }}</td>
+      <td>
+        <button (click)="deleteOrder(order._id!)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

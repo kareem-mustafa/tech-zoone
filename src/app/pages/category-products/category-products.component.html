@@ -1,0 +1,17 @@
+<div class="container my-4">
+    <h2>Category: {{ categoryName }}</h2>
+    <div class="row">
+        <div class="col-md-3 mb-3" *ngFor="let product of products">
+            <div class="card h-100">
+                <img [src]="product.Images || 'assets/no-image.png'" class="card-img-top" alt="{{ product.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.title }}</h5>
+                    <p class="card-text">{{ product.description | slice:0:60 }}...</p>
+                    <p><strong>Price:</strong> {{ product.price }} $</p>
+                    <button class="btn btn-primary w-100" [routerLink]="['/products', product.slug]">View
+                        Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

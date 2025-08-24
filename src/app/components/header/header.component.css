@@ -1,0 +1,99 @@
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #111;
+    color: white;
+    padding: 10px 20px;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.search-bar {
+    position: relative;
+}
+
+.search-bar i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: gray;
+}
+
+.search-bar input {
+    padding: 8px 8px 8px 35px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+}
+
+.icons a {
+    color: white;
+    margin-left: 15px;
+    position: relative;
+    text-decoration: none;
+}
+
+.icon-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: red;
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
+.nav-bar {
+    background: #333;
+}
+
+.nav-bar ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-bar li {
+    position: relative;
+}
+
+.nav-bar a {
+    display: block;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-bar a:hover {
+    background: #444;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    background: #444;
+    top: 100%;
+    left: 0;
+    min-width: 150px;
+}
+
+.dropdown a {
+    padding: 10px;
+    display: block;
+    color: white;
+}
+
+.dropdown a:hover {
+    background: #555;
+}
+
+.dropdown-wrapper:hover .dropdown {
+    display: block;
+}

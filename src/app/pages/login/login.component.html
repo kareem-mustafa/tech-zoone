@@ -1,0 +1,52 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Sign in</h2>
+    <p class="subtitle">to continue to your account</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <input type="email" placeholder="Email" formControlName="email"
+          [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
+        <div *ngIf="submitted && f['email'].errors" class="error-msg">
+          <small *ngIf="f['email'].errors['required']">Email is required</small>
+          <small *ngIf="f['email'].errors['email']">Invalid email</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="password" placeholder="Password" formControlName="password"
+          [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+        <div *ngIf="submitted && f['password'].errors" class="error-msg">
+          <small *ngIf="f['password'].errors['required']">Password is required</small>
+          <small *ngIf="f['password'].errors['minlength']">Invalid password</small>
+        </div>
+      </div>
+
+      <div class="forgot-password">
+        <a (click)="navigateToForgotPassword()" style="cursor: pointer">Forgot Password?</a>
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="loading">
+        <span *ngIf="loading" class="spinner"></span>
+        Sign In
+      </button>
+
+
+
+      <div *ngIf="errorMessage" class="error-msg mt-2">{{ errorMessage }}</div>
+    </form>
+
+    <div class="google-login">
+      <button type="button" (click)="onGoogleLogin()" class="google-btn">
+        <i class="fa-brands fa-google"></i> Continue with Google
+      </button>
+    </div>
+
+    <div class="signup-buttons">
+      <p class="signup-text">Don’t have an account?</p>
+      <button type="button" class="btn-outline" (click)="navigateToSignupUser()"> Sign up as User </button>
+      <button type="button" class="btn-outline" (click)="navigateToSignupSeller()"> Sign up as Seller </button>
+    </div>
+  </div>
+</div>

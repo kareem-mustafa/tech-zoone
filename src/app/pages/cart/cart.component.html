@@ -1,0 +1,30 @@
+<div class="cart-container" *ngIf="cartItems.length > 0; else emptyCart">
+  <ul class="cart-list">
+    <li *ngFor="let item of cartItems" class="cart-item">
+      <img [src]="item.product.Images" alt="{{ item.product.title }}" class="cart-item-img">
+
+      <div class="cart-item-info">
+        <strong class="cart-item-title">{{ item.product.title }}</strong>
+        <p class="cart-item-price">{{ (item.product.price * item.quantity) | number:'1.2-2' }}$</p>
+
+        <div class="cart-quantity">
+          <button (click)="decreaseQuantity(item)">-</button>
+          <span>{{ item.quantity }}</span>
+          <button (click)="increaseQuantity(item)">+</button>
+        </div>
+      </div>
+
+      <button class="cart-item-remove" (click)="removeFromCart(item.product._id)"> حذف</button>
+    </li>
+  </ul>
+
+  <div class="cart-footer">
+    <p class="cart-total">الإجمالي: {{ getTotalPrice() | number:'1.2-2' }}$</p>
+    <button class="cart-clear" (click)="clearCart()"> تفريغ السلة</button>
+    <button class="cart-add-order" (click)="goToOrders()">إضافة الطلب</button>
+  </div>
+</div>
+
+<ng-template #emptyCart>
+  <p class="empty-cart">سلتك فارغة </p>
+</ng-template>

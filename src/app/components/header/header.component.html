@@ -1,0 +1,40 @@
+<div class="top-bar">
+    <div class="logo">Tech Zone</div>
+
+    <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search" />
+    </div>
+
+    <div class="icons">
+        <a [routerLink]="['/wishlist', userId]" title="Wishlist" class="position-relative">
+            <i class="far fa-heart"></i>
+        </a>
+
+        <a [routerLink]="['/cart', userId]" title="Cart" class="position-relative">
+            <i class="fas fa-shopping-cart"></i>
+        </a>
+
+
+        <a *ngIf="!role" routerLink="/login" class="login">Login</a>
+        <a *ngIf="role" (click)="logout()" class="logout">Logout</a>
+    </div>
+</div>
+
+<div class="nav-bar">
+    <ul>
+        <li><a routerLink="/">Home</a></li>
+        <li><a routerLink="/about">About Us</a></li>
+
+        <li class="dropdown-wrapper">
+            <a href="#">Category ▼</a>
+            <div class="dropdown">
+                <a *ngFor="let cat of categories" (click)="viewCategory(cat)">{{ cat | titlecase }}</a>
+            </div>
+        </li>
+
+        <li *ngIf="role === 'admin'"><a routerLink="/admin/dashboard">Admin Dashboard</a></li>
+        <li *ngIf="role === 'seller'"><a routerLink="/seller/dashboard">Seller Dashboard</a></li>
+        <li *ngIf="role === 'user'"><a routerLink="/profile">My Profile</a></li>
+    </ul>
+</div>

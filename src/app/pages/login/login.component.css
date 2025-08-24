@@ -1,0 +1,205 @@
+/* === Global container === */
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* === Login Card === */
+.login-card {
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    animation: fadeIn 0.7s ease-in-out;
+}
+
+/* === Titles === */
+.login-card h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 1.8rem;
+}
+
+/* === Form fields === */
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s ease;
+    font-size: 0.95rem;
+}
+
+input:focus {
+    border-color: #4facfe;
+    box-shadow: 0 0 6px rgba(79, 172, 254, 0.3);
+}
+
+/* === Validation colors === */
+.is-invalid {
+    border-color: #e74c3c !important;
+    background: #f8d7da20;
+}
+
+.is-valid {
+    border-color: #28a745 !important;
+    background: #d4edda20;
+}
+
+.error-msg {
+    color: #e74c3c;
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+/* === Password field with eye === */
+.password-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-group input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.password-group i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.password-group i:hover {
+    color: #007bff;
+}
+
+/* === Forgot password link === */
+.forgot-password {
+    text-align: right;
+    margin-bottom: 1.5rem;
+}
+
+.forgot-password a {
+    color: #4facfe;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+/* === Buttons === */
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #3a8ff3, #00d4ff);
+}
+
+.btn-outline {
+    margin-top: 10px;
+    background: transparent;
+    border: 1px solid #4facfe;
+    color: #4facfe;
+    font-weight: 500;
+}
+
+.btn-outline:hover {
+    background: #4facfe;
+    color: #fff;
+}
+
+/* === Signup section === */
+.signup-buttons {
+    margin-top: 1.8rem;
+}
+
+.signup-text {
+    margin-bottom: 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.google-login {
+    margin-top: 1.5rem;
+}
+
+.spinner {
+    border: 2px solid #f3f3f3;
+    /* خلفية خفيفة */
+    border-top: 2px solid #3498db;
+    /* لون التحميل */
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    display: inline-block;
+    animation: spin 1s linear infinite;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* === Animation === */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

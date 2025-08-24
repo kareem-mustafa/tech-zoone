@@ -1,0 +1,21 @@
+<div class="wishlist-container" *ngIf="wishlistItems.length > 0; else emptyWishlist">
+  <ul class="wishlist-list">
+    <li *ngFor="let item of wishlistItems" class="wishlist-item">
+      <img [src]="item.product.Images" alt="{{ item.product.Images}}" class="wishlist-item-img">
+
+      <div class="wishlist-item-info">
+        <strong class="wishlist-item-title">{{ item.product.title }}</strong>
+      </div>
+
+      <button class="wishlist-item-remove" (click)="removeFromWishlist(item.product._id)"> delete</button>
+    </li>
+  </ul>
+
+  <div class="wishlist-footer">
+    <button class="wishlist-clear" (click)="clearWishlist()"> delete wishlist</button>
+  </div>
+</div>
+
+<ng-template #emptyWishlist>
+  <p class="empty-wishlist">wish list is empty</p>
+</ng-template>

@@ -1,0 +1,111 @@
+/* Orders Dashboard Styles */
+.container h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #1f2937;
+    /* dark gray */
+}
+
+/* Table */
+.table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border: none;
+}
+
+.table thead {
+    background-color: #1f2937;
+    /* dark sidebar color */
+    color: white;
+}
+
+.table thead th {
+    font-weight: bold;
+    text-align: center;
+}
+
+.table tbody td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table tbody tr:hover {
+    background-color: #f9fafb;
+    transition: background-color 0.3s ease;
+}
+
+/* Badges */
+.badge {
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+    text-transform: capitalize;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.bg-success {
+    background-color: #22c55e !important;
+    color: white;
+}
+
+.bg-warning {
+    background-color: #facc15 !important;
+    color: #1f2937;
+}
+
+.bg-danger {
+    background-color: #ef4444 !important;
+    color: white;
+}
+
+.bg-secondary {
+    background-color: #6b7280 !important;
+    color: white;
+}
+
+/* Alert */
+.alert-info {
+    margin-top: 20px;
+    background-color: #e0f2fe;
+    color: #0369a1;
+    border-radius: 10px;
+    padding: 15px 20px;
+    font-weight: 500;
+}
+
+/* List inside table */
+.table ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.table ul li {
+    margin-bottom: 4px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .table thead {
+        display: none;
+    }
+
+    .table tbody td {
+        display: block;
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .table tbody td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+}

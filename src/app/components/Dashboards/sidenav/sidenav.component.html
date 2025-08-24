@@ -1,0 +1,33 @@
+<mat-nav-list>
+  <div class="logo py-4">
+    <img src="https://play-lh.googleusercontent.com/gFUUyMwR2VQSgb2ZXLPiVUzoPD8mg9yvEG0fqqd-6CFqlvfyU1Yv-3E5fCuCsuFWlAQ"
+      alt="Company Logo" />
+  </div>
+  <mat-divider></mat-divider>
+  <h2 matSubheader class="mt-2">APPLICATIONS</h2>
+
+  <!-- الصفحة الرئيسية -->
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/home">
+    <mat-icon>home</mat-icon> Home
+  </a>
+
+  <!-- الداشبورد -->
+  <!-- <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin">
+      <mat-icon>dashboard</mat-icon> Dashboard
+    </a> -->
+
+  <!-- المنتجات -->
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin/products">
+    <mat-icon>inventory_2</mat-icon> Products
+  </a>
+
+  <!-- المستخدمين -->
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin/users">
+    <mat-icon>group</mat-icon> Users
+  </a>
+
+  <!-- الطلبات -->
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin/orders">
+    <mat-icon>shopping_cart</mat-icon> Orders
+  </a>
+</mat-nav-list>

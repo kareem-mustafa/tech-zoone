@@ -1,0 +1,42 @@
+<div *ngIf="myOrder" class="container mt-4">
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h2>Order Details</h2>
+
+      <!-- ✅ زرار الفاتورة يظهر بس لما الأوردر موجود -->
+      <button *ngIf="myOrder" class="btn btn-light btn-sm" (click)="getInvoice()">
+        🧾 View Invoice
+      </button>
+    </div>
+    <div class="card-body">
+      <p><strong>User:</strong> {{ myOrder.user.username }} </p>
+      <p><strong>Payment Method:</strong> {{ myOrder.paymentMethodType }}</p>
+      <p><strong>Payment Status:</strong> {{ myOrder.paymentStatus }}</p>
+      <p><strong>Delivered:</strong> {{ myOrder.isDelivered ? 'Yes' : 'No' }}</p>
+      <p><strong>Total Price:</strong> {{ myOrder.totalOrderPrice | currency }}</p>
+
+      <h4>Items</h4>
+      <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>Title</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of myOrder.items">
+            <td>{{ item.product.title }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price | currency }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="text-end mt-3">
+        <button class="btn btn-danger" (click)="deleteOrder()">Delete Order</button>
+
+      </div>
+    </div>
+  </div>
+</div>

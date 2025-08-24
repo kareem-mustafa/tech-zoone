@@ -1,0 +1,55 @@
+<div class="container my-4">
+    <h2 class="mb-4">Seller Orders Dashboard</h2>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>#Order ID</th>
+                <th>Products</th>
+                <th>Quantity</th>
+                <th>Total Price (EGP)</th>
+                <th>Customer</th>
+                <th>Payment Status</th>
+                <th>Delivery Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of orders">
+                <td>{{ order._id }}</td>
+                <td>
+                    <ul class="list-unstyled mb-0">
+                        <li *ngFor="let item of order.items">{{ item.product.title }}</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="list-unstyled mb-0">
+                        <li *ngFor="let item of order.items">{{ item.quantity }}</li>
+                    </ul>
+                </td>
+                <td>{{ order.totalOrderPrice | number:'1.2-2' }}</td>
+                <td>{{ order.user.username }}</td>
+                <td>
+                    <span class="badge" [ngClass]="{
+              'bg-success': order.paymentStatus === 'paid',
+              'bg-warning': order.paymentStatus === 'pending',
+              'bg-danger': order.paymentStatus === 'failed'
+            }">
+                        {{ order.paymentStatus }}
+                    </span>
+                </td>
+                <td>
+                    <span class="badge" [ngClass]="{
+              'bg-success': order.isDelivered,
+              'bg-secondary': !order.isDelivered
+            }">
+                        {{ order.isDelivered ? 'Delivered' : 'Pending' }}
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="orders.length === 0" class="alert alert-info">
+        No orders found.
+    </div>
+</div>

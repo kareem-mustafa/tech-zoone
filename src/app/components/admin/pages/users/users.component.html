@@ -1,0 +1,24 @@
+<h2>Users</h2>
+
+<div *ngIf="loading">Loading...</div>
+
+<table border="1" width="100%" *ngIf="!loading">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let u of users">
+      <td>{{ u.username }}</td>
+      <td>{{ u.email }}</td>
+      <td>{{ u.role }}</td>
+      <td>
+        <button (click)="deleteUser(u._id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

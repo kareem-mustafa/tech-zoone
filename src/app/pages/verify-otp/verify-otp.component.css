@@ -1,26 +1,44 @@
-.verify-otp-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 30px 25px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* === Body Background === */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+    /* عشان الكارد يبقى في النص */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(135deg, #273854, #c2e9fb);
+    animation: fadeInBg 1.2s ease-in-out;
 }
 
+/* === Verify OTP Card === */
+.verify-otp-container {
+    max-width: 450px;
+    width: 100%;
+    padding: 2.5rem 2rem;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Title */
 .verify-otp-container h2 {
     text-align: center;
-    margin-bottom: 25px;
-    font-size: 24px;
-    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.9rem;
     font-weight: 600;
+    color: #222;
 }
 
+/* Alerts */
 .alert {
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-size: 14px;
-    margin-bottom: 15px;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
 }
 
 .alert-danger {
@@ -35,29 +53,33 @@
     border: 1px solid #c3e6cb;
 }
 
+/* Form Group */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 1.2rem;
+    text-align: left;
 }
 
 label {
     display: block;
     font-weight: 500;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
     color: #555;
 }
 
+/* Input */
 input.form-control {
     width: 100%;
-    padding: 10px 12px;
-    font-size: 16px;
-    border: 1px solid #ccc;
+    padding: 0.75rem 0.9rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    background: #fdfdfd;
+    transition: all 0.3s ease;
 }
 
 input.form-control:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    border-color: #5c8df6;
+    box-shadow: 0 0 6px rgba(92, 141, 246, 0.4);
     outline: none;
 }
 
@@ -66,43 +88,100 @@ input.is-invalid {
     box-shadow: 0 0 5px rgba(220, 53, 69, 0.3);
 }
 
+/* Error Msg */
 .invalid-feedback {
     color: #dc3545;
-    font-size: 13px;
-    margin-top: 5px;
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
 }
 
+/* Submit Button */
 button.btn {
     width: 100%;
-    padding: 10px 15px;
-    font-size: 16px;
-    border-radius: 8px;
+    padding: 0.9rem;
+    font-size: 1.05rem;
+    border-radius: 10px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button.btn-primary {
-    background-color: #007bff;
+    background-color: #5c8df6;
     color: #fff;
 }
 
 button.btn-primary:hover {
-    background-color: #0056b3;
+    background-color: #466fcc;
+    transform: translateY(-2px);
 }
 
+button.btn-primary:disabled {
+    background-color: #a9c4f8;
+    cursor: not-allowed;
+}
+
+/* Link Button */
 button.btn-link {
     display: block;
     width: auto;
-    margin: 10px auto 0;
+    margin: 1rem auto 0;
     background: none;
-    color: #007bff;
+    color: #5c8df6;
     text-decoration: underline;
-    padding: 0;
-    font-size: 14px;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
 }
 
 button.btn-link:hover {
-    color: #0056b3;
+    color: #466fcc;
     text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .verify-otp-container {
+        max-width: 90%;
+        padding: 2rem 1.5rem;
+    }
+
+    .verify-otp-container h2 {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .verify-otp-container {
+        max-width: 95%;
+        padding: 1.5rem 1rem;
+    }
+
+    .verify-otp-container h2 {
+        font-size: 1.4rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeInBg {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }

@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #f0f4ff, #f9fbfd);
+    background: linear-gradient(135deg, #273854, #c2e9fb);
     padding: 20px;
     font-family: 'Segoe UI', sans-serif;
 }
@@ -15,22 +15,23 @@
     border-radius: 18px;
     max-width: 680px;
     width: 100%;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     animation: fadeIn 0.5s ease-in-out;
 }
 
+/* === Typography === */
 .signup-form h2 {
     text-align: center;
     margin-bottom: 6px;
     font-size: 1.8rem;
-    color: #2e2e2e;
+    color: #1e293b;
 }
 
 .subtitle {
     text-align: center;
     margin-bottom: 22px;
     font-size: 0.95rem;
-    color: #666;
+    color: #64748b;
 }
 
 /* === Progress bar === */
@@ -38,21 +39,23 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .step {
     flex: 1;
     text-align: center;
     padding: 10px;
-    border-bottom: 3px solid #e5e7eb;
+    border-bottom: 3px solid #e2e8f0;
     font-weight: 600;
-    color: #888;
+    color: #94a3b8;
     transition: 0.3s;
 }
 
 .step.active {
-    border-color: #4e73df;
-    color: #4e73df;
+    border-color: #6366f1;
+    color: #6366f1;
 }
 
 /* === Form layout === */
@@ -64,35 +67,32 @@
     display: flex;
     gap: 18px;
     margin: 18px 0;
+    flex-wrap: wrap; /* ✅ يخليها تنزل تحت لو الشاشة ضيقة */
 }
 
 .form-group {
     flex: 1;
     display: flex;
     flex-direction: column;
+    min-width: 220px;
 }
 
 .form-group label {
     font-size: 0.9rem;
     margin-bottom: 6px;
-    color: #333;
+    color: #334155;
     font-weight: 500;
 }
 
 .form-group input,
 .form-group select {
     padding: 12px;
-    border: 1px solid #d1d5db;
+    border: 1px solid #cbd5e1;
     border-radius: 10px;
     outline: none;
     font-size: 0.95rem;
     transition: border 0.25s, box-shadow 0.25s;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-    border-color: #4e73df;
-    box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.2);
+    width: 100%;
 }
 
 /* === Uploads === */
@@ -100,18 +100,20 @@
     display: flex;
     gap: 20px;
     margin: 20px 0;
+    flex-wrap: wrap; /* ✅ تنزل تحت في الموبايل */
 }
 
 .upload-box {
     flex: 1;
+    min-width: 200px;
 }
 
-/* Custom File Upload */
 .custom-file {
     display: flex;
     align-items: center;
     gap: 12px;
     margin-top: 6px;
+    flex-wrap: wrap;
 }
 
 .custom-file input[type="file"] {
@@ -119,7 +121,7 @@
 }
 
 .file-label {
-    background: #4e73df;
+    background: #6366f1;
     color: #fff;
     padding: 10px 16px;
     border-radius: 10px;
@@ -130,12 +132,12 @@
 }
 
 .file-label:hover {
-    background: #2e59d9;
+    background: #4f46e5;
 }
 
 .file-name {
     font-size: 0.85rem;
-    color: #555;
+    color: #475569;
 }
 
 /* === Image preview === */
@@ -143,15 +145,17 @@
     margin-top: 12px;
     display: flex;
     justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 .bank-image {
-    width: 180px;
-    height: 110px;
-    object-fit: cover;
+    width: 100%;
+    max-width: 180px;
+    height: auto;
     border-radius: 10px;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .profile-image {
@@ -159,7 +163,7 @@
     height: 120px;
     object-fit: cover;
     border-radius: 50%;
-    border: 3px solid #4e73df;
+    border: 3px solid #6366f1;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 
@@ -168,6 +172,8 @@
     display: flex;
     justify-content: space-between;
     margin-top: 25px;
+    flex-wrap: wrap; /* ✅ يخليهم ييجوا تحت بعض */
+    gap: 12px;
 }
 
 .btn {
@@ -177,23 +183,29 @@
     font-weight: 600;
     cursor: pointer;
     transition: 0.3s;
+    flex: 1; /* ✅ علشان يتوزعوا صح */
+    min-width: 120px;
 }
 
 .btn.next {
-    background: #4e73df;
+    background: #6366f1;
     color: white;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 .btn.back {
-    background: #e5e7eb;
-    color: #333;
+    background: #e2e8f0;
+    color: #334155;
 }
 
 .btn.submit {
-    background: #1cc88a;
+    background: #2563eb;
     color: white;
+}
+
+.btn.submit:hover {
+    background: #1e40af;
 }
 
 .btn:hover {
@@ -203,7 +215,7 @@
 
 /* === Error Messages === */
 .error {
-    color: #e74a3b;
+    color: #ef4444;
     font-size: 13px;
     margin-top: 5px;
     display: block;
@@ -212,21 +224,21 @@
 
 .error-message {
     margin-top: 14px;
-    color: #b71c1c;
+    color: #b91c1c;
     font-size: 14px;
     text-align: center;
     font-weight: 500;
 }
 
-/* === Validation colors (dirty only) === */
+/* === Validation colors === */
 input.ng-dirty.ng-invalid,
 select.ng-dirty.ng-invalid {
-    border: 1px solid #e74a3b;
+    border: 1px solid #ef4444;
 }
 
 input.ng-dirty.ng-valid,
 select.ng-dirty.ng-valid {
-    border: 1px solid #1cc88a;
+    border: 1px solid #10b981;
 }
 
 /* === Animation === */
@@ -235,9 +247,50 @@ select.ng-dirty.ng-valid {
         opacity: 0;
         transform: translateY(15px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* ✅ Media Queries */
+@media (max-width: 768px) {
+    .signup-form {
+        padding: 1.5rem 1rem;
+    }
+
+    .signup-form h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+
+    .btn-row {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .signup-form {
+        border-radius: 12px;
+    }
+
+    .signup-form h2 {
+        font-size: 1.3rem;
+    }
+
+    .subtitle {
+        font-size: 0.85rem;
+    }
+
+    .profile-image {
+        width: 90px;
+        height: 90px;
     }
 }

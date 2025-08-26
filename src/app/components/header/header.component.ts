@@ -2,6 +2,8 @@ import { Component, computed, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
+import { HostListener } from '@angular/core';
+
 
 @Component({
   selector: 'app-header',
@@ -13,6 +15,8 @@ export class HeaderComponent implements OnInit {
   cartCount = computed(() => this.cartService.cartItems().length);
   role: string | null = null;
   userId: string = '';
+  isApproved: boolean = false;
+
   categories = [
     'phone ',
     'Tablet',
@@ -37,6 +41,7 @@ export class HeaderComponent implements OnInit {
       const parsedUser = JSON.parse(user);
       this.userId = parsedUser._id;
       this.role = parsedUser.role || null;
+      this.isApproved = parsedUser.isApproved;
     }
 
     // استرجاع الـ wishlist count من localStorage
@@ -58,4 +63,27 @@ export class HeaderComponent implements OnInit {
   viewCategory(cat: string) {
     this.router.navigate(['/category', cat]);
   }
+  mobileMenuOpen = false;
+  dropdownOpen = false;
+
+  toggleMobileMenu() {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
+
+  closeMobileMenu() {
+    this.mobileMenuOpen = false;
+    this.dropdownOpen = false;
+  }
+
+  toggleDropdown(event: Event) {
+    event.stopPropagation();
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  @HostListener('document:click', ['$event'])
+  closeDropdown(event: Event) {
+    this.dropdownOpen = false;
+  }
 }
+
+

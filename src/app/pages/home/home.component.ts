@@ -1,164 +1,198 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ProductService, Product } from '../../services/product.service';
-import { CartService } from 'src/app/services/cart.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { WishlistService } from 'src/app/services/wishlist.service';
+  import { Component, OnInit } from '@angular/core';
+  import { FormBuilder, FormGroup } from '@angular/forms';
+  import { Router } from '@angular/router';
+  import { ProductService, Product } from '../../services/product.service';
+  import { CartService } from 'src/app/services/cart.service';
+  import { AuthService } from 'src/app/services/auth.service';
+  import { WishlistService } from '../../services/wishlist.service';
 
-@Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
-})
-export class HomeComponent implements OnInit {
-  products: Product[] = [];
-  filteredProducts: Product[] = [];
-  categoryProducts: { [key: string]: Product[] } = {};
-  categories: string[] = [];
+  @Component({
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css'],
+  })
+  export class HomeComponent implements OnInit {
+    products: Product[] = [];
+    filteredProducts: Product[] = [];
+    categoryProducts: { [key: string]: Product[] } = {};
+    categories: string[] = [];
 
-  wishlist: Product[] = [];
-  cart: Product[] = [];
+    wishlist: Product[] = [];
+    cart: Product[] = [];
 
-  searchQuery = '';
-  filterForm!: FormGroup;
+    searchQuery = '';
+    filterForm!: FormGroup;
 
-  sortByOptions = ['title', 'price'];
-  sortOrderOptions = ['asc', 'desc'];
+    sortByOptions = ['title', 'price'];
+    sortOrderOptions = ['asc', 'desc'];
 
-  constructor(
-    private fb: FormBuilder,
-    private productService: ProductService,
-    private router: Router,
-    private cartService: CartService,
-    private wishlistService: WishlistService,
-    private authService: AuthService
-  ) {}
+    message: string | null = null;
 
-  ngOnInit(): void {
-    this.filterForm = this.fb.group({
-      category: [''],
-      minPrice: [''],
-      maxPrice: [''],
-      sortBy: [''],
-      sortOrder: [''],
-    });
+    showMessage(msg: string) {
+      this.message = msg;
+      setTimeout(() => {
+        this.message = null;
+      }, 3000);
+    }
 
-    this.loadProducts();
-  }
+    constructor(
+      private fb: FormBuilder,
+      private productService: ProductService,
+      private router: Router,
+      private cartService: CartService,
+      private wishlistService: WishlistService,
+      private authService: AuthService
+    ) {}
 
-  loadProducts() {
-    this.productService.getAllProducts().subscribe((res: Product[]) => {
-      this.products = res; // res هو Product[] مباشرة
-      this.filteredProducts = [...this.products];
-      this.updateCategories();
-    });
-  }
+    ngOnInit(): void {
+      this.filterForm = this.fb.group({
+        category: [''],
+        minPrice: [''],
+        maxPrice: [''],
+        sortBy: [''],
+        sortOrder: [''],
+      });
 
-  updateCategories() {
-    this.categories = [
-      ...new Set(
-        this.filteredProducts.map((p) => p.category?.name || 'Unknown')
-      ),
-    ];
+      this.loadProducts();
+      this.loadWishlist();
+    }
 
-    this.categoryProducts = {};
-    this.categories.forEach((cat) => {
-      this.categoryProducts[cat] = this.filteredProducts.filter(
-        (p) => p.category?.name === cat
-      );
-    });
-  }
-
-  searchProducts() {
-    const query = this.searchQuery.trim().toLowerCase();
-    this.filteredProducts = query
-      ? this.products.filter((p) => p.title.toLowerCase().includes(query))
-      : [...this.products];
-    this.updateCategories();
-  }
-
-  applyFilter() {
-    const { category, minPrice, maxPrice, sortBy, sortOrder } =
-      this.filterForm.value;
-    let result = [...this.products];
-
-    if (category) result = result.filter((p) => p.category?.name === category);
-    if (minPrice) result = result.filter((p) => p.price >= +minPrice);
-    if (maxPrice) result = result.filter((p) => p.price <= +maxPrice);
-
-    if (sortBy) {
-      result.sort((a, b) => {
-        const valA: any = a[sortBy as keyof Product];
-        const valB: any = b[sortBy as keyof Product];
-        return sortOrder === 'desc'
-          ? valB > valA
-            ? 1
-            : -1
-          : valA > valB
-          ? 1
-          : -1;
+    loadWishlist() {
+      this.wishlistService.getWishlistItems().subscribe({
+        next: (res: any[]) => {
+          this.wishlist = res.map((item) => item.product);
+        },
+        error: (err) => {
+          console.error('Error loading wishlist:', err);
+        },
       });
     }
 
-    this.filteredProducts = result;
-    this.updateCategories();
-  }
-
-  resetFilter() {
-    this.filterForm.reset();
-    this.filteredProducts = [...this.products];
-    this.updateCategories();
-  }
-
-  getChunks(arr: Product[], size: number) {
-    const chunks = [];
-    for (let i = 0; i < arr.length; i += size) {
-      chunks.push({ start: i, end: i + size });
+    loadProducts() {
+      this.productService.getAllProducts().subscribe((res: Product[]) => {
+        this.products = res; // res هو Product[] مباشرة
+        this.filteredProducts = [...this.products];
+        this.updateCategories();
+      });
     }
-    return chunks;
-  }
 
-  toggleWishlist(product: Product) {
-    const index = this.wishlist.findIndex((p) => p._id === product._id);
-    index > -1 ? this.wishlist.splice(index, 1) : this.wishlist.push(product);
-  }
+    updateCategories() {
+      this.categories = [
+        ...new Set(
+          this.filteredProducts.map((p) => p.category?.name || 'Unknown')
+        ),
+      ];
 
-  isInWishlist(productId: string) {
-    return this.wishlist.some((p) => p._id === productId);
-  }
+      this.categoryProducts = {};
+      this.categories.forEach((cat) => {
+        this.categoryProducts[cat] = this.filteredProducts.filter(
+          (p) => p.category?.name === cat
+        );
+      });
+    }
 
-  addToCart(product: Product) {
-    this.cartService.addToCart(product._id, 1).subscribe({
-      next: () => {
-        alert(`${product.title} added to cart!`);
-      },
-      error: (err) => {
-        console.error('Error adding to cart:', err);
-      },
-    });
-  }
-  addToWishlist(product: Product) {
-    this.wishlistService.addToWishlist(product._id, 1).subscribe({
-      next: () => {
-        alert(`${product.title} added to wishlist!`);
-      },
-      error: (err) => {
-        console.error('Error adding to wishlist:', err);
-      },
-    });
-  }
+    searchProducts() {
+      const query = this.searchQuery.trim().toLowerCase();
+      this.filteredProducts = query
+        ? this.products.filter((p) => p.title.toLowerCase().includes(query))
+        : [...this.products];
+      this.updateCategories();
+    }
 
-  viewProduct(product: Product) {
-    this.router.navigate(['/products', product.slug]);
-  }
+    applyFilter() {
+      const { category, minPrice, maxPrice, sortBy, sortOrder } =
+        this.filterForm.value;
+      let result = [...this.products];
 
-  viewAllCategory(cat: string) {
-    this.router.navigate(['/category', cat]);
-  }
+      if (category)
+        result = result.filter((p) => p.category?.name === category);
+      if (minPrice) result = result.filter((p) => p.price >= +minPrice);
+      if (maxPrice) result = result.filter((p) => p.price <= +maxPrice);
 
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+      if (sortBy) {
+        result.sort((a, b) => {
+          const valA: any = a[sortBy as keyof Product];
+          const valB: any = b[sortBy as keyof Product];
+          return sortOrder === 'desc'
+            ? valB > valA
+              ? 1
+              : -1
+            : valA > valB
+            ? 1
+            : -1;
+        });
+      }
+
+      this.filteredProducts = result;
+      this.updateCategories();
+    }
+
+    resetFilter() {
+      this.filterForm.reset();
+      this.filteredProducts = [...this.products];
+      this.updateCategories();
+    }
+
+    getChunks(arr: Product[], size: number) {
+      const chunks = [];
+      for (let i = 0; i < arr.length; i += size) {
+        chunks.push({ start: i, end: i + size });
+      }
+      return chunks;
+    }
+
+    isInWishlist(productId: string): boolean {
+      return this.wishlist?.some((item) => item?._id === productId) ?? false;
+    }
+
+    addToCart(product: Product) {
+      this.cartService.addToCart(product._id, 1).subscribe({
+        next: () => {
+          alert(`${product.title} added to cart!`);
+        },
+        error: (err) => {
+          console.error('Error adding to cart:', err);
+        },
+      });
+    }
+
+    addToWishlist(product: Product) {
+      this.wishlistService.addToWishlist(product._id, 1).subscribe({
+        next: () => {
+          this.wishlist.push(product);
+          alert(`${product.title} added to wishlist!`);
+        },
+        error: (err) => {
+          console.error('Error adding to wishlist:', err);
+        },
+      });
+    }
+
+    toggleWishlist(product: Product) {
+      if (this.isInWishlist(product._id)) {
+        this.wishlistService.removeFromWishlist(product._id).subscribe({
+          next: () => {
+            this.wishlist = this.wishlist.filter((p) => p._id !== product._id);
+          },
+          error: (err) => {
+            console.error('Error removing from wishlist:', err);
+          },
+        });
+      } else {
+        this.addToWishlist(product);
+      }
+    }
+
+    viewProduct(product: Product) {
+      this.router.navigate(['/products', product.slug]);
+    }
+
+    viewAllCategory(cat: string) {
+      this.router.navigate(['/category', cat]);
+    }
+
+    logout() {
+      this.authService.logout();
+      this.router.navigate(['/login']);
+    }
   }
-}

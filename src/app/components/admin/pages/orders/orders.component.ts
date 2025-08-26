@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IOrder } from 'src/app/models/iorder';
-import { OrderService } from 'src/app/services/order.service';
+import { OrderService } from '../../../../services/order.service';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -30,14 +30,20 @@ export class OrdersComponent {
     });
   }
 
-  deleteOrder(id: string) {
-    if(confirm("Are You Sure To delete This Order")) {
-      this.orderService.deleteOrder(id).subscribe({
-        next: () => {
-          this.orders = this.orders.filter(o => o._id !== id);
-        },
-        error: (err) => console.error(err)
-      });
-    }
-  }
+   deleteOrder(orderId: string = this.orderService.orderId) {
+  if (!orderId) return;
+  this.orderService.deleteOrder(orderId).subscribe({
+    next: () => {
+      console.log('Order deleted successfully');
+      this.orders = this.orders.filter(o => o._id !== orderId);
+      // this.serverMessage = '✅ Order deleted successfully';
+      // لو عايز تعيد تحميل الأوردرات:
+      this.loadOrders();
+    },
+    error: (err) => {
+      console.error('Error deleting order:', err);
+      // this.serverMessage = '❌ Failed to delete order';
+    },
+  });
+}
 }

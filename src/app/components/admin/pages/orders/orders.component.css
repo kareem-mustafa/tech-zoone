@@ -1,0 +1,85 @@
+/* Loading & No orders messages */
+div[ng-reflect-ng-if] {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 20px 0;
+  text-align: center;
+  color: #555;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+}
+
+thead {
+  background-color: #007bff;
+  color: white;
+}
+
+thead th {
+  padding: 10px;
+  text-align: left;
+}
+
+tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  vertical-align: top;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Products list inside table */
+td ul {
+  padding-left: 15px;
+  margin: 0;
+}
+
+td ul li {
+  list-style-type: disc;
+  margin-bottom: 4px;
+}
+
+/* Buttons */
+button {
+  padding: 5px 12px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  background-color: #c82333;
+  transition: 0.3s;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  thead tr {
+    display: none;
+  }
+  tbody td {
+    padding: 10px;
+    position: relative;
+    text-align: right;
+  }
+  tbody td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    font-weight: bold;
+    text-align: left;
+  }
+}

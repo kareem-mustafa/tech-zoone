@@ -1,130 +1,162 @@
-.card {
-    height: 400px;
-    /* حجم الكارد الكبير */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    overflow: hidden;
+/* ================== GLOBAL ================== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background-color: #f5f7fa;
+    line-height: 1.6;
 }
 
-.card:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+/* ================== BANNER SLIDER ================== */
+.banner-img {
+    height: 480px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
 }
 
-.card-img-top {
-    height: 100%;
-    /* تغطي ارتفاع الكارد */
-    width: 100%;
-    object-fit: contain;
-    /* الصورة تظهر كاملة */
-    background-color: #f8f9fa;
-    /* خلفية فاتحة لملء الفراغ */
-    transition: transform 0.3s ease;
+.carousel-indicators button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #bbb;
+    transition: all 0.3s ease;
 }
 
-.card:hover .card-img-top {
-    transform: scale(1.03);
+.carousel-indicators .active {
+    background-color: #007bff;
 }
 
-/* الأزرار تبقى بدون تأثير hover */
-.card .btn {
-    transition: none !important;
-    z-index: 2;
-}
-
-.card .btn:hover {
-    transform: none !important;
-    box-shadow: none !important;
-}
-
-/* Hover effect on image */
-.card:hover .card-img-top {
-    transform: scale(1.05);
-}
-
-/* Buttons inside card remain unaffected */
-.card .btn {
-    transition: none !important;
-    z-index: 2;
-}
-
-/* Prevent hover effects on buttons from propagating */
-.card .btn:hover {
-    transform: none !important;
-    box-shadow: none !important;
-}
-
-/* Carousel controls بعيد عن الكارد */
 .carousel-control-prev,
 .carousel-control-next {
     width: 50px;
     height: 50px;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 50%;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-size: 100%, 100%;
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background-color: rgba(0, 0, 0, 0.75);
+    transform: translateY(-50%) scale(1.1);
 }
 
-/* العنوان والزر */
-.card h5 {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
+/* ================== SEARCH ================== */
+.input-group {
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    transition: box-shadow 0.3s ease;
+    border-radius: 40px !important;
+    overflow: hidden;
 }
 
-.card button {
-    font-size: 0.85rem;
+.input-group:focus-within {
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.3);
 }
 
-/* المسافة بين الكارد والزر */
-.carousel-control-prev {
-    left: -25px;
-    /* بعيد عن الكارد */
+.input-group-text i {
+    font-size: 1.2rem;
+    color: #007bff;
 }
 
-.carousel-control-next {
-    right: -25px;
-    /* بعيد عن الكارد */
+/* ================== CATEGORY TITLE ================== */
+h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #222;
+    border-left: 5px solid #007bff;
+    padding-left: 10px;
+    margin-bottom: 1rem;
 }
 
-/* Overlay غير مستخدم الآن */
-.card-overlay {
-    display: none;
-}
-
-/* Card Hover */
+/* ================== CARD ================== */
 .card {
+    border: none;
+    border-radius: 16px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
+    background: #fff;
+    overflow: hidden;
 }
 
 .card:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(-8px);
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.15);
 }
 
-/* Image inside card */
 .card-img-top {
-    transition: transform 0.3s ease;
+    width: 100%;
+    height: 200px;
+    /* ارتفاع ثابت لكل الصور */
+    object-fit: contain;
+    /* يبين الصورة كاملة بدون قص */
+    background: #fff;
+    /* خلفية بيضا للفراغات */
+    padding: 10px;
+    /* مسافة صغيرة حوالين الصورة */
+    border-radius: 12px 12px 0 0;
 }
+
 
 .card:hover .card-img-top {
-    transform: scale(1.05);
+    transform: scale(1.08);
 }
 
-/* Buttons inside card remain unaffected */
-.card .btn {
-    transition: none !important;
-    z-index: 2;
+.card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: #222;
 }
 
-/* Prevent hover effects on buttons from propagating */
-.card .btn:hover {
-    transform: none !important;
-    box-shadow: none !important;
+.card-text {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* ================== BUTTONS ================== */
+.btn {
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 6px 14px;
+    font-size: 0.9rem;
+}
+
+.btn-success {
+    background: #28a745;
+    border: none;
+}
+
+.btn-success:hover {
+    background: #218838;
+}
+
+.btn-outline-danger {
+    border: 1px solid #dc3545;
+    color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+    background: #dc3545;
+    color: #fff;
+}
+
+.btn-outline-primary {
+    border: 1px solid #007bff;
+    color: #007bff;
+}
+
+.btn-outline-primary:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+/* ================== EMPTY PRODUCTS ================== */
+.text-center h5 {
+    color: #aaa;
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-top: 30px;
 }

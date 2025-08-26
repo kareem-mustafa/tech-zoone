@@ -10,8 +10,9 @@
             <ul class="list-group">
                 <li class="list-group-item" [class.active]="activeSection === 'account'"
                     (click)="activeSection='account'">Account</li>
-                <li class="list-group-item" [class.active]="activeSection === 'password'"
-                    (click)="activeSection='password'">Password</li>
+                <li class="list-group-item" [class.active]="activeSection === 'password'" (click)="activeSection='password'"
+                    [class.disabled]="user.googleID">
+                    Password</li>
             </ul>
         </div>
 

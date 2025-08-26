@@ -58,12 +58,12 @@ export class WishlistService {
       );
   }
 
-  getWishlistItems(): Observable<{ items: wishlistItems[] }> {
-    return this.http.get<{ items: wishlistItems[] }>(
-      `${this.baseUrl}/${this.userId}`,
-      { headers: this.headers }
-    );
-  }
+ getWishlistItems(): Observable<wishlistItems[]> {
+  return this.http.get<wishlistItems[]>(
+    `${this.baseUrl}/${this.userId}`,
+    { headers: this.headers }
+  );
+}
 
   removeFromWishlist(product: string): Observable<any> {
     return this.http

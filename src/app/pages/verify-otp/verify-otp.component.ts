@@ -22,6 +22,13 @@ export class VerifyOtpComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // ⛔ لو مفيش صلاحية وصول (جاي من تسجيل) يرجعه للـ login
+    const allowOtp = localStorage.getItem('allowOtp');
+    if (allowOtp !== 'true') {
+      this.router.navigate(['/login']);
+      return;
+    }
+
     this.userId = this.route.snapshot.paramMap.get('id') || '';
 
     this.otpForm = this.fb.group({
@@ -47,6 +54,10 @@ export class VerifyOtpComponent implements OnInit {
     this.http.post('http://localhost:5000/user/verify', body).subscribe({
       next: (res: any) => {
         this.successMessage = res.message || 'Verified successfully';
+
+        // ✅ امسح الفلاج عشان ما ينفعش يدخل تاني
+        localStorage.removeItem('allowOtp');
+
         setTimeout(() => {
           this.router.navigate(['/login']);
         }, 2000);

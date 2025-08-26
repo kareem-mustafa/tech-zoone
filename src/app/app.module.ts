@@ -44,6 +44,7 @@ import { DashboardComponent } from './components/seller/dashboard/dashboard.comp
 import { ProductsComponent as SellerProductsComponent } from './components/seller/products/products.component';
 import { ordersComponent } from './components/seller/orders/orders.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
+import { AprovedComponent } from './components/admin/pages/aproved/aproved.component';
 
 
 @NgModule({
@@ -77,8 +78,8 @@ import { WishlistComponent } from './pages/wishlist/wishlist.component';
     DashboardComponent,
     SellerProductsComponent,
     ordersComponent,
-    WishlistComponent
-
+    WishlistComponent,
+    AprovedComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,9 +94,10 @@ import { WishlistComponent } from './pages/wishlist/wishlist.component';
     MatDividerModule,
     MatListModule,
     MatSidenavModule,
-     MatTableModule,
+    MatTableModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    BrowserModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

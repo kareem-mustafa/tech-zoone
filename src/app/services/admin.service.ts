@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http'; // اضفت HttpHeaders لو احتجت Authorization
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,10 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class AdminService {
 
-  private BASE_URL = 'http://localhost:5000'; 
+  private BASE_URL = 'http://localhost:5000';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
+  // ===================== Products =====================
   getProducts(): Observable<any> {
     return this.http.get(`${this.BASE_URL}/product`);
   }
@@ -23,8 +24,8 @@ export class AdminService {
     return this.http.post(`${this.BASE_URL}/product`, data);
   }
 
-  updateProduct(id: string, data: any): Observable<any> {
-    return this.http.put(`${this.BASE_URL}/product/${id}`, data);
+  updateProduct(oldSlug: string, data: any): Observable<any> {
+    return this.http.put(`${this.BASE_URL}/product/${oldSlug}`, data);
   }
 
   deleteProduct(id: string): Observable<any> {
@@ -44,15 +45,15 @@ export class AdminService {
     return this.http.post(`${this.BASE_URL}/user`, data);
   }
 
-  updateUser(id: string, data: any): Observable<any> {
-    return this.http.put(`${this.BASE_URL}/user/${id}`, data);
+  updateUser(id: string, username: string): Observable<any> {
+    return this.http.put(`${this.BASE_URL}/user/${id}`, { username });
   }
 
   deleteUser(id: string): Observable<any> {
     return this.http.delete(`${this.BASE_URL}/user/${id}`);
   }
 
-  // =====================  Orders =====================
+  // ===================== Orders =====================
   getOrders(): Observable<any> {
     return this.http.get(`${this.BASE_URL}/order`);
   }
@@ -72,6 +73,8 @@ export class AdminService {
   deleteOrder(id: string): Observable<any> {
     return this.http.delete(`${this.BASE_URL}/order/${id}`);
   }
+
+  approveSeller(sellerId: string) {
+    return this.http.put(`http://localhost:5000/user/approve-seller/${sellerId}`, {});
+  }
 }
-
-

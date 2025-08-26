@@ -100,6 +100,7 @@ export class SignupUserComponent implements OnInit {
         this.loading = false;
         const userId = res.user?._id || res.user?.id;
         if (userId) {
+          localStorage.setItem('allowOtp', 'true');
           this.router.navigate(['/verify-otp', userId]);
         } else {
           this.errorMessage = 'Cannot get user ID for verification';

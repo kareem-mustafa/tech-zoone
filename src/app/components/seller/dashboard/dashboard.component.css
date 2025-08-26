@@ -1,14 +1,20 @@
 /* General */
-body {
+body, html {
     margin: 0;
+    padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f3f4f6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Dashboard Layout */
-.dashboard {
+.dashboard-wrapper {
     display: flex;
-    min-height: 100vh;
+    flex: 1;
+    min-height: calc(100vh - 100px);
+    /* ارتفاع محتوى بدون footer */
 }
 
 /* Sidebar */
@@ -18,6 +24,8 @@ body {
     color: white;
     padding: 30px 20px;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .sidebar h2 {
@@ -30,6 +38,7 @@ body {
 .sidebar ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .sidebar ul li {
@@ -49,7 +58,6 @@ body {
 .sidebar ul li a.active {
     background-color: #374151;
     color: #facc15;
-    /* yellow */
     font-weight: bold;
 }
 
@@ -57,36 +65,64 @@ body {
 .main-content {
     flex: 1;
     padding: 40px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     background-color: #f3f4f6;
+    min-height: 100%;
+    box-sizing: border-box;
 }
 
-/* Cards */
-.card {
-    background-color: white;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    cursor: pointer;
+/* Footer */
+footer {
+    background-color: #1f2937;
+    color: #f8f9fa;
+    padding: 25px 40px;
     text-align: center;
 }
 
-.card h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #1f2937;
+/* Footer links */
+.footer-link {
+    color: #f8f9fa;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
-.card p {
-    font-size: 28px;
-    font-weight: bold;
-    color: #4b5563;
+.footer-link:hover {
+    color: #0d6efd;
 }
 
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+.social-icon {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    display: inline-block;
+    margin: 0 8px;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+    color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-wrapper {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        box-shadow: none;
+        padding: 20px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
 }

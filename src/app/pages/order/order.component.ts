@@ -9,7 +9,7 @@ import { IUser } from '../../models/iuser';
   styleUrls: ['./order.component.css'],
 })
 export class OrderComponent implements OnInit {
-  myOrder!: IOrder | undefined;
+  myOrder!: IOrder[] | undefined;
   myUser!: IUser | undefined;
   private userId: string = '';
   serverMessage: string = ''; // ✅ لعرض الرسائل
@@ -41,31 +41,31 @@ export class OrderComponent implements OnInit {
     });
   }
 
-  deleteOrder() {
-    if (!this.myOrder) return;
-    this.orderService.deleteOrder(this.userId).subscribe({
-      next: () => {
-        console.log('Order deleted successfully');
-        this.myOrder = undefined; // Clear the order after deletion
-        this.serverMessage = '✅ Order deleted successfully';
-      },
-      error: (err) => {
-        console.error('Error deleting order:', err);
-        this.serverMessage = '❌ Failed to delete order';
-      },
-    });
-  }
-
-  getInvoice() {
-    if (!this.userId) return;
-    this.orderService.getInvoice(this.userId).subscribe({
-      next: (pdfBlob) => {
-        const fileURL = URL.createObjectURL(pdfBlob);
-        window.open(fileURL, '_blank');
-      },
-      error: (err) => {
-        console.error('Error fetching invoice:', err);
-      },
-    });
-  }
+  deleteOrder(orderId: string = this.orderService.orderId) {
+  if (!orderId) return;
+  this.orderService.deleteOrder(orderId).subscribe({
+    next: () => {
+      console.log('Order deleted successfully');
+      this.myOrder = undefined;
+      this.serverMessage = '✅ Order deleted successfully';
+      // لو عايز تعيد تحميل الأوردرات:
+      this.loadOrder();
+    },
+    error: (err) => {
+      console.error('Error deleting order:', err);
+      this.serverMessage = '❌ Failed to delete order';
+    },
+  });
 }
+
+
+getInvoice(orderId: string=this.orderService.orderId) {
+  if (!orderId) return;
+  this.orderService.getInvoice(orderId).subscribe({
+    next: (pdfBlob) => {
+      const fileURL = URL.createObjectURL(pdfBlob);
+      window.open(fileURL, '_blank');
+    },
+    error: (err) => console.error('Error fetching invoice:', err),
+  });
+} } 

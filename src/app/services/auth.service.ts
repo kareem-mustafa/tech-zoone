@@ -15,6 +15,7 @@ export interface User {
   age?: number;
   BankAccount?: string;
   profileImage?: string;
+  googleID?: string;
 }
 
 export interface AuthResponse {
@@ -66,7 +67,17 @@ export class AuthService {
   }
 
   googleAuth(): void {
-    window.open('http://localhost:5000/auth/google');
+    window.open('http://localhost:5000/auth/google', '_self');
+    const messageListener = (event: MessageEvent) => {
+      if (event.origin !== 'http://localhost:5000') return; // تأكد من مصدر الرسالة
+      if (event.data?.token && event.data?.user) {
+        this.setSession(event.data.token, event.data.user);
+        this.cartService.loadCartFromStorage(); // حدث السلة فورًا
+        window.removeEventListener('message', messageListener);
+      }
+    };
+
+    window.addEventListener('message', messageListener);
   }
 
   private setSession(token: string, user: User) {
@@ -79,7 +90,6 @@ export class AuthService {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     localStorage.removeItem('cartItems');
-
     this.cartService.clearCart();
     this.setLoggedInStatus(false);
   }
@@ -137,4 +147,5 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
+
 }

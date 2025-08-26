@@ -1,74 +1,116 @@
-.container h2 {
-    margin-bottom: 25px;
-    font-weight: 600;
-    color: #333;
+/* العنوان */
+.category-title {
+    margin-bottom: 30px;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #1a1a1a;
+    border-left: 4px solid #007bff;
+    padding-left: 10px;
 }
 
-.card {
-    height: 320px;
-    /* طول الكارد أقل */
+/* Grid الكروت */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+/* الكارد */
+.product-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+}
+
+.product-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.25);
+}
+
+/* الصورة */
+.product-image {
+    height: 180px;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
     overflow: hidden;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.card:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
-}
-
-.card-img-top {
-    height: 45%;
-    /* نص الكارد تقريباً */
-    width: 100%;
+.product-image img {
+    max-height: 100%;
+    width: auto;
     object-fit: contain;
-    /* الصورة كاملة بدون اقتطاع */
-    background-color: #f5f5f5;
-    /* خلفية فاتحة */
-    padding: 10px;
     transition: transform 0.3s ease;
 }
 
-.card:hover .card-img-top {
-    transform: scale(1.03);
+.product-card:hover .product-image img {
+    transform: scale(1.06);
 }
 
-.card-body {
-    height: 55%;
+/* محتوى الكارد */
+.product-content {
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 12px 15px;
+    padding: 15px 20px;
 }
 
-.card-title {
-    font-size: 1rem;
+.product-title {
+    font-size: 1.1rem;
     font-weight: 600;
-    margin-bottom: 5px;
     color: #222;
+    margin-bottom: 8px;
 }
 
-.card-text {
-    font-size: 0.85rem;
-    color: #555;
+.product-description {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 12px;
     flex-grow: 1;
 }
 
-.card p strong {
+.product-price {
+    font-size: 0.95rem;
     color: #333;
+    margin-bottom: 12px;
 }
 
+/* زر الإجراء */
 .btn-primary {
-    background-color: #007bff;
+    background: linear-gradient(90deg, #007bff, #0056d2);
     border: none;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.9rem;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    padding: 10px 0;
+    transition: all 0.3s ease;
+    border-radius: 8px;
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
+    background: linear-gradient(90deg, #0056d2, #003f9a);
     transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .product-image {
+        height: 150px;
+    }
+
+    .product-title {
+        font-size: 1rem;
+    }
+
+    .product-description {
+        font-size: 0.85rem;
+    }
 }

@@ -164,6 +164,7 @@ export class SignupSellerComponent {
         this.loading = false;
         const userId = res.user?.id || res.user?._id;
         if (userId) {
+          localStorage.setItem('allowOtp', 'true');
           this.router.navigate(['/verify-otp', userId]);
         } else {
           this.errorMessage = 'Cannot get user ID for verification';

@@ -1,40 +1,50 @@
-<div class="top-bar">
-    <div class="logo">Tech Zone</div>
+<nav class="header-container">
+    <div class="header-row">
 
-    <div class="search-bar">
-        <i class="fas fa-search"></i>
-        <input type="text" placeholder="Search" />
+        <!-- الشعار -->
+        <div class="logo" routerLink="/">Tech Zone</div>
+
+        <!-- أيقونة الهامبرغر على الموبايل -->
+        <div class="hamburger" (click)="toggleMobileMenu()" [class.open]="mobileMenuOpen">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- قائمة التنقل -->
+        <ul class="nav-bar" [class.mobile-open]="mobileMenuOpen">
+            <li><a routerLink="/" (click)="closeMobileMenu()">Home</a></li>
+            <li><a routerLink="/about" (click)="closeMobileMenu()">About Us</a></li>
+
+            <li class="dropdown-wrapper" [class.open]="dropdownOpen" (click)="toggleDropdown($event)">
+                <a href="javascript:void(0)">Category ▼</a>
+                <ul class="dropdown">
+                    <li *ngFor="let cat of categories">
+                        <a (click)="viewCategory(cat); closeMobileMenu()">{{ cat | titlecase }}</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li *ngIf="role === 'admin'"><a routerLink="/admin/dashboard" (click)="closeMobileMenu()">Admin
+                    Dashboard</a></li>
+            <li *ngIf="role === 'seller' && isApproved"><a routerLink="/seller/dashboard"
+                    (click)="closeMobileMenu()">Seller Dashboard</a></li>
+            <li *ngIf="role === 'user'"><a routerLink="/profile" (click)="closeMobileMenu()">My Profile</a></li>
+        </ul>
+
+        <!-- الأيقونات -->
+        <div class="icons">
+            <a [routerLink]="['/wishlist', userId]" title="Wishlist" aria-label="Wishlist" class="position-relative">
+                <i class="far fa-heart"></i>
+            </a>
+
+            <a [routerLink]="['/cart', userId]" title="Cart" aria-label="Cart" class="position-relative">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+
+            <a *ngIf="!role" routerLink="/login" class="login-btn">Login</a>
+            <a *ngIf="role" (click)="logout()" class="logout-btn">Logout</a>
+        </div>
+
     </div>
-
-    <div class="icons">
-        <a [routerLink]="['/wishlist', userId]" title="Wishlist" class="position-relative">
-            <i class="far fa-heart"></i>
-        </a>
-
-        <a [routerLink]="['/cart', userId]" title="Cart" class="position-relative">
-            <i class="fas fa-shopping-cart"></i>
-        </a>
-
-
-        <a *ngIf="!role" routerLink="/login" class="login">Login</a>
-        <a *ngIf="role" (click)="logout()" class="logout">Logout</a>
-    </div>
-</div>
-
-<div class="nav-bar">
-    <ul>
-        <li><a routerLink="/">Home</a></li>
-        <li><a routerLink="/about">About Us</a></li>
-
-        <li class="dropdown-wrapper">
-            <a href="#">Category ▼</a>
-            <div class="dropdown">
-                <a *ngFor="let cat of categories" (click)="viewCategory(cat)">{{ cat | titlecase }}</a>
-            </div>
-        </li>
-
-        <li *ngIf="role === 'admin'"><a routerLink="/admin/dashboard">Admin Dashboard</a></li>
-        <li *ngIf="role === 'seller'"><a routerLink="/seller/dashboard">Seller Dashboard</a></li>
-        <li *ngIf="role === 'user'"><a routerLink="/profile">My Profile</a></li>
-    </ul>
-</div>
+</nav>

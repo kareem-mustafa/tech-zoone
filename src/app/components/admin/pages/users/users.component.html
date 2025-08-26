@@ -1,24 +1,34 @@
-<h2>Users</h2>
+<div class="container">
+  <h2>Users</h2>
 
-<div *ngIf="loading">Loading...</div>
+  <div *ngFor="let u of users" class="user-card">
+    <div class="user-info">
+      <span class="label">Username:</span>
+      <input [(ngModel)]="u.username" />
+    </div>
 
-<table border="1" width="100%" *ngIf="!loading">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Role</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let u of users">
-      <td>{{ u.username }}</td>
-      <td>{{ u.email }}</td>
-      <td>{{ u.role }}</td>
-      <td>
-        <button (click)="deleteUser(u._id)">Delete</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+    <div class="user-info">
+      <span class="label">Email:</span>
+      <span>{{ u.email }}</span>
+    </div>
+
+    <div class="user-info">
+      <span class="label">Role:</span>
+      <span>{{ u.role }}</span>
+    </div>
+
+    <div class="actions">
+      <button class="update" (click)="updateUser(u)">Save</button>
+      <button class="delete" (click)="deleteUser(u._id)">Delete</button>
+    </div>
+
+    <div *ngIf="u.message" class="message" [ngClass]="u.messageType">
+      {{ u.message }}
+    </div>
+
+
+    <div *ngIf="u.deleteMessage" class="message" [ngClass]="u.deleteMessageType">
+      {{ u.deleteMessage }}
+    </div>
+  </div>
+</div>

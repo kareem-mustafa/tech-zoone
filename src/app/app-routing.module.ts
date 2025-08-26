@@ -9,13 +9,11 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { AuthGuard } from './guards/auth.guard';
 import { GuestGuard } from './guards/reverse-auth.guard';
-import { ResetPasswordGuard } from './guards/reset-password.guard';
 import { CategoryProductsComponent } from './pages/category-products/category-products.component';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { OrderComponent } from './pages/order/order.component';
 import { AddorderComponent } from './pages/addorder/addorder.component';
-import { AdminDashboardComponent } from './components/Dashboards/admin-dashboard/admin-dashboard.component';
 import { AdminGuard } from './guards/admin.guard';
 import { UsersComponent } from './components/admin/pages/users/users.component';
 import { ProductsComponent } from './components/admin/pages/products/products.component';
@@ -23,6 +21,11 @@ import { OrdersComponent } from './components/admin/pages/orders/orders.componen
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
+import { DashboardComponent } from './components/seller/dashboard/dashboard.component';
+import { AdminDashboardComponent } from './components/Dashboards/admin-dashboard/admin-dashboard.component';
+import { AprovedComponent } from './components/admin/pages/aproved/aproved.component';
+import { OtpGuard } from './guards/v-otp.guard';
+import { SellerDashboardGuard } from './guards/seller-dashboard.guard';
 
 const routes: Routes = [
   {
@@ -48,7 +51,9 @@ const routes: Routes = [
   {
     path: 'verify-otp/:id',
     component: VerifyOtpComponent,
+    canActivate: [OtpGuard],
   },
+
   {
     path: 'home',
     component: HomeComponent,
@@ -67,11 +72,12 @@ const routes: Routes = [
   {
     path: 'forgot-password',
     component: ForgotPasswordComponent,
+    canActivate: [GuestGuard],
   },
   {
     path: 'reset-password/:token',
     component: ResetPasswordComponent,
-    canActivate: [ResetPasswordGuard],
+    canActivate: [GuestGuard],
   },
   {
     path: 'cart/:id',
@@ -81,27 +87,33 @@ const routes: Routes = [
   {
     path: 'order',
     component: OrderComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'add-order',
     component: AddorderComponent,
+    canActivate: [AuthGuard],
   },
 
-  { 
-    path: 'wishlist/:id', component: WishlistComponent, canActivate: [AuthGuard] 
+  {
+    path: 'wishlist/:id',
+    component: WishlistComponent,
+    canActivate: [AuthGuard],
   },
 
-  { path: 'seller/dashboard', loadChildren: () => import('./seller/seller.module').then(m => m.SellerModule) },
-  
+  {
+    path: 'seller/dashboard',
+    loadChildren: () =>
+      import('./seller/seller.module').then((m) => m.SellerModule),
+  },
 
-
-  { path: 'about', component: AboutUsComponent },
+  { path: 'about', component: AboutUsComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
 
   {
     path: 'admin/dashboard',
     component: AdminDashboardComponent,
-    canActivate: [AuthGuard, AdminGuard],
+    canActivate: [AuthGuard, AdminGuard], 
   },
   {
     path: 'admin/products',
@@ -116,6 +128,11 @@ const routes: Routes = [
   {
     path: 'admin/orders',
     component: OrdersComponent,
+    canActivate: [AuthGuard, AdminGuard],
+  },
+  {
+    path: 'admin/dashboard/approved',
+    component: AprovedComponent,
     canActivate: [AuthGuard, AdminGuard],
   },
 

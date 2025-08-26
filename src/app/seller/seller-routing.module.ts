@@ -4,17 +4,22 @@ import { ProductsComponent } from '../components/seller/products/products.compon
 import { AddProductsComponent } from '../components/seller/add-products/add-products.component';
 import { ordersComponent } from '../components/seller/orders/orders.component';
 import { DashboardComponent } from '../components/seller/dashboard/dashboard.component';
+import { SellerDashboardGuard } from '../guards/seller-dashboard.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, // default route
-  { path: 'products', component: ProductsComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'add-product', component: AddProductsComponent},
-  { path: 'orders', component: ordersComponent },
+  {
+    path: 'products',
+    component: ProductsComponent,
+    canActivate: [SellerDashboardGuard],
+  },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [SellerDashboardGuard] },
+  { path: 'add-product', component: AddProductsComponent },
+  { path: 'orders', component: ordersComponent, canActivate: [SellerDashboardGuard] },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class SellerRoutingModule { }
+export class SellerRoutingModule {}

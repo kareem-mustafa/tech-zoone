@@ -20,19 +20,23 @@ export class AddorderComponent {
 
   orderCreated: boolean = false; // default false
 
-  onSubmit() {
-    this.orderService.addOrder(this.orderData).subscribe({
-      next: (res: any) => {
-        this.serverMessage = 'Order added successfully!';
-        console.log('Order Response:', res);
-        this.orderCreated = true; // ✅ الأوردر اتعمل
-      },
-      error: (err: any) => {
-        this.serverMessage = err.error?.message || 'Failed to add order!';
-        this.orderCreated = false;
-      },
-    });
-  }
+ onSubmit() {
+  this.orderService.addOrder(this.orderData).subscribe({
+    next: (res: any) => {
+      this.serverMessage = 'Order added successfully!';
+      console.log('Order Response:', res);
+      this.orderCreated = true; // ✅ الأوردر اتعمل
+
+      // 🟢 حفظ الأوردر بالكامل في localStorage
+      localStorage.setItem('order', JSON.stringify(res));
+    },
+    error: (err: any) => {
+      this.serverMessage = err.error?.message || 'Failed to add order!';
+      this.orderCreated = false;
+    },
+  });
+}
+
 
   serverMessage: string = '';
 

@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #f0f4ff, #f9fbfd);
+    background: linear-gradient(135deg, #273854, #c2e9fb);
     padding: 20px;
     font-family: 'Segoe UI', sans-serif;
 }
@@ -65,8 +65,8 @@
 
 .form-group input:focus,
 .form-group select:focus {
-    border-color: #4e73df;
-    box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.2);
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
 }
 
 /* === Custom File Upload === */
@@ -82,7 +82,7 @@
 }
 
 .file-label {
-    background: #4e73df;
+    background: linear-gradient(135deg, #4a90e2, #5f27cd);
     color: #fff;
     padding: 10px 16px;
     border-radius: 10px;
@@ -93,7 +93,7 @@
 }
 
 .file-label:hover {
-    background: #2e59d9;
+    background: linear-gradient(135deg, #357ABD, #4328A2);
 }
 
 .file-name {
@@ -113,7 +113,7 @@
     height: 120px;
     object-fit: cover;
     border-radius: 50%;
-    border: 3px solid #4e73df;
+    border: 3px solid #4a90e2;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 
@@ -129,14 +129,17 @@
     margin-top: 20px;
 }
 
+/* زرار الـ Submit بتدرج أزرق لبنفسجي */
 .btn.submit {
-    background: #1cc88a;
-    color: white;
+    background: linear-gradient(135deg, #4a90e2, #5f27cd);
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(74, 144, 226, 0.3);
 }
 
-.btn:hover {
+.btn.submit:hover {
+    background: linear-gradient(135deg, #357ABD, #4328A2);
+    box-shadow: 0 6px 14px rgba(95, 39, 205, 0.35);
     transform: translateY(-2px);
-    opacity: 0.95;
 }
 
 /* === Error Messages === */

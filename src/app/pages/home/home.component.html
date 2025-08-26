@@ -15,8 +15,8 @@
                 class="d-block w-100 banner-img" alt="Banner 2">
         </div>
         <div class="carousel-item">
-            <img src="../../../assets/banners/fbd7900bb055dd65d12949022fca5617.jpg"
-                class="d-block w-100 banner-img" alt="Banner 3">
+            <img src="../../../assets/banners/fbd7900bb055dd65d12949022fca5617.jpg" class="d-block w-100 banner-img"
+                alt="Banner 3">
         </div>
     </div>
 
@@ -28,7 +28,6 @@
     </button>
 </div>
 
-<!-- ================== SEARCH ================== -->
 <!-- ================== SEARCH & FILTER ================== -->
 <div class="container my-5">
     <div class="row justify-content-center mb-4">
@@ -84,100 +83,58 @@
 </div>
 
 <!-- ================== PRODUCTS BY CATEGORY ================== -->
-<div *ngFor="let cat of categories; let i = index" class="mb-5">
+<div *ngFor="let cat of categories" class="mb-5">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <!-- <h3>{{ cat }}</h3> -->
-        <!-- <button class="btn btn-sm btn-outline-primary" (click)="viewAllCategory(cat)">View All</button> -->
+        <h3>{{ cat }}</h3>
+        <button class="btn btn-sm btn-outline-primary" (click)="viewAllCategory(cat)">View All</button>
     </div>
 
-    <div class="row g-3 align-items-stretch">
-        <!-- Banner Left (if index even) -->
-        <ng-container *ngIf="i % 2 === 0">
-            <div class="col-md-6">
-                <div class="card h-100 shadow-sm cursor-pointer" (click)="viewAllCategory(cat)">
-                    <img [src]="'assets/banners/' + (cat | lowercase) + '.jpg'" alt="{{ cat }}" class="card-img-top"
-                        style="height: 100%; object-fit: cover;" />
-                    <div class="card-body text-center">
-                        <h5 class="card-title">{{ cat }}</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
+    <div id="{{ cat | lowercase }}Carousel" class="carousel slide position-relative" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item" *ngFor="let chunkIndex of getChunks(categoryProducts[cat], 4); let i = index"
+                [class.active]="i === 0">
                 <div class="row g-3">
-                    <div class="col-md-6" *ngFor="let product of categoryProducts[cat] | slice:0:4">
+                    <div class="col-md-3"
+                        *ngFor="let product of categoryProducts[cat].slice(chunkIndex.start, chunkIndex.end)">
                         <div class="card h-100 shadow-sm position-relative cursor-pointer"
                             (click)="viewProduct(product)">
-                            <img [src]="product.Images || 'assets/-image.png'" class="card-img-top"
-                                alt="{{ product.title }}" style="height: 150px; object-fit: cover;" />
-                            <div class="card-body d-flex flex-column p-2">
-                                <h6 class="card-title text-truncate">{{ product.title }}</h6>
-                                <p class="card-text text-truncate small">{{ product.description }}</p>
+                            <img [src]="product.Images || 'assets/no-image.png'" class="card-img-top"
+                                alt="{{ product.title }}" />
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title text-truncate">{{ product.title }}</h5>
+                                <p class="card-text text-truncate">{{ product.description }}</p>
                                 <div class="mt-auto">
-                                    <p class="mb-1"><strong>{{ product.price }} $</strong></p>
-                                    <div class="d-flex justify-content-between">
-                                        <button class="btn btn-outline-danger btn-sm" (click)="toggleWishlist(product); $event.stopPropagation()">
-                                            <i [ngClass]="isInWishlist(product._id) ? 'fas fa-heart' : 'far fa-heart'"></i>
-                                        </button>
-                                        <button class="btn btn-success btn-sm"
-                                            (click)="addToCart(product); $event.stopPropagation()">
-                                            <i class="fas fa-cart-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ng-container>
-
-        <!-- Banner Right (if index odd) -->
-        <ng-container *ngIf="i % 2 !== 0">
-            <div class="col-md-6">
-                <div class="row g-3">
-                    <div class="col-md-6" *ngFor="let product of categoryProducts[cat] | slice:0:4">
-                        <div class="card h-100 shadow-sm position-relative cursor-pointer"
-                            (click)="viewProduct(product)">
-                            <img [src]="product.Images || 'assets/images/no-image.png'" class="card-img-top"
-                                alt="{{ product.title }}" style="height: 150px; object-fit: cover;" />
-                            <div class="card-body d-flex flex-column p-2">
-                                <h6 class="card-title text-truncate">{{ product.title }}</h6>
-                                <p class="card-text text-truncate small">{{ product.description }}</p>
-                                <div class="mt-auto">
-                                    <p class="mb-1"><strong>{{ product.price }} $</strong></p>
-                                    <div class="d-flex justify-content-between">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <p class="mb-0"><strong>Price:</strong> {{ product.price }} $</p>
                                         <button class="btn btn-outline-danger btn-sm"
-                                            (click)="toggleWishlist(product); $event.stopPropagation(); addToWishlist(product)">
+                                            (click)="toggleWishlist(product); $event.stopPropagation()">
                                             <i
                                                 [ngClass]="isInWishlist(product._id) ? 'fas fa-heart' : 'far fa-heart'"></i>
                                         </button>
-                                        <button class="btn btn-success btn-sm"
-                                            (click)="addToCart(product); $event.stopPropagation()">
-                                            <i class="fas fa-cart-plus"></i>
-                                        </button>
                                     </div>
+                                    <button class="btn btn-success w-100 btn-sm mb-2"
+                                        (click)="addToCart(product); $event.stopPropagation()">
+                                        <i class="fas fa-cart-plus"></i> Add to Cart
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col-md-6">
-                <div class="card h-100 shadow-sm cursor-pointer" (click)="viewAllCategory(cat)">
-                    <img [src]="'assets/banners/' + (cat | lowercase) + '.jpg'" alt="{{ cat }}" class="card-img-top"
-                        style="height: 100%; object-fit: cover;" />
-                    <div class="card-body text-center">
-                        <h5 class="card-title">{{ cat }}</h5>
-                    </div>
-                </div>
-            </div>
-        </ng-container>
+        <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#' + (cat | lowercase) + 'Carousel'"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#' + (cat | lowercase) + 'Carousel'"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
     </div>
 </div>
 
-<!-- No products -->
 <div *ngIf="filteredProducts.length === 0" class="text-center mt-5">
     <h5>No products found</h5>
 </div>

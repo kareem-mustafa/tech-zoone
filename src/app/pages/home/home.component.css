@@ -1,4 +1,4 @@
-/* ================== GLOBAL ================== */
+/* ========== GLOBAL ========== */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
@@ -6,7 +6,7 @@ body {
     line-height: 1.6;
 }
 
-/* ================== BANNER SLIDER ================== */
+/* ========== BANNER SLIDER ========== */
 .banner-img {
     height: 480px;
     object-fit: cover;
@@ -26,8 +26,7 @@ body {
     background-color: #007bff;
 }
 
-.carousel-control-prev,
-.carousel-control-next {
+.carousel-control-prev, .carousel-control-next {
     width: 50px;
     height: 50px;
     top: 50%;
@@ -37,18 +36,16 @@ body {
     transition: background 0.3s ease, transform 0.3s ease;
 }
 
-.carousel-control-prev:hover,
-.carousel-control-next:hover {
+.carousel-control-prev:hover, .carousel-control-next:hover {
     background-color: rgba(0, 0, 0, 0.75);
     transform: translateY(-50%) scale(1.1);
 }
 
-/* ================== SEARCH ================== */
+/* ========== SEARCH ========== */
 .input-group {
     border: 1px solid #e0e0e0;
     background: #fff;
-    transition: box-shadow 0.3s ease;
-    border-radius: 40px !important;
+    border-radius: 40px;
     overflow: hidden;
 }
 
@@ -61,7 +58,7 @@ body {
     color: #007bff;
 }
 
-/* ================== CATEGORY TITLE ================== */
+/* ========== CATEGORY TITLE ========== */
 h3 {
     font-size: 1.5rem;
     font-weight: 700;
@@ -71,7 +68,7 @@ h3 {
     margin-bottom: 1rem;
 }
 
-/* ================== CARD ================== */
+/* ========== CARD ========== */
 .card {
     border: none;
     border-radius: 16px;
@@ -88,16 +85,12 @@ h3 {
 .card-img-top {
     width: 100%;
     height: 200px;
-    /* ارتفاع ثابت لكل الصور */
     object-fit: contain;
-    /* يبين الصورة كاملة بدون قص */
     background: #fff;
-    /* خلفية بيضا للفراغات */
     padding: 10px;
-    /* مسافة صغيرة حوالين الصورة */
     border-radius: 12px 12px 0 0;
+    transition: transform 0.3s ease;
 }
-
 
 .card:hover .card-img-top {
     transform: scale(1.08);
@@ -115,7 +108,7 @@ h3 {
     color: #666;
 }
 
-/* ================== BUTTONS ================== */
+/* ========== BUTTONS ========== */
 .btn {
     border-radius: 10px;
     font-weight: 500;
@@ -153,7 +146,7 @@ h3 {
     color: #fff;
 }
 
-/* ================== EMPTY PRODUCTS ================== */
+/* ========== EMPTY PRODUCTS ========== */
 .text-center h5 {
     color: #aaa;
     font-weight: 500;

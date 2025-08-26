@@ -1,21 +1,23 @@
 <div class="wishlist-container" *ngIf="wishlistItems.length > 0; else emptyWishlist">
-  <ul class="wishlist-list">
-    <li *ngFor="let item of wishlistItems" class="wishlist-item">
-      <img [src]="item.product.Images" alt="{{ item.product.Images}}" class="wishlist-item-img">
+  <h2>My Wishlist</h2>
+  <div class="wishlist-grid">
+    <div *ngFor="let item of wishlistItems" class="wishlist-card">
+      <img [src]="item.product.Images" alt="{{ item.product.title }}" class="wishlist-item-img">
 
       <div class="wishlist-item-info">
         <strong class="wishlist-item-title">{{ item.product.title }}</strong>
+        <span class="wishlist-item-price" *ngIf="item.product.price">${{ item.product.price }}</span>
       </div>
 
-      <button class="wishlist-item-remove" (click)="removeFromWishlist(item.product._id)"> delete</button>
-    </li>
-  </ul>
+      <button class="wishlist-item-remove" (click)="removeFromWishlist(item.product._id)">Delete</button>
+    </div>
+  </div>
 
   <div class="wishlist-footer">
-    <button class="wishlist-clear" (click)="clearWishlist()"> delete wishlist</button>
+    <button class="wishlist-clear" (click)="clearWishlist()">Clear Wishlist</button>
   </div>
 </div>
 
 <ng-template #emptyWishlist>
-  <p class="empty-wishlist">wish list is empty</p>
+  <p class="empty-wishlist">Your wishlist is empty</p>
 </ng-template>

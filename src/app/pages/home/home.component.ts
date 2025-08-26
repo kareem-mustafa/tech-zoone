@@ -5,7 +5,7 @@
   import { CartService } from 'src/app/services/cart.service';
   import { AuthService } from 'src/app/services/auth.service';
   import { WishlistService } from '../../services/wishlist.service';
-
+  import { ToastrService } from 'ngx-toastr';
   @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
@@ -41,7 +41,8 @@
       private router: Router,
       private cartService: CartService,
       private wishlistService: WishlistService,
-      private authService: AuthService
+      private authService: AuthService,
+      private toastr: ToastrService
     ) {}
 
     ngOnInit(): void {
@@ -148,7 +149,8 @@
     addToCart(product: Product) {
       this.cartService.addToCart(product._id, 1).subscribe({
         next: () => {
-          alert(`${product.title} added to cart!`);
+          this.toastr.success('تمت العملية بنجاح!', 'نجاح');
+          // alert(`${product.title} added to cart!`);
         },
         error: (err) => {
           console.error('Error adding to cart:', err);

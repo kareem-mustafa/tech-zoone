@@ -45,6 +45,7 @@ import { ProductsComponent as SellerProductsComponent } from './components/selle
 import { ordersComponent } from './components/seller/orders/orders.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { AprovedComponent } from './components/admin/pages/aproved/aproved.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -97,12 +98,18 @@ import { AprovedComponent } from './components/admin/pages/aproved/aproved.compo
     MatTableModule,
     MatButtonModule,
     MatIconModule,
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule, // مهم جداً
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 

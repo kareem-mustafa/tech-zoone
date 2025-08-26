@@ -1,0 +1,34 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Seller Name</th>
+            <th>Email</th>
+            <th>store name</th>
+            <th>bank account</th>
+            <th>bank account image</th>
+            <th>age</th>
+            <th>gender</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let seller of sellers">
+            <td>{{ seller.username }}</td>
+            <td>{{ seller.email }}</td>
+            <td>{{ seller.storename }}</td>
+            <td>{{ seller.BankAccount }}</td>
+            <td>{{ seller.age }}</td>
+            <td>{{ seller.gender }}</td>
+            <td>
+                <img [src]="seller.bankAccountImage" alt="Bank Account Image" class="bank-account-image"
+                    style="width: 50px; height: auto;" />
+            </td>
+            <td>
+                <button class="btn btn-success btn-sm" (click)="approveSeller(seller._id)"
+                    [disabled]="seller.isApproved">
+                    Approve
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

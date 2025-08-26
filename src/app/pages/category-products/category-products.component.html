@@ -12,6 +12,14 @@
                     <p class="product-price"><strong>Price:</strong> {{ product.price }} $</p>
                     <button class="btn btn-primary w-100" [routerLink]="['/products', product.slug]">View
                         Details</button>
+                        <button class="btn btn-outline-danger btn-sm" (click)="toggleWishlist(product); $event.stopPropagation()">
+                            <i [ngClass]="
+                                      isInWishlist(product._id) ? 'fas fa-heart' : 'far fa-heart'
+                                    "></i> add to wishlist
+                        </button>
+                        <button class="btn btn w-100 btn-sm mb-2" (click)="addToCart(product); $event.stopPropagation()">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
                 </div>
             </div>
         </div>

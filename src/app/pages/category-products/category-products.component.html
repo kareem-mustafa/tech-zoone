@@ -2,24 +2,36 @@
     <h2 class="category-title">Category: {{ categoryName }}</h2>
     <div class="row">
         <div class="col-md-3 mb-4" *ngFor="let product of products">
-            <div class="product-card">
+            <div class="product-card" [routerLink]="['/products', product.slug]" style="cursor:pointer;">
+
+                <!-- الصورة -->
                 <div class="product-image">
                     <img [src]="product.Images || 'assets/no-image.png'" alt="{{ product.title }}">
                 </div>
+
+                <!-- المحتوى -->
                 <div class="product-content">
-                    <h5 class="product-title">{{ product.title }}</h5>
-                    <p class="product-description">{{ product.description | slice:0:60 }}...</p>
-                    <p class="product-price"><strong>Price:</strong> {{ product.price }} $</p>
-                    <button class="btn btn-primary w-100" [routerLink]="['/products', product.slug]">View
-                        Details</button>
-                        <button class="btn btn-outline-danger btn-sm" (click)="toggleWishlist(product); $event.stopPropagation()">
-                            <i [ngClass]="
-                                      isInWishlist(product._id) ? 'fas fa-heart' : 'far fa-heart'
-                                    "></i> add to wishlist
+                    <h5 class="product-title text-truncate">{{ product.title }}</h5>
+                    <p class="product-description text-truncate">{{ product.description | slice:0:60 }}...</p>
+
+                    <!-- السعر + القلب -->
+                    <div class="product-meta">
+                        <p class="product-price">{{ product.price }} $</p>
+                        <button class="wishlist-btn" (click)="toggleWishlist(product); $event.stopPropagation()">
+                            <i [ngClass]="isInWishlist(product._id) ? 'fas fa-heart' : 'far fa-heart'"></i>
                         </button>
-                        <button class="btn btn w-100 btn-sm mb-2" (click)="addToCart(product); $event.stopPropagation()">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
+                    </div>
+
+                    <!-- زرار الكارت -->
+                    <button class="btn btn-primary w-100 btn-sm" (click)="addToCart(product); $event.stopPropagation()">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+
+                    <!-- زر التفاصيل -->
+                    <button class="btn btn-primary w-100 mb-2" [routerLink]="['/products', product.slug]">
+                        View Details
+                    </button>
+
                 </div>
             </div>
         </div>

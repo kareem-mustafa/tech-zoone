@@ -1,45 +1,86 @@
+/* 🌟 بانر */
+.banner {
+    position: relative;
+    margin-bottom: 40px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.banner img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 18px;
+    transition: transform 0.6s ease;
+}
+
+.banner:hover img {
+    transform: scale(1.05);
+}
+
+.banner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.55));
+}
+
 /* العنوان */
 .category-title {
     margin-bottom: 30px;
-    font-weight: 700;
-    font-size: 1.8rem;
-    color: #1a1a1a;
-    border-left: 4px solid #007bff;
-    padding-left: 10px;
+    font-weight: 800;
+    font-size: 2rem;
+    color: #222;
+    position: relative;
+    display: inline-block;
+    padding-left: 14px;
+}
+
+.category-title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 6px;
+    height: 80%;
+    background: linear-gradient(180deg, #007bff, #0056d2);
+    border-radius: 3px;
 }
 
 /* Grid الكروت */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 28px;
 }
 
-/* الكارد */
+/* 🛒 الكارد */
 .product-card {
     display: flex;
     flex-direction: column;
     background: #fff;
-    border-radius: 15px;
+    border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    border: 1px solid #f1f1f1;
 }
 
 .product-card:hover {
-    transform: translateY(-8px) scale(1.03);
-    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.25);
+    transform: translateY(-10px);
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.15);
 }
 
 /* الصورة */
 .product-image {
-    height: 180px;
-    background-color: #f8f9fa;
+    height: 200px;
+    background: linear-gradient(145deg, #f8f9fa, #eef1f6);
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 15px;
+    padding: 18px;
     overflow: hidden;
 }
 
@@ -47,11 +88,11 @@
     max-height: 100%;
     width: auto;
     object-fit: contain;
-    transition: transform 0.3s ease;
+    transition: transform 0.35s ease;
 }
 
 .product-card:hover .product-image img {
-    transform: scale(1.06);
+    transform: scale(1.08);
 }
 
 /* محتوى الكارد */
@@ -60,50 +101,85 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 15px 20px;
+    padding: 18px 20px;
 }
 
 .product-title {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 600;
-    color: #222;
-    margin-bottom: 8px;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+    line-height: 1.3;
 }
 
 .product-description {
-    font-size: 0.9rem;
-    color: #666;
+    font-size: 0.92rem;
+    color: #555;
     margin-bottom: 12px;
     flex-grow: 1;
 }
 
-.product-price {
-    font-size: 0.95rem;
-    color: #333;
-    margin-bottom: 12px;
+/* 🛒 السعر + القلب */
+.product-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
 }
 
-/* زر الإجراء */
+.product-price {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #007bff;
+    margin: 0;
+}
+
+/* ❤️ زر القلب */
+.wishlist-btn {
+    border: none;
+    background: rgba(220, 53, 69, 0.08);
+    color: #dc3545;
+    font-size: 1.1rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.wishlist-btn:hover {
+    background: rgba(220, 53, 69, 0.18);
+    color: #b02a37;
+    transform: scale(1.15);
+}
+
+/* زر الكارت */
 .btn-primary {
     background: linear-gradient(90deg, #007bff, #0056d2);
     border: none;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     padding: 10px 0;
     transition: all 0.3s ease;
-    border-radius: 8px;
+    border-radius: 10px;
+    margin-bottom: 15px
 }
-
 .btn-primary:hover {
-    background: linear-gradient(90deg, #0056d2, #003f9a);
+    background: linear-gradient(90deg, #0056d2, #0041a8);
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    .banner img {
+        max-height: 250px;
+    }
+
     .product-image {
-        height: 150px;
+        height: 160px;
     }
 
     .product-title {

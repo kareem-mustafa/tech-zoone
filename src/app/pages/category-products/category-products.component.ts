@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ProductService, Product } from '../../services/product.service';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { CartService } from 'src/app/services/cart.service';
+import { ToastrService } from 'ngx-toastr';
 import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
@@ -21,7 +22,9 @@ export class CategoryProductsComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private wishlistService: WishlistService,
-    private cartService: CartService
+    private cartService: CartService,
+        private toastr: ToastrService
+    
   ) {}
 
   ngOnInit(): void {
@@ -47,8 +50,7 @@ export class CategoryProductsComponent implements OnInit {
           this.loading = false;
         },
       });
-              this.loadWishlist();
-
+    this.loadWishlist();
   }
 
   loadWishlist() {
@@ -68,9 +70,10 @@ export class CategoryProductsComponent implements OnInit {
   addToCart(product: Product) {
     this.cartService.addToCart(product._id, 1).subscribe({
       next: () => {
-        alert(`${product.title} added to cart!`);
+        this.toastr.success(`${product.title} added to cart`, 'Success');
       },
       error: (err) => {
+        this.toastr.error('Failed to add product to cart', 'Error');
         console.error('Error adding to cart:', err);
       },
     });
@@ -80,9 +83,10 @@ export class CategoryProductsComponent implements OnInit {
     this.wishlistService.addToWishlist(product._id, 1).subscribe({
       next: () => {
         this.wishlist.push(product);
-        alert(`${product.title} added to wishlist!`);
+        this.toastr.success(`${product.title} added to wishlist`, 'Success');
       },
       error: (err) => {
+        this.toastr.error('Failed to add product to wishlist', 'Error');
         console.error('Error adding to wishlist:', err);
       },
     });
@@ -93,8 +97,10 @@ export class CategoryProductsComponent implements OnInit {
       this.wishlistService.removeFromWishlist(product._id).subscribe({
         next: () => {
           this.wishlist = this.wishlist.filter((p) => p._id !== product._id);
+          this.toastr.info(`${product.title} removed from wishlist`, 'Info');
         },
         error: (err) => {
+          this.toastr.error('Failed to remove product from wishlist', 'Error');
           console.error('Error removing from wishlist:', err);
         },
       });

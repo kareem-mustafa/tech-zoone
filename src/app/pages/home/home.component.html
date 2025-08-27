@@ -82,59 +82,42 @@
     </form>
 </div>
 
-<!-- ================== PRODUCTS BY CATEGORY ================== -->
 <div *ngFor="let cat of categories" class="mb-5">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3>{{ cat }}</h3>
         <button class="btn btn-sm btn-outline-primary" (click)="viewAllCategory(cat)">View All</button>
     </div>
 
-    <div id="{{ cat | lowercase }}Carousel" class="carousel slide position-relative" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item" *ngFor="let chunkIndex of getChunks(categoryProducts[cat], 4); let i = index"
-                [class.active]="i === 0">
-                <div class="row g-3">
-                    <div class="col-md-3"
-                        *ngFor="let product of categoryProducts[cat].slice(chunkIndex.start, chunkIndex.end)">
-                        <div class="card h-100 shadow-sm position-relative cursor-pointer"
-                            (click)="viewProduct(product)">
-                            <img [src]="product.Images || 'assets/no-image.png'" class="card-img-top"
-                                alt="{{ product.title }}" />
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title text-truncate">{{ product.title }}</h5>
-                                <p class="card-text text-truncate">{{ product.description }}</p>
-                                <div class="mt-auto">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <p class="mb-0"><strong>Price:</strong> {{ product.price }} $</p>
-                                        <button class="btn btn-outline-danger btn-sm"
-                                            (click)="toggleWishlist(product); $event.stopPropagation()">
-                                            <i
-                                                [ngClass]="isInWishlist(product._id) ? 'fas fa-heart' : 'far fa-heart'"></i>
-                                        </button>
-                                    </div>
-                                    <button class="btn btn w-100 btn-sm mb-2"
-                                        (click)="addToCart(product); $event.stopPropagation()">
-                                        <i class="fas fa-cart-plus"></i> Add to Cart
-                                    </button>
-                                </div>
-                            </div>
+    <div class="position-relative">
+        <!-- Slider Container -->
+        <div #slider class="product-slider d-flex overflow-auto gap-3 pb-2">
+            <div class="card flex-shrink-0" style="width: 220px;" *ngFor="let product of categoryProducts[cat]">
+                <img [src]="product.Images || 'assets/no-image.png'" class="card-img-top" alt="{{ product.title }}">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title text-truncate">{{ product.title }}</h5>
+                    <p class="card-text text-truncate">{{ product.description }}</p>
+                    <div class="mt-auto">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <p class="mb-0"><strong>Price:</strong> {{ product.price }} $</p>
+                            <button class="wishlist-btn" (click)="toggleWishlist(product); $event.stopPropagation()">
+                                <i [ngClass]="isInWishlist(product._id) ? 'fas fa-heart' : 'far fa-heart'"></i>
+                            </button>
                         </div>
+                        <button class="btn btn-primary w-100 btn-sm mb-2"
+                            (click)="addToCart(product); $event.stopPropagation()">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#' + (cat | lowercase) + 'Carousel'"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
+        <!-- Navigation Buttons -->
+        <button class="slider-btn prev" (click)="scrollLeft(slider)">
+            <i class="fas fa-chevron-left"></i>
         </button>
-        <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#' + (cat | lowercase) + 'Carousel'"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
+        <button class="slider-btn next" (click)="scrollRight(slider)">
+            <i class="fas fa-chevron-right"></i>
         </button>
     </div>
-</div>
-
-<div *ngIf="filteredProducts.length === 0" class="text-center mt-5">
-    <h5>No products found</h5>
 </div>

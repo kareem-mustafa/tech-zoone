@@ -4,6 +4,7 @@ import { ProductService, Product } from '../../services/product.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CartService } from 'src/app/services/cart.service';
 import { WishlistService } from 'src/app/services/wishlist.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-details',
@@ -20,7 +21,8 @@ export class ProductDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private cartService: CartService,
-    private wishlistService: WishlistService
+    private wishlistService: WishlistService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -38,14 +40,13 @@ export class ProductDetailsComponent implements OnInit {
           },
         });
       }
-
     });
-        this.loadWishlist();
+    this.loadWishlist();
   }
   loadWishlist() {
     this.wishlistService.getWishlistItems().subscribe({
       next: (res: any[]) => {
-        this.wishlist = res.map(item => item.product); 
+        this.wishlist = res.map((item) => item.product);
       },
       error: (err) => {
         console.error('Error loading wishlist:', err);
@@ -53,15 +54,16 @@ export class ProductDetailsComponent implements OnInit {
     });
   }
   isInWishlist(productId: string): boolean {
-    return this.wishlist.some(item => item._id === productId);
+    return this.wishlist.some((item) => item._id === productId);
   }
 
   addToCart(product: Product) {
     this.cartService.addToCart(product._id, 1).subscribe({
       next: () => {
-        alert(`${product.title} added to cart!`);
+        this.toastr.success(`${product.title} added to cart`, 'Success');
       },
       error: (err) => {
+        this.toastr.error('Failed to add product to cart', 'Error');
         console.error('Error adding to cart:', err);
       },
     });
@@ -71,9 +73,10 @@ export class ProductDetailsComponent implements OnInit {
     this.wishlistService.addToWishlist(product._id, 1).subscribe({
       next: () => {
         this.wishlist.push(product);
-        alert(`${product.title} added to wishlist!`);
+        this.toastr.success(`${product.title} added to wishlist`, 'Success');
       },
       error: (err) => {
+        this.toastr.error('Failed to add product to wishlist', 'Error');
         console.error('Error adding to wishlist:', err);
       },
     });
@@ -84,8 +87,10 @@ export class ProductDetailsComponent implements OnInit {
       this.wishlistService.removeFromWishlist(product._id).subscribe({
         next: () => {
           this.wishlist = this.wishlist.filter((p) => p._id !== product._id);
+          this.toastr.info(`${product.title} removed from wishlist`, 'Info');
         },
         error: (err) => {
+          this.toastr.error('Failed to remove product from wishlist', 'Error');
           console.error('Error removing from wishlist:', err);
         },
       });
@@ -93,7 +98,4 @@ export class ProductDetailsComponent implements OnInit {
       this.addToWishlist(product);
     }
   }
-
-
-
 }

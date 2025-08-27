@@ -1,154 +1,133 @@
-/* Container */
+/* ================== Container ================== */
 .max-w-lg {
-    background: linear-gradient(145deg, #ffffff, #f9fafb);
-    border-radius: 25px;
-    padding: 50px 40px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.05);
+    background: linear-gradient(145deg, #ffffff, #f9fafc);
+    border-radius: 20px;
+    padding: 40px 35px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
     width: 700px;
     max-width: 95%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin: 50px auto;
+    margin: 60px auto;
+    transition: all 0.3s ease;
 }
 
 .max-w-lg:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 15px 25px rgba(0, 0, 0, 0.05);
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
 }
 
-/* Heading */
-h2 {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 35px;
-    color: #1f2937;
+/* ================== Heading ================== */
+.max-w-lg h2 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 30px;
+    color: #1e293b;
     text-align: center;
+    letter-spacing: -0.5px;
 }
 
-/* Inputs & Textarea */
-input, textarea {
+/* ================== Labels ================== */
+.max-w-lg label {
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 15px;
+}
+
+/* ================== Inputs & Textarea ================== */
+.max-w-lg input,
+.max-w-lg textarea,
+.max-w-lg select {
     width: 100%;
-    padding: 15px 18px;
-    border-radius: 15px;
+    padding: 14px 16px;
+    border-radius: 12px;
     border: 1px solid #d1d5db;
-    transition: all 0.3s ease;
-    font-size: 16px;
-    color: #111827;
+    font-size: 15px;
+    color: #1e293b;
+    background: #fff;
+    transition: all 0.25s ease;
 }
 
-input:focus, textarea:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+.max-w-lg input:focus,
+.max-w-lg textarea:focus,
+.max-w-lg select:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
     outline: none;
 }
 
-/* Labels */
-label {
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 8px;
-    display: block;
-    font-size: 16px;
+/* ================== Textarea ================== */
+.max-w-lg textarea {
+    min-height: 120px;
+    resize: none;
 }
 
-/* File input */
-input[type="file"] {
+/* ================== File Input ================== */
+.max-w-lg input[type="file"] {
     cursor: pointer;
-    border: 1px dashed #d1d5db;
-    padding: 12px;
+    border: 2px dashed #cbd5e1;
+    padding: 25px;
     text-align: center;
-    border-radius: 12px;
+    border-radius: 14px;
+    background: #f9fafb;
+    font-size: 14px;
+    color: #64748b;
+    transition: all 0.3s ease;
 }
 
-/* Submit Button */
-button[type="submit"] {
-    background: linear-gradient(to right, #273681, #2416a3);
+.max-w-lg input[type="file"]:hover {
+    border-color: #6366f1;
+    background: #f1f5ff;
+    color: #4f46e5;
+}
+
+/* ================== Button ================== */
+.max-w-lg button[type="submit"] {
+    background: linear-gradient(90deg, #4f46e5, #3b82f6);
     color: white;
-    padding: 15px 30px;
-    border-radius: 15px;
+    padding: 14px 28px;
+    border-radius: 12px;
     font-weight: 700;
-    font-size: 17px;
+    font-size: 16px;
     border: none;
     cursor: pointer;
-    margin-top: 30px;
+    margin-top: 20px;
     transition: all 0.3s ease;
     width: 100%;
+    box-shadow: 0 6px 15px rgba(59, 130, 246, 0.25);
 }
 
-button[type="submit"]:hover {
-    background: linear-gradient(to right, #1616a3, #152e80);
+.max-w-lg button[type="submit"]:hover {
+    background: linear-gradient(90deg, #4338ca, #2563eb);
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
 }
 
-button[disabled] {
-    background-color: #94a3b8;
+.max-w-lg button[disabled] {
+    background: #cbd5e1;
     cursor: not-allowed;
+    box-shadow: none;
 }
 
-/* Flex adjustments for rows */
-.flex {
+/* ================== Grid for Inputs (Price & Stock) ================== */
+.form-row {
     display: flex;
-}
-
-.flex-wrap {
-    flex-wrap: wrap;
-}
-
-.gap-6 {
     gap: 20px;
 }
 
-.flex-1 {
+.form-row>div {
     flex: 1;
 }
 
-.min-w-\[45\%\] {
-    min-width: 45%;
-}
-
-/* Responsive for all devices */
-@media (max-width: 1024px) {
-    .max-w-lg {
-        width: 90%;
-        padding: 40px 30px;
-    }
-
-    .min-w-\[45\%\] {
-        min-width: 48%;
-    }
-}
-
+/* ================== Responsive ================== */
 @media (max-width: 768px) {
     .max-w-lg {
         width: 95%;
-        padding: 30px 20px;
+        padding: 25px 20px;
     }
 
-    .flex {
+    .form-row {
         flex-direction: column;
-    }
-
-    .min-w-\[45\%\] {
-        min-width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    .max-w-lg {
-        padding: 25px 15px;
-    }
-
-    h2 {
-        font-size: 26px;
-    }
-
-    input, textarea {
-        font-size: 15px;
-        padding: 12px 15px;
-    }
-
-    button[type="submit"] {
-        font-size: 16px;
-        padding: 12px 20px;
+        gap: 15px;
     }
 }

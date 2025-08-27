@@ -1,40 +1,31 @@
-/* General */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f3f4f6;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Dashboard Layout */
-.dashboard-wrapper {
-    display: flex;
-    flex: 1;
-    min-height: calc(100vh - 100px);
-    /* ارتفاع محتوى بدون footer */
-}
-
-/* Sidebar */
+/* Sidebar ثابت */
 .sidebar {
+    /* position: fixed; */
+    /* يثبتها في الشاشة */
+    top: 0;
+    left: 0;
+    /* height: 100vh; */
+    /* طول الشاشة بالكامل */
     width: 250px;
     background-color: #1f2937;
     color: white;
     padding: 30px 20px;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
-    height: 100%;
-    box-sizing: border-box;
+    overflow-y: auto;
+    /* لو القائمة طويلة تعمل scroll */
 }
 
+/* العنوان */
 .sidebar h2 {
-    font-size: 24px;
+    font-size: 22px;
+    margin-bottom: 30px;
+    text-align: center;
     font-weight: bold;
-    margin-bottom: 40px;
-    letter-spacing: 1px;
+    color: #facc15;
+    /* لون مميز للعنوان */
 }
 
+/* القوائم */
 .sidebar ul {
     list-style: none;
     padding: 0;
@@ -42,87 +33,22 @@ body, html {
 }
 
 .sidebar ul li {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .sidebar ul li a {
-    text-decoration: none;
     color: white;
     display: block;
-    padding: 10px 15px;
+    padding: 12px 15px;
     border-radius: 8px;
+    text-decoration: none;
     transition: all 0.3s ease;
 }
 
+/* Hover و Active */
 .sidebar ul li a:hover,
 .sidebar ul li a.active {
     background-color: #374151;
     color: #facc15;
     font-weight: bold;
-}
-
-/* Main Content */
-.main-content {
-    flex: 1;
-    padding: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    background-color: #f3f4f6;
-    min-height: 100%;
-    box-sizing: border-box;
-}
-
-/* Footer */
-footer {
-    background-color: #1f2937;
-    color: #f8f9fa;
-    padding: 25px 40px;
-    text-align: center;
-}
-
-/* Footer links */
-.footer-link {
-    color: #f8f9fa;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-link:hover {
-    color: #0d6efd;
-}
-
-.social-icon {
-    width: 35px;
-    height: 35px;
-    line-height: 35px;
-    border-radius: 50%;
-    text-align: center;
-    color: #fff;
-    display: inline-block;
-    margin: 0 8px;
-    transition: all 0.3s ease;
-}
-
-.social-icon:hover {
-    transform: translateY(-3px);
-    color: #fff;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .dashboard-wrapper {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        width: 100%;
-        height: auto;
-        box-shadow: none;
-        padding: 20px;
-    }
-
-    .main-content {
-        padding: 20px;
-    }
 }

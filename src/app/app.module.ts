@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
+import {
+  CommonModule,
+  HashLocationStrategy,
+  LocationStrategy,
+} from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -46,7 +50,7 @@ import { ordersComponent } from './components/seller/orders/orders.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { AprovedComponent } from './components/admin/pages/aproved/aproved.component';
 import { ToastrModule } from 'ngx-toastr';
-
+import { SellerDashboardComponent } from './components/seller-dashboard/seller-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +85,7 @@ import { ToastrModule } from 'ngx-toastr';
     ordersComponent,
     WishlistComponent,
     AprovedComponent,
+    SellerDashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -102,15 +107,14 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserAnimationsModule, // مهم جداً
     ToastrModule.forRoot({
       timeOut: 3000,
-      positionClass: 'toast-top-right',
+      positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    // { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-

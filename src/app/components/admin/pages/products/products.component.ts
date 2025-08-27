@@ -57,6 +57,11 @@ export class ProductsComponent implements OnInit {
       ...this.currentProduct,
       ...this.editForm.value,
     };
+      console.log(
+        'Sending update for product:',
+        this.currentProduct.slug,
+        updatedProduct
+      );
 
     this.adminService
       .updateProduct(this.currentProduct.slug, updatedProduct)

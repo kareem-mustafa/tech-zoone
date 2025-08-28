@@ -26,7 +26,9 @@ import { AdminDashboardComponent } from './components/Dashboards/admin-dashboard
 import { AprovedComponent } from './components/admin/pages/aproved/aproved.component';
 import { OtpGuard } from './guards/v-otp.guard';
 import { SellerDashboardGuard } from './guards/seller-dashboard.guard';
-
+import { ordersComponent } from './components/seller/orders/orders.component';
+import { AddProductsComponent } from './components/seller/add-products/add-products.component';
+import { ProductsComponent as SellerProductsComponent } from './components/seller/products-seller/products.component';
 const routes: Routes = [
   {
     path: '',
@@ -103,41 +105,44 @@ const routes: Routes = [
 
   {
     path: 'seller/dashboard',
-    loadChildren: () =>
-      import('./seller/seller.module').then((m) => m.SellerModule),
+    component: DashboardComponent,
+    children: [
+      {
+        path: 'products',
+        component: SellerProductsComponent,
+        canActivate: [SellerDashboardGuard],
+      },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        canActivate: [SellerDashboardGuard],
+      },
+      { path: 'add-product', component: AddProductsComponent },
+      {
+        path: 'orders',
+        component: ordersComponent,
+        canActivate: [SellerDashboardGuard],
+      },
+    ],
   },
-
   { path: 'about', component: AboutUsComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
 
   {
     path: 'admin/dashboard',
     component: AdminDashboardComponent,
-    canActivate: [AuthGuard, AdminGuard], 
-  },
-  {
-    path: 'admin/products',
-    component: ProductsComponent,
     canActivate: [AuthGuard, AdminGuard],
+    children: [
+      { path: '', redirectTo: 'products', pathMatch: 'full' }, // ده يظهر Products تلقائي
+      { path: 'products', component: ProductsComponent },
+      { path: 'users', component: UsersComponent },
+      { path: 'orders', component: OrdersComponent },
+      { path: 'approved', component: AprovedComponent },
+      { path: 'add-product', component: AddProductsComponent },
+    ],
   },
   {
-    path: 'admin/users',
-    component: UsersComponent,
-    canActivate: [AuthGuard, AdminGuard],
-  },
-  {
-    path: 'admin/orders',
-    component: OrdersComponent,
-    canActivate: [AuthGuard, AdminGuard],
-  },
-  {
-    path: 'admin/dashboard/approved',
-    component: AprovedComponent,
-    canActivate: [AuthGuard, AdminGuard],
-  },
-
-  {
-    path: '**',
+    path: '',
     redirectTo: 'login',
     pathMatch: 'full',
   },
@@ -147,5 +152,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
-
+export class AppRoutingModule {}

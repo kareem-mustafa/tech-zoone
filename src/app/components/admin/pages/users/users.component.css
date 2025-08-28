@@ -1,189 +1,133 @@
-/* Container */
+/* الحاوية الأساسية */
 .container {
-  max-width: 1000px;
-  margin: 0 auto;
+  max-width: 900px;
+  margin: 30px auto;
   padding: 20px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Heading */
-h2 {
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #1f2937;
+.container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+  letter-spacing: 0.5px;
 }
 
-/* User Card */
+/* الكارت لكل يوزر */
 .user-card {
-  display: flex;
-  flex-direction: column;
-  background-color: #f9fafb;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  padding: 15px 20px;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  margin-bottom: 18px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .user-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
-/* User info row */
+/* المعلومات */
 .user-info {
+  margin-bottom: 12px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  font-size: 14px;
 }
 
 .user-info .label {
+  width: 100px;
   font-weight: 600;
-  color: #1d4ed8;
-  min-width: 90px;
+  color: #334155;
 }
 
+.user-info span {
+  color: #111827;
+}
+
+/* تعديل الإنبت */
 .user-info input {
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid #d1d5db;
-  font-size: 14px;
   flex: 1;
-  max-width: 400px;
+  padding: 6px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s ease;
 }
 
-/* Actions row */
+.user-info input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+}
+
+/* الأزرار */
 .actions {
-  display: flex;
-  justify-content: flex-end;
   margin-top: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .actions button {
-  margin-left: 10px;
-  padding: 7px 14px;
-  font-weight: 500;
-  border-radius: 6px;
+  flex: 1;
   border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, background 0.3s ease;
 }
 
-/* Update button */
-button.update {
-  background-color: #3b82f6;
-  color: white;
+/* زر التحديث */
+/* زر التحديث (Save) */
+.actions .update {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  /* أزرق */
+  color: #fff;
 }
 
-button.update:hover {
-  background-color: #2563eb;
-  transform: translateY(-1px);
+.actions .update:hover {
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  transform: translateY(-2px);
 }
 
-/* Delete button */
-button.delete {
-  background-color: #ef4444;
-  color: white;
+/* الرسائل */
+.success {
+  background: #dbeafe;
+  /* أزرق فاتح */
+  color: #1e3a8a;
+  /* أزرق غامق */
+  border: 1px solid #93c5fd;
 }
 
-button.delete:hover {
-  background-color: #dc2626;
-  transform: translateY(-1px);
+
+/* زر الحذف */
+.actions .delete {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+  color: #fff;
 }
 
-/* Messages */
+.actions .delete:hover {
+  background: linear-gradient(135deg, #b91c1c, #dc2626);
+  transform: translateY(-2px);
+}
+
+/* الرسائل */
 .message {
-  margin-top: 8px;
-  font-size: 14px;
-  padding: 6px 10px;
+  margin-top: 12px;
+  padding: 10px;
   border-radius: 6px;
-}
-
-.message.success {
-  background-color: #d1fae5;
-  color: #065f46;
-}
-
-.message.error {
-  background-color: #fee2e2;
-  color: #b91c1c;
-}
-
-/* Delete message (optional same style as message) */
-.delete-message {
-  margin-top: 8px;
-  font-size: 14px;
-  padding: 6px 10px;
-  border-radius: 6px;
-}
-
-.delete-message.success {
-  background-color: #d1fae5;
-  color: #065f46;
-}
-
-.delete-message.error {
-  background-color: #fee2e2;
-  color: #b91c1c;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .user-card {
-    padding: 12px 15px;
-  }
-
-  .user-info {
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 8px;
-  }
-
-  .user-info input {
-    width: 100%;
-    margin-top: 4px;
-  }
-
-  .actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .actions button {
-    width: 100%;
-    margin-left: 0;
-    margin-top: 6px;
-  }
-}
-/* رسالة حذف المستخدم */
-.delete-message {
-  margin-top: 8px;
-  font-size: 14px;
-  padding: 6px 10px;
-  border-radius: 6px;
+  font-size: 13px;
   font-weight: 500;
   text-align: center;
-  transition: opacity 0.3s ease;
 }
 
-/* حالة نجاح الحذف */
-.delete-message.success {
-  background-color: #d1fae5;
-  color: #065f46;
-  opacity: 1;
-}
-
-/* حالة فشل الحذف */
-.delete-message.error {
-  background-color: #fee2e2;
-  color: #b91c1c;
-  opacity: 1;
-}
-
-/* تأثير اختفاء الرسالة تدريجيًا */
-.delete-message.fade-out {
-  opacity: 0;
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
 }

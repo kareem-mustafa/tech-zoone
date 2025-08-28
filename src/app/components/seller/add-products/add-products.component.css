@@ -1,40 +1,45 @@
-/* ================== Container ================== */
+/* =============== Wrapper (نفس .max-w-lg عندك) =============== */
 .max-w-lg {
-    background: linear-gradient(145deg, #ffffff, #f9fafc);
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
     border-radius: 20px;
     padding: 40px 35px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
     width: 700px;
     max-width: 95%;
     margin: 60px auto;
-    transition: all 0.3s ease;
+    border: 1px solid #eef2f7;
+    box-shadow:
+        0 20px 40px rgba(15, 23, 42, 0.08),
+        0 2px 8px rgba(15, 23, 42, 0.04);
+    transition: transform .25s ease, box-shadow .25s ease;
 }
 
 .max-w-lg:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+    transform: translateY(-3px);
+    box-shadow:
+        0 28px 56px rgba(15, 23, 42, 0.10),
+        0 3px 10px rgba(15, 23, 42, 0.06);
 }
 
-/* ================== Heading ================== */
+/* =============== Heading =============== */
 .max-w-lg h2 {
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 800;
-    margin-bottom: 30px;
-    color: #1e293b;
+    margin-bottom: 28px;
+    color: #0f172a;
     text-align: center;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.02em;
 }
 
-/* ================== Labels ================== */
+/* =============== Labels =============== */
 .max-w-lg label {
-    font-weight: 600;
-    color: #334155;
-    margin-bottom: 8px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 10px;
     display: block;
-    font-size: 15px;
+    font-size: 14px;
 }
 
-/* ================== Inputs & Textarea ================== */
+/* =============== Inputs / Textarea / Select =============== */
 .max-w-lg input,
 .max-w-lg textarea,
 .max-w-lg select {
@@ -43,91 +48,172 @@
     border-radius: 12px;
     border: 1px solid #d1d5db;
     font-size: 15px;
-    color: #1e293b;
+    color: #0f172a;
     background: #fff;
-    transition: all 0.25s ease;
+    transition: border-color .2s ease, box-shadow .2s ease, transform .06s ease;
+    outline: none;
+}
+
+.max-w-lg input:hover,
+.max-w-lg textarea:hover,
+.max-w-lg select:hover {
+    border-color: #c5cfe0;
 }
 
 .max-w-lg input:focus,
 .max-w-lg textarea:focus,
 .max-w-lg select:focus {
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
-    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18);
 }
 
-/* ================== Textarea ================== */
+/* =============== Placeholder =============== */
+.max-w-lg input::placeholder,
+.max-w-lg textarea::placeholder {
+    color: #94a3b8;
+}
+
+/* =============== Textarea =============== */
 .max-w-lg textarea {
-    min-height: 120px;
-    resize: none;
+    min-height: 130px;
+    resize: vertical;
 }
 
-/* ================== File Input ================== */
+/* =============== File Input =============== */
 .max-w-lg input[type="file"] {
     cursor: pointer;
     border: 2px dashed #cbd5e1;
-    padding: 25px;
+    padding: 26px;
     text-align: center;
     border-radius: 14px;
-    background: #f9fafb;
-    font-size: 14px;
+    background: #f8fafc;
     color: #64748b;
-    transition: all 0.3s ease;
+    transition: border-color .25s ease, background .25s ease, color .25s ease;
 }
 
 .max-w-lg input[type="file"]:hover {
     border-color: #6366f1;
-    background: #f1f5ff;
+    background: #eef2ff;
     color: #4f46e5;
 }
 
-/* ================== Button ================== */
+.max-w-lg input[type="file"]::file-selector-button {
+    margin-right: 12px;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #4f46e5, #3b82f6);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .08s ease, filter .2s ease;
+}
+
+.max-w-lg input[type="file"]::file-selector-button:hover {
+    filter: brightness(1.05);
+}
+
+.max-w-lg input[type="file"]::file-selector-button:active {
+    transform: translateY(1px);
+}
+
+/* =============== Submit Button =============== */
 .max-w-lg button[type="submit"] {
     background: linear-gradient(90deg, #4f46e5, #3b82f6);
     color: white;
     padding: 14px 28px;
     border-radius: 12px;
-    font-weight: 700;
+    font-weight: 800;
     font-size: 16px;
     border: none;
     cursor: pointer;
-    margin-top: 20px;
-    transition: all 0.3s ease;
+    margin-top: 8px;
     width: 100%;
-    box-shadow: 0 6px 15px rgba(59, 130, 246, 0.25);
+    box-shadow: 0 10px 22px rgba(59, 130, 246, 0.28);
+    transition: transform .12s ease, box-shadow .2s ease, filter .2s ease;
 }
 
 .max-w-lg button[type="submit"]:hover {
-    background: linear-gradient(90deg, #4338ca, #2563eb);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(59, 130, 246, 0.35);
+    filter: saturate(1.02);
+}
+
+.max-w-lg button[type="submit"]:active {
+    transform: translateY(0);
 }
 
 .max-w-lg button[disabled] {
-    background: #cbd5e1;
-    cursor: not-allowed;
+    background: #cbd5e1 !important;
     box-shadow: none;
+    cursor: not-allowed;
 }
 
-/* ================== Grid for Inputs (Price & Stock) ================== */
-.form-row {
-    display: flex;
-    gap: 20px;
+/* =============== Two-Column (Price & Stock) =============== */
+/* HTML عندك فيه grid بالفعل، هنضيف تحسينات عامة */
+.max-w-lg .grid {
+    gap: 22px !important;
 }
 
-.form-row>div {
-    flex: 1;
+.max-w-lg .grid>div {
+    will-change: transform;
 }
 
-/* ================== Responsive ================== */
+/* =============== Validation (Angular) =============== */
+.max-w-lg input.ng-invalid.ng-touched,
+.max-w-lg textarea.ng-invalid.ng-touched,
+.max-w-lg select.ng-invalid.ng-touched {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.14);
+}
+
+/* =============== Subtle Raise on Focus Within =============== */
+.max-w-lg .grid>div:focus-within,
+.max-w-lg>div:has(> input:focus),
+.max-w-lg>div:has(> textarea:focus),
+.max-w-lg>div:has(> select:focus) {
+    /* :has مدعوم في أحدث المتصفحات، لو مش مدعوم هيتجاهلها */
+    transform: translateY(-1px);
+    transition: transform .12s ease;
+}
+
+/* =============== Nice Select Arrow =============== */
+.max-w-lg select {
+    appearance: none;
+    background-image:
+        linear-gradient(45deg, transparent 50%, #64748b 50%),
+        linear-gradient(135deg, #64748b 50%, transparent 50%),
+        linear-gradient(to right, #d1d5db, #d1d5db);
+    background-position:
+        calc(100% - 22px) calc(50% - 4px),
+        calc(100% - 16px) calc(50% - 4px),
+        calc(100% - 40px) 50%;
+    background-size: 6px 6px, 6px 6px, 1px 22px;
+    background-repeat: no-repeat;
+    padding-right: 48px;
+}
+
+/* =============== Micro-Interactions =============== */
+.max-w-lg input,
+.max-w-lg textarea,
+.max-w-lg select {
+    transform: translateZ(0);
+}
+
+.max-w-lg input:active,
+.max-w-lg textarea:active,
+.max-w-lg select:active {
+    transform: scale(0.998);
+}
+
+/* =============== Responsive =============== */
 @media (max-width: 768px) {
     .max-w-lg {
-        width: 95%;
-        padding: 25px 20px;
+        padding: 26px 20px;
+        margin: 32px auto;
     }
 
-    .form-row {
-        flex-direction: column;
-        gap: 15px;
+    .max-w-lg h2 {
+        font-size: 24px;
     }
 }

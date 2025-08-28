@@ -16,7 +16,7 @@
 
                     <!-- السعر + القلب -->
                     <div class="product-meta">
-                        <p class="product-price">{{ product.price }} $</p>
+                        <p class="product-price">{{ product.price*50 }} EGP</p>
                         <button class="wishlist-btn" (click)="toggleWishlist(product); $event.stopPropagation()">
                             <i [ngClass]="isInWishlist(product._id) ? 'fas fa-heart' : 'far fa-heart'"></i>
                         </button>

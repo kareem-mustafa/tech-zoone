@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService, User } from 'src/app/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +20,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -67,7 +70,7 @@ export class ProfileComponent implements OnInit {
     this.userService.updatePassword(payload).subscribe({
       next: () => {
         this.loading = false;
-        alert('Password updated successfully');
+        this.toastr.success('Password updated successfully', 'Success');
         this.profileForm.reset();
       },
       error: (err) => {
@@ -77,3 +80,4 @@ export class ProfileComponent implements OnInit {
     });
   }
 }
+

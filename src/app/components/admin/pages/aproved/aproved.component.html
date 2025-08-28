@@ -17,14 +17,13 @@
             <td>{{ seller.email }}</td>
             <td>{{ seller.storename }}</td>
             <td>{{ seller.BankAccount }}</td>
+            <td>
+                <img [src]="seller.bankAccountImage" alt="Bank Account Image" class="bank-account-image" />
+            </td>
             <td>{{ seller.age }}</td>
             <td>{{ seller.gender }}</td>
             <td>
-                <img [src]="seller.bankAccountImage" alt="Bank Account Image" class="bank-account-image"
-                    style="width: 50px; height: auto;" />
-            </td>
-            <td>
-                <button class="btn btn-success btn-sm" (click)="approveSeller(seller._id)"
+                <button class="btn btn-primary btn-sm" (click)="approveSeller(seller._id)"
                     [disabled]="seller.isApproved">
                     Approve
                 </button>

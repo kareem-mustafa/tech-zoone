@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService, cartitems } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -9,7 +11,11 @@ import { Router } from '@angular/router';
 export class CartComponent implements OnInit {
   cartItems: cartitems[] = [];
 
-  constructor(private cartService: CartService, private router: Router) {}
+  constructor(
+    private cartService: CartService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.loadCart();
@@ -64,7 +70,7 @@ export class CartComponent implements OnInit {
 
   goToOrders() {
     if (this.cartItems.length === 0) {
-      alert('السلة فارغة!');
+      this.toastr.error('Your cart is empty');
       return;
     }
 

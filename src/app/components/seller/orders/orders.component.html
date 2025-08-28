@@ -26,7 +26,7 @@
                         <li *ngFor="let item of order.items">{{ item.quantity }}</li>
                     </ul>
                 </td>
-                <td>{{ order.totalOrderPrice | number:'1.2-2' }}</td>
+                <td>{{ order.totalOrderPrice*50 | number:'1.2-2' }}</td>
                 <td>{{ order.user.username }}</td>
                 <td>
                     <span class="badge" [ngClass]="{

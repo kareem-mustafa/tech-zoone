@@ -45,12 +45,13 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { AddProductsComponent } from './components/seller/add-products/add-products.component';
 import { DashboardComponent } from './components/seller/dashboard/dashboard.component';
-import { ProductsComponent as SellerProductsComponent } from './components/seller/products/products.component';
+import { ProductsComponent as SellerProductsComponent } from './components/seller/products-seller/products.component';
 import { ordersComponent } from './components/seller/orders/orders.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { AprovedComponent } from './components/admin/pages/aproved/aproved.component';
 import { ToastrModule } from 'ngx-toastr';
 import { SellerDashboardComponent } from './components/seller-dashboard/seller-dashboard.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { SellerDashboardComponent } from './components/seller-dashboard/seller-d
     WishlistComponent,
     AprovedComponent,
     SellerDashboardComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,

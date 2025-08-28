@@ -1,59 +1,124 @@
-.mat-icon {
-  vertical-align: middle;
-  margin-right: 1rem;
+/* ===== Layout ===== */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background: #f1f5f9;
+  /* لون خلفية عام */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.logo {
-  text-align: center;
-  padding: 2.6rem 1rem;
+/* ===== Sidebar ===== */
+.sidebar {
+  width: 220px;
+  background: #f8f9fa;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }
 
-.logo img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain; 
+.sidebar h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #2563eb;
 }
 
-.mat-divider {
-  border-top-width: 2px;
-  border-color: white;
+/* ===== List Style ===== */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.mat-list-item {
-  color: #94a3b8 !important;
-  font-size: 0.8rem;
-  height: 44px !important;
-  margin-bottom: 4px;
+.sidebar ul li {
+  margin-bottom: 12px;
 }
 
-.mat-list-item:hover {
-  color: #f2f5f7 !important;
+.sidebar ul li a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* مسافة بين الإيموجي والنص */
+  padding: 10px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #333;
+  font-size: 15px;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
 }
 
-.mat-list-item .mat-list-item-content {
-  border-radius: 5px;
-  margin: 0 8px;
+.sidebar ul li a:hover {
+  background: #e9ecef;
+  color: #2563eb;
+  transform: translateX(3px);
 }
 
-.mat-list-item .mat-list-item-content:hover {
-  background: #2c3344 !important;
+.sidebar ul li a.active {
+  background: #2563eb;
+  color: #fff;
 }
 
-.list-item-active {
-  color: #f2f5f7 !important;
+/* ===== Content ===== */
+.content {
+  flex: 1;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  /* يوسّط المحتوى أفقيًا */
+  align-items: flex-start;
+  min-height: 100vh;
 }
 
-.list-item-active .mat-list-item-content {
-  background: #2c3344 !important;
+/* ===== Card داخل المحتوى ===== */
+.content>* {
+  width: 100%;
+  max-width: 1000px;
+  /* أقصى عرض للكارت */
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
+  /* لو الجدول واسع */
 }
 
-.list-item-active .mat-list-item-content:hover {
-  background: #2c3344 !important;
+/* ===== جدول الطلبات ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
 }
 
-.mat-subheader {
-  color: #818cf8;
-  font-size: 0.6rem;
-  font-weight: 100;
-  letter-spacing: 1px;
+thead {
+  background: #2563eb;
+  color: #fff;
+}
+
+th, td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:hover {
+  background: #f1f5f9;
+}
+
+button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+button.delete {
+  background: #dc2626;
+  color: #fff;
 }

@@ -84,6 +84,8 @@ export class HeaderComponent implements OnInit {
   closeDropdown(event: Event) {
     this.dropdownOpen = false;
   }
+
+  
 }
 
 

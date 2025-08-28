@@ -1,17 +1,22 @@
-<aside class="sidebar">
-    <h2>Seller Dashboard</h2>
-    <ul>
-        <li>
-            <a routerLink="/seller/dashboard/products" routerLinkActive="active">📦 Products</a>
-        </li>
-        <li>
-            <a routerLink="/seller/dashboard/orders" routerLinkActive="active">🛒 Orders</a>
-        </li>
-        <li>
-            <a routerLink="/profile" routerLinkActive="active">👤 Profile</a>
-        </li>
-        <li>
-            <a routerLink="/seller/dashboard/add-product" routerLinkActive="active">➕ Add Product</a>
-        </li>
-    </ul>
-</aside>
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <h2>Seller Dashboard</h2>
+        <ul>
+            <li>
+                <a routerLink="/seller/dashboard/products" routerLinkActive="active">📦 Products</a>
+            </li>
+            <li>
+                <a routerLink="/seller/dashboard/add-product" routerLinkActive="active">➕ Add Product</a>
+            </li>
+            <li>
+                <a routerLink="/seller/dashboard/orders" routerLinkActive="active">🛒 Orders</a>
+            </li>
+            <li>
+                <a routerLink="/profile" routerLinkActive="active">👤 Profile</a>
+            </li>
+        </ul>
+    </aside>
+    <main class="content">
+        <router-outlet></router-outlet>
+    </main>
+</div>

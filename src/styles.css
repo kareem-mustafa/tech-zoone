@@ -1,4 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* الحاوية الأساسية للرسائل */
+.toast-container {
+    position: fixed !important;
+    /* علشان تفضل ظاهرة حتى مع السكرول */
+    z-index: 999999 !important;
+    /* علشان تبقى فوق أي عناصر تانية */
+    pointer-events: none;
+    /* علشان ما تمنعش الضغط على العناصر اللي تحتها */
+}
+
+/* الرسالة نفسها تسمح بالـ click */
+.toast-container .ngx-toastr {
+    pointer-events: auto;
+}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
+import { CartService } from './services/cart.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   showLayout = true;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private cartService: CartService) {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
@@ -25,5 +26,8 @@ export class AppComponent {
           event.url.startsWith(path)
         );
       });
+  }
+  ngOnInit(): void {
+    this.cartService.getCartItems().subscribe();
   }
 }

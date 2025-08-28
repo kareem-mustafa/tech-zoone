@@ -99,15 +99,18 @@
                     <p class="card-text text-truncate">{{ product.description }}</p>
                     <div class="mt-auto">
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <p class="mb-0"><strong>Price:</strong> {{ product.price*50 }} EGP</p>
+                            <p class="mb-1"><strong>Price:</strong> {{ product.price}} $</p>
+                        <div class="d-flex justify-content-between align-items-center">
                             <button class="wishlist-btn" (click)="toggleWishlist(product); $event.stopPropagation()">
                                 <i [ngClass]="isInWishlist(product._id) ? 'fas fa-heart' : 'far fa-heart'"></i>
                             </button>
                         </div>
+
+                        </div>
                         <button class="btn btn-primary w-100 btn-sm mb-2"
-                            (click)="addToCart(product); $event.stopPropagation()">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
+                        (click)="addToCart(product); $event.stopPropagation()">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
                     </div>
                 </div>
             </div>

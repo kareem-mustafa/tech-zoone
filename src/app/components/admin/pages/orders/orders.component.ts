@@ -20,6 +20,8 @@ export class OrdersComponent {
     this.loading = true;
     this.orderService.getAllOrders().subscribe({
       next: (res) => {
+        console.log('📦 Orders response:', res); // 👈 شوف البيانات هنا
+
         this.orders = res;
         this.loading = false;
       },

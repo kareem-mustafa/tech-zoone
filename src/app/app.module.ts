@@ -52,6 +52,7 @@ import { AprovedComponent } from './components/admin/pages/aproved/aproved.compo
 import { ToastrModule } from 'ngx-toastr';
 import { SellerDashboardComponent } from './components/seller-dashboard/seller-dashboard.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { RatingComponent } from './components/rating/rating.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     AprovedComponent,
     SellerDashboardComponent,
     LoadingComponent,
+    RatingComponent,
   ],
   imports: [
     BrowserModule,
@@ -109,7 +111,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     BrowserAnimationsModule, // مهم جداً
     ToastrModule.forRoot({
       timeOut: 3000,
-      positionClass: 'toast-bottom-right',
+      positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
   ],

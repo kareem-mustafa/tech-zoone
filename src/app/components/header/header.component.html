@@ -1,6 +1,5 @@
 <nav class="header-container">
     <div class="header-row">
-
         <!-- الشعار -->
         <div class="logo" routerLink="/">Tech Zone</div>
 
@@ -20,16 +19,22 @@
                 <a href="javascript:void(0)">Category ▼</a>
                 <ul class="dropdown">
                     <li *ngFor="let cat of categories">
-                        <a (click)="viewCategory(cat); closeMobileMenu()">{{ cat | titlecase }}</a>
+                        <a (click)="viewCategory(cat); closeMobileMenu()">{{
+                            cat | titlecase
+                            }}</a>
                     </li>
                 </ul>
             </li>
 
-            <li *ngIf="role === 'admin'"><a routerLink="/admin/dashboard" (click)="closeMobileMenu()">Admin
-                    Dashboard</a></li>
-            <li *ngIf="role === 'seller' && isApproved"><a routerLink="/seller/dashboard"
-                    (click)="closeMobileMenu()">Seller Dashboard</a></li>
-            <li *ngIf="role === 'user'"><a routerLink="/profile" (click)="closeMobileMenu()">My Profile</a></li>
+            <li *ngIf="role === 'admin'">
+                <a routerLink="/admin/dashboard" (click)="closeMobileMenu()">Admin Dashboard</a>
+            </li>
+            <li *ngIf="role === 'seller' && isApproved">
+                <a routerLink="/seller/dashboard" (click)="closeMobileMenu()">Seller Dashboard</a>
+            </li>
+            <li *ngIf="role === 'user'">
+                <a routerLink="/profile" (click)="closeMobileMenu()">My Profile</a>
+            </li>
         </ul>
 
         <!-- الأيقونات -->
@@ -37,18 +42,23 @@
             <a routerLink="/order" title="My Orders" class="position-relative">
                 <i class="fas fa-box"></i>
             </a>
-            
+
             <a [routerLink]="['/wishlist', userId]" title="Wishlist" aria-label="Wishlist" class="position-relative">
                 <i class="far fa-heart"></i>
+                <span class="cart-count" *ngIf="wishlistCount() > 0">{{
+                    wishlistCount()
+                    }}</span>
             </a>
 
             <a [routerLink]="['/cart', userId]" title="Cart" aria-label="Cart" class="position-relative">
                 <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" *ngIf="cartCount() > 0">{{
+                    cartCount()
+                    }}</span>
             </a>
 
             <a *ngIf="!role" routerLink="/login" class="login-btn">Login</a>
             <a *ngIf="role" (click)="logout()" class="logout-btn">Logout</a>
         </div>
-
     </div>
 </nav>

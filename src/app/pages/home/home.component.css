@@ -63,6 +63,16 @@ body {
     color: #0d6efd;
 }
 
+.rating{
+    display: flex;
+    align-items: center;
+}
+
+.rating i {
+    color: #ffcc00;
+    margin-right: 2px;
+}
+
 /* ========== PRODUCT SLIDER ========== */
 .product-slider {
     display: flex;
@@ -178,6 +188,8 @@ body {
     color: #b02a37;
     transform: scale(1.15);
 }
+
+
 
 /* ========== CATEGORY TITLE ========== */
 h3 {

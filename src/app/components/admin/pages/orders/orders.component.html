@@ -25,7 +25,7 @@
           <li *ngFor="let item of order.items">{{ item.product.title }} x {{ item.quantity }}</li>
         </ul>
       </td>
-      <td>{{ order.totalOrderPrice*50 | currency:'EGP' }}</td>
+      <td>{{ order.totalOrderPrice | currency:'EGP' }}</td>
       <td>{{ order.paymentStatus }}</td>
       <td>{{ order.createdAt | date:'short' }}</td>
       <td>

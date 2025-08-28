@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { OrderService } from '../../services/order.service';
 import { Router } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-addorder',
@@ -16,27 +17,30 @@ export class AddorderComponent {
     paymentMethodType: 'cash',
   };
 
-  constructor(private orderService: OrderService, private router: Router) {}
+  constructor(
+    private orderService: OrderService,
+    private router: Router,
+    private cartService: CartService
+  ) {}
 
   orderCreated: boolean = false; // default false
 
- onSubmit() {
-  this.orderService.addOrder(this.orderData).subscribe({
-    next: (res: any) => {
-      this.serverMessage = 'Order added successfully!';
-      console.log('Order Response:', res);
-      this.orderCreated = true; // ✅ الأوردر اتعمل
-
-      // 🟢 حفظ الأوردر بالكامل في localStorage
-      localStorage.setItem('order', JSON.stringify(res));
-    },
-    error: (err: any) => {
-      this.serverMessage = err.error?.message || 'Failed to add order!';
-      this.orderCreated = false;
-    },
-  });
-}
-
+  onSubmit() {
+    this.orderService.addOrder(this.orderData).subscribe({
+      next: (res: any) => {
+        this.serverMessage = 'Order added successfully!';
+        console.log('Order Response:', res);
+        this.orderCreated = true; // ✅ الأوردر اتعمل
+        this.cartService.cartItems.set([]);
+        // 🟢 حفظ الأوردر بالكامل في localStorage
+        localStorage.setItem('order', JSON.stringify(res));
+      },
+      error: (err: any) => {
+        this.serverMessage = err.error?.message || 'Failed to add order!';
+        this.orderCreated = false;
+      },
+    });
+  }
 
   serverMessage: string = '';
 

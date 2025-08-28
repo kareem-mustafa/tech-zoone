@@ -16,6 +16,7 @@ export class ProductDetailsComponent implements OnInit {
   loading = true;
   errorMessage = '';
   wishlist: Product[] = [];
+  rating: number = 0;
 
   constructor(
     private route: ActivatedRoute,

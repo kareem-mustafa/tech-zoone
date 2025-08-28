@@ -1,0 +1,5 @@
+<div class="rating">
+    <span *ngFor="let star of stars; let i = index" class="material-icons" [class.active]="i < value"
+        (click)="setRating(i + 1, $event)"> <!-- نمرر $event -->
+        {{ i < value ? 'star' : 'star_border' }} </span>
+</div>

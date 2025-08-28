@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   filteredProducts: Product[] = [];
   categoryProducts: { [key: string]: Product[] } = {};
   categories: string[] = [];
+  rating: number = 0;
 
   wishlist: Product[] = [];
   cart: Product[] = [];

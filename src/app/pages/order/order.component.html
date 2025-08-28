@@ -9,7 +9,7 @@
       <p><strong>Payment Method:</strong> {{ order.paymentMethodType }}</p>
       <p><strong>Payment Status:</strong> {{ order.paymentStatus }}</p>
       <p><strong>Delivered:</strong> {{ order.isDelivered ? 'Yes' : 'No' }}</p>
-      <p><strong>Total Price:</strong> {{ order.totalOrderPrice*50 | currency }} </p>
+      <p><strong>Total Price:</strong> {{ order.totalOrderPrice | currency }} </p>
 
       <h4>Items</h4>
       <table class="table table-bordered table-hover">
@@ -24,7 +24,7 @@
           <tr *ngFor="let item of order.items">
             <td>{{ item.product.title }}</td>
             <td>{{ item.quantity }}</td>
-            <td>{{ item.price*50 | currency }}</td>
+            <td>{{ item.price | currency }}</td>
           </tr>
         </tbody>
       </table>

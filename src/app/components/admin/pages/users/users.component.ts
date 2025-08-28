@@ -42,7 +42,7 @@ deleteUser(id: string): void {
         setTimeout(() => {
           // حذف العنصر بعد 3 ثواني
           this.users = this.users.filter(u => u._id !== id);
-        }, 3000);
+        }, 1000);
       }
     },
     error: (err) => {
@@ -54,7 +54,7 @@ deleteUser(id: string): void {
         setTimeout(() => {
           user.deleteMessage = '';
           user.deleteMessageType = '';
-        }, 3000);
+        }, 1000);
       }
     }
   });
@@ -86,7 +86,7 @@ deleteUser(id: string): void {
             return u;
           });
           this.users = clearedUsers;
-        }, 3000);
+        }, 1000);
       },
       error: (err) => {
         console.error('Error updating user', err);
@@ -107,7 +107,7 @@ deleteUser(id: string): void {
             return u;
           });
           this.users = clearedUsers;
-        }, 3000);
+        }, 1000);
       }
     });
   }

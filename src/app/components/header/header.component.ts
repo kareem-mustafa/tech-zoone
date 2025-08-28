@@ -1,9 +1,14 @@
-import { Component, computed, OnInit } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  OnInit,
+  HostListener,
+} from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
-import { HostListener } from '@angular/core';
-
+import { WishlistService } from 'src/app/services/wishlist.service';
 
 @Component({
   selector: 'app-header',
@@ -11,14 +16,18 @@ import { HostListener } from '@angular/core';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  wishlistCount: number = 0;
+  // Signal للسلة
   cartCount = computed(() => this.cartService.cartItems().length);
+
+  // Signal للـ wishlist عبر الـ service
+  wishlistCount = computed(() => this.wishlistService.wishlistItems().length);
+
   role: string | null = null;
   userId: string = '';
   isApproved: boolean = false;
 
   categories = [
-    'phone ',
+    'phone',
     'Tablet',
     'Laptop',
     'Headphone',
@@ -28,14 +37,28 @@ export class HeaderComponent implements OnInit {
     'computer',
   ];
 
+  mobileMenuOpen = false;
+  dropdownOpen = false;
+
   constructor(
     private authService: AuthService,
     private router: Router,
-    public cartService: CartService
-  ) {}
+    public cartService: CartService,
+    public wishlistService: WishlistService
+  ) {
+    // Effect للسلة
+    effect(() => {
+      console.log('Cart count changed:', this.cartCount());
+    });
+
+    // Effect للـ wishlist
+    effect(() => {
+      console.log('Wishlist count changed:', this.wishlistCount());
+    });
+  }
 
   ngOnInit() {
-    // جلب بيانات المستخدم من localStorage
+    // جلب بيانات المستخدم
     const user = localStorage.getItem('user');
     if (user) {
       const parsedUser = JSON.parse(user);
@@ -44,28 +67,41 @@ export class HeaderComponent implements OnInit {
       this.isApproved = parsedUser.isApproved;
     }
 
-    // استرجاع الـ wishlist count من localStorage
-    const savedWishlist = localStorage.getItem('wishlistCount');
-    this.wishlistCount = savedWishlist ? +savedWishlist : 0;
+    // تحميل wishlist من الـ service
+    this.wishlistService.loadWishlistFromStorage();
 
-    // تحميل السلة من localStorage
+    // تحميل السلة
     this.cartService.loadCartFromStorage();
   }
 
+  // ======== Wishlist Methods ========
+  // ======== Wishlist Methods ========
+  addToWishlist(productId: string, quantity: number = 1) {
+    // الاشتراك فورًا لتحديث الـ signal
+    this.wishlistService.addToWishlist(productId, quantity).subscribe();
+  }
+
+  removeFromWishlist(productId: string) {
+    this.wishlistService.removeFromWishlist(productId).subscribe();
+  }
+
+  clearWishlist() {
+    this.wishlistService.clearWishlist().subscribe();
+  }
+
+  // ======== Logout ========
   logout() {
-    this.authService.logout(); // دي بتمسح token + user + cartItems
-    this.role = null;
-    this.userId = '';
-    this.wishlistCount = 0;
+    localStorage.clear();
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 
+  // ======== Category Navigation ========
   viewCategory(cat: string) {
     this.router.navigate(['/category', cat]);
   }
-  mobileMenuOpen = false;
-  dropdownOpen = false;
 
+  // ======== Mobile Menu ========
   toggleMobileMenu() {
     this.mobileMenuOpen = !this.mobileMenuOpen;
   }
@@ -75,6 +111,7 @@ export class HeaderComponent implements OnInit {
     this.dropdownOpen = false;
   }
 
+  // ======== Dropdown ========
   toggleDropdown(event: Event) {
     event.stopPropagation();
     this.dropdownOpen = !this.dropdownOpen;
@@ -84,8 +121,7 @@ export class HeaderComponent implements OnInit {
   closeDropdown(event: Event) {
     this.dropdownOpen = false;
   }
-
-  
+  loginSuccess() {
+    this.wishlistService.loadWishlistFromStorage();
+  }
 }
-
-

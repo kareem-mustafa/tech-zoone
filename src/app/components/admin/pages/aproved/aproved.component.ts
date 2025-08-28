@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-aproved',
@@ -9,7 +11,10 @@ import { AdminService } from 'src/app/services/admin.service';
 export class AprovedComponent {
   sellers: any[] = [];
 
-  constructor(private adminService: AdminService) {}
+  constructor(
+    private adminService: AdminService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.adminService.getUsers().subscribe((res: any) => {
@@ -24,7 +29,8 @@ export class AprovedComponent {
 
   approveSeller(id: string) {
     this.adminService.approveSeller(id).subscribe(() => {
-      alert('Seller approved ');
+      this.toastr.success('Seller approved successfully', 'Success');
+
       this.loadSellers();
     });
   }

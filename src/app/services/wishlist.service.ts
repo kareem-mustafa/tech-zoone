@@ -62,7 +62,7 @@ export class WishlistService {
   return this.http.get<wishlistItems[]>(
     `${this.baseUrl}/${this.userId}`,
     { headers: this.headers }
-  );
+  ).pipe(tap(res => this.wishlistItems.set(res)))
 }
 
   removeFromWishlist(product: string): Observable<any> {

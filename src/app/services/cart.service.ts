@@ -64,7 +64,9 @@ export class CartService {
     return this.http.get<{ items: cartitems[] }>(
       `${this.baseUrl}/${this.userId}`,
       { headers: this.headers }
-    );
+    ).pipe(tap(res => {
+      this.cartItems.set(res.items);
+    }));
   }
 
   removeFromCart(productId: string): Observable<any> {

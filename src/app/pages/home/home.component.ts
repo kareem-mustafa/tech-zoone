@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService, Product } from '../../services/product.service';
 import { CartService } from 'src/app/services/cart.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService, User } from 'src/app/services/auth.service';
 import { WishlistService } from '../../services/wishlist.service';
 import { ToastrService } from 'ngx-toastr';
 import { ViewChild, ElementRef } from '@angular/core';
@@ -36,7 +36,8 @@ export class HomeComponent implements OnInit {
     private cartService: CartService,
     private wishlistService: WishlistService,
     private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private route: ActivatedRoute 
   ) {}
 
   ngOnInit(): void {
@@ -50,6 +51,22 @@ export class HomeComponent implements OnInit {
 
     this.loadProducts();
     this.loadWishlist();
+    this.route.queryParams.subscribe(params => {
+    const token = params['token'];
+    const userStr = params['user'];
+
+    if (token && userStr) {
+      try {
+        const user: User = JSON.parse(decodeURIComponent(userStr));
+        this.authService.setSession(token, user);
+
+        // إزالة queryParams من URL بعد الحفظ
+        this.router.navigate([], { replaceUrl: true, queryParams: {} });
+      } catch (err) {
+        console.error('Error parsing user from Google OAuth:', err);
+      }
+    }
+  });
   }
 
   loadWishlist() {

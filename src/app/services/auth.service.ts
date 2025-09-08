@@ -70,18 +70,19 @@ export class AuthService {
 
   googleAuth(): void {
     window.open(`${environment.apiUrl}/auth/auth/google`, '_self');
-    const messageListener = (event: MessageEvent) => {
-      if (event.origin !== this.baseUrl) return; // تأكد من مصدر الرسالة
-      if (event.data?.token && event.data?.user) {
-        this.setSession(event.data.token, event.data.user);
-        this.cartService.loadCartFromStorage(); // حدث السلة فورًا
-        window.removeEventListener('message', messageListener);
-      }
-    };
+   const messageListener = (event: MessageEvent) => {
+  const allowedOrigin = environment.apiUrl; 
+  if (event.origin !== allowedOrigin) return;
 
-    window.addEventListener('message', messageListener);
+  if (event.data?.token && event.data?.user) {
+    this.setSession(event.data.token, event.data.user);
+    this.cartService.loadCartFromStorage(); // حدث السلة فورًا
+    window.removeEventListener('message', messageListener);
   }
+};
 
+window.addEventListener('message', messageListener);
+}
   private setSession(token: string, user: User) {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));

@@ -51,14 +51,20 @@ export class HomeComponent implements OnInit {
 
     this.loadProducts();
     this.loadWishlist();
- const params = new URLSearchParams(window.location.search);
+   const params = new URLSearchParams(window.location.search);
   const token = params.get('token');
   const userStr = params.get('user');
 
   if (token && userStr) {
     try {
       const user = JSON.parse(decodeURIComponent(userStr));
-      this.authService.setSession(token, user);
+
+      // حفظ الـ token و user في localStorage
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+
+      // حدث حالة تسجيل الدخول
+      this.authService.setLoggedInStatus(true);
 
       // إزالة queryParams من URL بعد الحفظ
       window.history.replaceState({}, document.title, '/home');
@@ -66,7 +72,7 @@ export class HomeComponent implements OnInit {
       console.error('Error parsing Google user:', err);
     }
   }
-  }
+}
   loadWishlist() {
     this.wishlistService.getWishlistItems().subscribe({
       next: (res: any[]) => {

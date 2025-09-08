@@ -67,7 +67,7 @@ export class AuthService {
   }
 
   googleAuth(): void {
-    window.open('http://localhost:5000/auth/google', '_self');
+    window.open('http://localhost:5000/auth/auth/google', '_self');
     const messageListener = (event: MessageEvent) => {
       if (event.origin !== 'http://localhost:5000') return; // تأكد من مصدر الرسالة
       if (event.data?.token && event.data?.user) {

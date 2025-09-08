@@ -83,7 +83,7 @@ export class AuthService {
 
 window.addEventListener('message', messageListener);
 }
-  public setSession(token: string, user: User) {
+  private setSession(token: string, user: User) {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
     this.setLoggedInStatus(true);

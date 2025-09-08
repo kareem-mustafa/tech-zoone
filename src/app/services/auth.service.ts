@@ -69,7 +69,7 @@ export class AuthService {
   }
 
   googleAuth(): void {
-    window.open(`${this.baseUrl}/auth/google`, '_self');
+    window.open(`${environment.apiUrl}/auth/auth/google`, '_self');
     const messageListener = (event: MessageEvent) => {
       if (event.origin !== this.baseUrl) return; // تأكد من مصدر الرسالة
       if (event.data?.token && event.data?.user) {

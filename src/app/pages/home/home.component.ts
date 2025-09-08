@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProductService, Product } from '../../services/product.service';
 import { CartService } from 'src/app/services/cart.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -36,8 +36,7 @@ export class HomeComponent implements OnInit {
     private cartService: CartService,
     private wishlistService: WishlistService,
     private authService: AuthService,
-    private toastr: ToastrService,
-    private route: ActivatedRoute
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -51,28 +50,8 @@ export class HomeComponent implements OnInit {
 
     this.loadProducts();
     this.loadWishlist();
-   const params = new URLSearchParams(window.location.search);
-  const token = params.get('token');
-  const userStr = params.get('user');
-
-  if (token && userStr) {
-    try {
-      const user = JSON.parse(decodeURIComponent(userStr));
-
-      // حفظ الـ token و user في localStorage
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(user));
-
-      // حدث حالة تسجيل الدخول
-      this.authService.setLoggedInStatus(true);
-
-      // إزالة queryParams من URL بعد الحفظ
-      window.history.replaceState({}, document.title, '/home');
-    } catch (err) {
-      console.error('Error parsing Google user:', err);
-    }
   }
-}
+
   loadWishlist() {
     this.wishlistService.getWishlistItems().subscribe({
       next: (res: any[]) => {

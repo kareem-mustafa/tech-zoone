@@ -56,7 +56,6 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<AuthResponse> {
-    console.log("API URL used:", this.baseUrl);
     return this.http
       .post<AuthResponse>(`${this.baseUrl}/login`, { email, password })
       .pipe(
@@ -70,20 +69,19 @@ export class AuthService {
 
   googleAuth(): void {
     window.open(`${environment.apiUrl}/auth/auth/google`, '_self');
-   const messageListener = (event: MessageEvent) => {
-  const allowedOrigin = environment.apiUrl; 
-  if (event.origin !== allowedOrigin) return;
+    const messageListener = (event: MessageEvent) => {
+      if (event.origin !== environment.apiUrl) return; // تأكد من مصدر الرسالة
+      if (event.data?.token && event.data?.user) {
+        this.setSession(event.data.token, event.data.user);
+        this.cartService.loadCartFromStorage(); // حدث السلة فورًا
+        window.removeEventListener('message', messageListener);
+      }
+    };
 
-  if (event.data?.token && event.data?.user) {
-    this.setSession(event.data.token, event.data.user);
-    this.cartService.loadCartFromStorage(); // حدث السلة فورًا
-    window.removeEventListener('message', messageListener);
+    window.addEventListener('message', messageListener);
   }
-};
 
-window.addEventListener('message', messageListener);
-}
-  public setSession(token: string, user: User) {
+  private setSession(token: string, user: User) {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
     this.setLoggedInStatus(true);

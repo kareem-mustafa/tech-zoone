@@ -117,7 +117,7 @@ const routes: Routes = [
         component: DashboardComponent,
         canActivate: [SellerDashboardGuard],
       },
-      { path: 'add-product', component: AddProductsComponent },
+      { path: '', component: AddProductsComponent },
       {
         path: 'orders',
         component: ordersComponent,
@@ -140,11 +140,6 @@ const routes: Routes = [
       { path: 'approved', component: AprovedComponent },
       { path: 'add-product', component: AddProductsComponent },
     ],
-  },
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
   },
 ];
 

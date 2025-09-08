@@ -7,7 +7,7 @@ import { CartService } from './services/cart.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   showLayout = true;
 
   constructor(private router: Router, private cartService: CartService) {
@@ -27,7 +27,5 @@ export class AppComponent implements OnInit {
         );
       });
   }
-  ngOnInit(): void {
-    this.cartService.getCartItems().subscribe();
-  }
+ 
 }

@@ -14,10 +14,8 @@ export class AuthGuard implements CanActivate {
       localStorage.setItem('token', token);
       localStorage.setItem('user', decodeURIComponent(user));
       this.authService.setLoggedInStatus(true);
-      window.location.href = '/home';
-      this.router.navigate(['/home'], {
-        replaceUrl: true,
-      });
+      // window.location.href = '/home';
+      this.router.navigate(['/home'], { replaceUrl: true });
     }
 
     if (this.authService.isLoggedIn()) {

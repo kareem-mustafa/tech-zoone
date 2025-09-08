@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
+import { environment } from 'src/environments/environment.prod';
 
 export interface Product {
   _id: string;
@@ -25,7 +26,7 @@ export interface PaginatedProducts {
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
-  private BASE_URL = 'http://localhost:5000/product';
+  private BASE_URL = `${environment.apiUrl}/product`;
 
   constructor(private http: HttpClient) {}
 

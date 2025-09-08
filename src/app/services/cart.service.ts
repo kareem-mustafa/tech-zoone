@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { Product } from './product.service';
+import { environment } from 'src/environments/environment';
 
 export interface cartitems {
   product: Product;
@@ -14,7 +15,7 @@ export interface cartitems {
 export class CartService {
   cartItems = signal<cartitems[]>([]);
 
-  private baseUrl = 'http://localhost:5000/cart';
+  private baseUrl = `${environment.apiUrl}/cart`;
 
   constructor(private http: HttpClient) {
     this.loadCartFromStorage();

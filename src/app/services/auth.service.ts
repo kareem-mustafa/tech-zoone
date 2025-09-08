@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { CartService } from './cart.service';
+import { environment } from 'src/environments/environment';
 export interface User {
   _id?: string;
   username?: string;
@@ -31,7 +32,7 @@ export interface OtpResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl = 'http://localhost:5000/user';
+  private baseUrl = environment.apiUrl;
 
   private isLoggedInSubject = new BehaviorSubject<boolean>(
     !!localStorage.getItem('token')
@@ -67,9 +68,9 @@ export class AuthService {
   }
 
   googleAuth(): void {
-    window.open('http://localhost:5000/auth/auth/google', '_self');
+    window.open(`${this.baseUrl}/auth/auth/google`, '_self');
     const messageListener = (event: MessageEvent) => {
-      if (event.origin !== 'http://localhost:5000') return; // تأكد من مصدر الرسالة
+      if (event.origin !== this.baseUrl) return; // تأكد من مصدر الرسالة
       if (event.data?.token && event.data?.user) {
         this.setSession(event.data.token, event.data.user);
         this.cartService.loadCartFromStorage(); // حدث السلة فورًا

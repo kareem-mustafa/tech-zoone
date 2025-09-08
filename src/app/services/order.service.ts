@@ -3,13 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IOrder } from '../models/iorder';
 import { Product, ProductService } from './product.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  private apiUrl = 'http://localhost:5000/order';
-  private apiUrl2 = 'http://localhost:5000';
+  private apiUrl = `${environment.apiUrl}/order`;
+  private apiUrl2 = `${environment.apiUrl}/order`;
 
 
   constructor(private http: HttpClient, private productService: ProductService) { }

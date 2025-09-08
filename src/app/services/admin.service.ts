@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from './product.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
-  private BASE_URL = 'http://localhost:5000';
+  private BASE_URL = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -54,7 +55,7 @@ export class AdminService {
 
   approveSeller(sellerId: string) {
     return this.http.put(
-      `http://localhost:5000/user/approve-seller/${sellerId}`,
+      `${this.BASE_URL}/user/approve-seller/${sellerId}`,
       {}
     );
   }

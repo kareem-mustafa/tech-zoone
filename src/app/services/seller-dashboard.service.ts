@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Form } from '@angular/forms';
 import { Product } from './product.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SellerDashboardService {
-  apiUrl = 'http://localhost:5000/product';
+  apiUrl = `${environment.apiUrl}/product`;
   constructor(private http: HttpClient) {}
   get userId(): string {
     const userStr = localStorage.getItem('user');
@@ -33,6 +34,6 @@ export class SellerDashboardService {
     return this.http.post(`${this.apiUrl}`, data);
   }
   getOrders() {
-    return this.http.get(`http://localhost:5000/order/seller/${this.userId}`);
+    return this.http.get(`${environment.apiUrl}/order/seller/${this.userId}`);
   }
 }

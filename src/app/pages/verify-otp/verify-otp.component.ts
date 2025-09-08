@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-verify-otp',
@@ -51,7 +52,7 @@ export class VerifyOtpComponent implements OnInit {
       lastOTP: this.f['lastOTP'].value,
     };
 
-    this.http.post('http://localhost:5000/user/verify', body).subscribe({
+    this.http.post(`${environment.apiUrl}/user/verify`, body).subscribe({
       next: (res: any) => {
         this.successMessage = res.message || 'Verified successfully';
 
@@ -70,7 +71,7 @@ export class VerifyOtpComponent implements OnInit {
 
   resendOtp() {
     this.http
-      .post(`http://localhost:5000/user/resend-otp/${this.userId}`, {})
+      .post(`${environment.apiUrl}/user/resend-otp/${this.userId}`, {})
       .subscribe({
         next: (res: any) => {
           this.successMessage = res.message || 'OTP resent successfully';

@@ -6,20 +6,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
-  canActivate(route: ActivatedRouteSnapshot): boolean {
-  const token = route.queryParams['token'];
-  const user = route.queryParams['user'];
-
-  if (token && user) {
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', decodeURIComponent(user));
-    this.authService.setLoggedInStatus(true);
-
-    // تنقل بدون reload
-    this.router.navigate(['/home'], { replaceUrl: true });
-    return false; // مهم عشان ما يكملش باقي canActivate
-  }
-
+  canActivate(): boolean {
   if (this.authService.isLoggedIn()) {
     return true;
   } else {

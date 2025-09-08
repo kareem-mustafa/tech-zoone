@@ -56,6 +56,7 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<AuthResponse> {
+    console.log("API URL used:", this.baseUrl);
     return this.http
       .post<AuthResponse>(`${this.baseUrl}/login`, { email, password })
       .pipe(

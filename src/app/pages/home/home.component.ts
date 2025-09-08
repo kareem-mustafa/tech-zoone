@@ -51,11 +51,22 @@ export class HomeComponent implements OnInit {
 
     this.loadProducts();
     this.loadWishlist();
-    this.route.queryParams.subscribe(params => {
-      console.log('Query Params:', params);
-    });
-  }
+ const params = new URLSearchParams(window.location.search);
+  const token = params.get('token');
+  const userStr = params.get('user');
 
+  if (token && userStr) {
+    try {
+      const user = JSON.parse(decodeURIComponent(userStr));
+      this.authService.setSession(token, user);
+
+      // إزالة queryParams من URL بعد الحفظ
+      window.history.replaceState({}, document.title, '/home');
+    } catch (err) {
+      console.error('Error parsing Google user:', err);
+    }
+  }
+  }
   loadWishlist() {
     this.wishlistService.getWishlistItems().subscribe({
       next: (res: any[]) => {

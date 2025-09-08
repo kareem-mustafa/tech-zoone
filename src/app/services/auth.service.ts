@@ -32,7 +32,7 @@ export interface OtpResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl = environment.apiUrl;
+  private baseUrl = `${environment.apiUrl}/user`;
 
   private isLoggedInSubject = new BehaviorSubject<boolean>(
     !!localStorage.getItem('token')

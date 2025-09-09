@@ -47,7 +47,6 @@ export class HeaderComponent implements OnInit {
     public wishlistService: WishlistService
   ) {
   }
-
   ngOnInit() {
     // جلب بيانات المستخدم
     const user = localStorage.getItem('user');
@@ -64,8 +63,6 @@ export class HeaderComponent implements OnInit {
     // تحميل السلة
     this.cartService.loadCartFromStorage();
   }
-
-  // ======== Wishlist Methods ========
   // ======== Wishlist Methods ========
   addToWishlist(productId: string, quantity: number = 1) {
     // الاشتراك فورًا لتحديث الـ signal
@@ -79,7 +76,16 @@ export class HeaderComponent implements OnInit {
   clearWishlist() {
     this.wishlistService.clearWishlist().subscribe();
   }
-
+addToCart(productId: string, quantity: number = 1) {
+    // الاشتراك فورًا لتحديث الـ signal
+    this.cartService.addToCart(productId, quantity).subscribe();
+  }
+  removeFromCart(productId: string) {
+    this.cartService.removeFromCart(productId).subscribe();
+  }
+  clearCart() {
+    this.cartService.clearCart().subscribe();
+  }
   // ======== Logout ========
   logout() {
     localStorage.clear();

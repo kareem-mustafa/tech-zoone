@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
       sortBy: [''],
       sortOrder: [''],
     });
-
+    this.loadCart();
     this.loadProducts();
     this.loadWishlist();
   }
@@ -63,9 +63,24 @@ export class HomeComponent implements OnInit {
       },
     });
   }
+  loadCart() {
+  this.cartService.getCartItems().subscribe({
+    next: (res) => {
+      if (res && Array.isArray(res.items)) {
+        this.cart = res.items.map((item) => item.product);
+      } else {
+        this.cart = [];
+      }
+    },
+    error: (err) => {
+      this.toastr.error('Failed to load cart', 'Error');
+      console.error('Error loading cart:', err);
+    },
+  });
+}
 
-  loadProducts() {
-    this.productService.getAllProducts().subscribe({
+loadProducts() {
+  this.productService.getAllProducts().subscribe({
       next: (res: Product[]) => {
         this.products = res;
         this.filteredProducts = [...this.products];
@@ -77,14 +92,13 @@ export class HomeComponent implements OnInit {
       },
     });
   }
-
   updateCategories() {
-    this.categories = [
-      ...new Set(
-        this.filteredProducts.map((p) => p.category?.name || 'Unknown')
-      ),
-    ];
-
+  this.categories = [
+    ...new Set(
+      this.filteredProducts.map((p) => p.category?.name || 'Unknown')
+    ),
+  ];
+  
     this.categoryProducts = {};
     this.categories.forEach((cat) => {
       this.categoryProducts[cat] = this.filteredProducts.filter(

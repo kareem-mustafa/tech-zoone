@@ -40,26 +40,39 @@ export class CartService {
     localStorage.removeItem('cartItems');
   }
 
-  addToCart(productId: string, quantity: number): Observable<any> {
-    return this.http
-      .post(
-        `${this.baseUrl}/add`,
-        { productId, quantity, userId: this.userId },
-        { headers: this.headers }
-      )
-      .pipe(
-        tap(() => {
-          this.cartItems.update((items) => {
-            const newItems = [
+addToCart(productId: string, quantity: number): Observable<any> {
+  return this.http
+    .post(
+      `${this.baseUrl}/add`,
+      { productId, quantity, userId: this.userId },
+      { headers: this.headers }
+    )
+    .pipe(
+      tap(() => {
+        this.cartItems.update((items) => {
+          // شوف المنتج موجود ولا لا
+          const existing = items.find((i) => i.product._id === productId);
+          let newItems;
+          if (existing) {
+            // لو موجود زود الكمية بدل ما تضيف جديد
+            newItems = items.map((i) =>
+              i.product._id === productId
+                ? { ...i, quantity: i.quantity + quantity }
+                : i
+            );
+          } else {
+            // لو مش موجود ضيفه جديد
+            newItems = [
               ...items,
               { product: { _id: productId } as Product, quantity },
             ];
-            localStorage.setItem('cartItems', JSON.stringify(newItems));
-            return newItems;
-          });
-        })
-      );
-  }
+          }
+          localStorage.setItem('cartItems', JSON.stringify(newItems));
+          return newItems;
+        });
+      })
+    );
+}
 
   getCartItems(): Observable<{ items: cartitems[] }> {
     return this.http.get<{ items: cartitems[] }>(

@@ -21,14 +21,16 @@ export class CartComponent implements OnInit {
     this.loadCart();
   }
 
-  loadCart(): void {
+loadCart(): void {
   this.cartService.getCartItems().subscribe({
     next: (res) => {
-      if (Array.isArray(res.items)) {
-        this.cartItems = res.items;
-      } else {
-        this.cartItems = [];
-      }
+      setTimeout(() => {
+        if (Array.isArray(res.items)) {
+          this.cartItems = res.items;
+        } else {
+          this.cartItems = [];
+        }
+      }, 0); // 0ms بس بتخلي التحديث يحصل بعد دورة التغيير الحالية
     },
     error: (err) => console.error('Error loading cart items:', err),
   });

@@ -46,15 +46,6 @@ export class HeaderComponent implements OnInit {
     public cartService: CartService,
     public wishlistService: WishlistService
   ) {
-    // Effect للسلة
-    effect(() => {
-      console.log('Cart count changed:', this.cartCount());
-    });
-
-    // Effect للـ wishlist
-    effect(() => {
-      console.log('Wishlist count changed:', this.wishlistCount());
-    });
   }
 
   ngOnInit() {

@@ -6,7 +6,7 @@
 
       <div class="wishlist-item-info">
         <strong class="wishlist-item-title">{{ item.product.title }}</strong>
-        <span class="wishlist-item-price" *ngIf="item.product.price*50">{{ item.product.price*50 }} EGP</span>
+        <span class="wishlist-item-price" *ngIf="item.product.price">{{ item.product.price }} $</span>
       </div>
 
       <button class="wishlist-item-remove" (click)="removeFromWishlist(item.product._id)">Delete</button>

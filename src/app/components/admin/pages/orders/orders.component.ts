@@ -20,8 +20,6 @@ export class OrdersComponent {
     this.loading = true;
     this.orderService.getAllOrders().subscribe({
       next: (res) => {
-        console.log('📦 Orders response:', res); // 👈 شوف البيانات هنا
-
         this.orders = res;
         this.loading = false;
       },
@@ -36,7 +34,6 @@ export class OrdersComponent {
   if (!orderId) return;
   this.orderService.deleteOrder(orderId).subscribe({
     next: () => {
-      console.log('Order deleted successfully');
       this.orders = this.orders.filter(o => o._id !== orderId);
       // this.serverMessage = '✅ Order deleted successfully';
       // لو عايز تعيد تحميل الأوردرات:

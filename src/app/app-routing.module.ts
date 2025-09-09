@@ -117,7 +117,7 @@ const routes: Routes = [
         component: DashboardComponent,
         canActivate: [SellerDashboardGuard],
       },
-      { path: '', component: AddProductsComponent },
+      { path: 'add-product', component: AddProductsComponent },
       {
         path: 'orders',
         component: ordersComponent,

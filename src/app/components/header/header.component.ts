@@ -120,5 +120,6 @@ addToCart(productId: string, quantity: number = 1) {
   }
   loginSuccess() {
     this.wishlistService.loadWishlistFromStorage();
+    this.cartService.loadCartFromStorage();
   }
 }

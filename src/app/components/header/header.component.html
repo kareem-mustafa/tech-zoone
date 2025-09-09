@@ -13,7 +13,7 @@
       <li><a routerLink="/about" (click)="closeMobileMenu()">About Us</a></li>
 
       <li class="dropdown-wrapper" [class.open]="dropdownOpen" (click)="toggleDropdown($event)">
-        <a href="javascript:void(0)">Category ▼</a>
+        <a href="javascript:void(0)">Category</a>
         <ul class="dropdown">
           <li *ngFor="let cat of categories">
             <a (click)="viewCategory(cat); closeMobileMenu()">{{ cat | titlecase }}</a>

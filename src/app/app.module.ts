@@ -113,7 +113,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     }),
   ],
   providers: [
-   { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }    // { provide: LocationStrategy, useClass: HashLocationStrategy },
+   { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+   {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}    // { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
 })

@@ -52,18 +52,22 @@ export class HomeComponent implements OnInit {
     this.loadWishlist();
   }
 
-  loadWishlist() {
-    this.wishlistService.getWishlistItems().subscribe({
-      next: (res: any[]) => {
-        this.wishlist = res.map((item) => item.product);
-      },
-      error: (err) => {
+ loadWishlist() {
+  this.wishlistService.getWishlistItems().subscribe({
+    next: (res: any[]) => {
+      this.wishlist = res.map((item) => item.product);
+    },
+    error: (err) => {
+      // تحقق فقط لو الخطأ مش بسبب فاضي
+      if (err.status !== 404) {
         this.toastr.error('Failed to load wishlist', 'Error');
         console.error('Error loading wishlist:', err);
-      },
-    });
-  }
-  loadCart() {
+      }
+    },
+  });
+}
+
+loadCart() {
   this.cartService.getCartItems().subscribe({
     next: (res) => {
       if (res && Array.isArray(res.items)) {
@@ -73,11 +77,15 @@ export class HomeComponent implements OnInit {
       }
     },
     error: (err) => {
-      this.toastr.error('Failed to load cart', 'Error');
-      console.error('Error loading cart:', err);
+      // تحقق فقط لو الخطأ مش بسبب فاضي
+      if (err.status !== 404) {
+        this.toastr.error('Failed to load cart', 'Error');
+        console.error('Error loading cart:', err);
+      }
     },
   });
 }
+
 
 loadProducts() {
   this.productService.getAllProducts().subscribe({

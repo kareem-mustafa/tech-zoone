@@ -49,8 +49,9 @@ import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { AprovedComponent } from './components/admin/pages/aproved/aproved.component';
 import { ToastrModule } from 'ngx-toastr';
 import { SellerDashboardComponent } from './components/seller-dashboard/seller-dashboard.component';
-import { LoadingComponent } from './components/loading/loading.component';
 import { RatingComponent } from './components/rating/rating.component';
+import { LoadingInterceptor } from './Interceptors/loading.interceptor';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -84,8 +85,8 @@ import { RatingComponent } from './components/rating/rating.component';
     WishlistComponent,
     AprovedComponent,
     SellerDashboardComponent,
-    LoadingComponent,
     RatingComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,8 +113,7 @@ import { RatingComponent } from './components/rating/rating.component';
     }),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    // { provide: LocationStrategy, useClass: HashLocationStrategy },
+   { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }    // { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
 })

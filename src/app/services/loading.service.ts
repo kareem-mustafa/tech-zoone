@@ -1,3 +1,4 @@
+// loading.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -6,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LoadingService {
   private _loading = new BehaviorSubject<boolean>(false);
-  public loading$ = this._loading.asObservable();
+  public readonly loading$ = this._loading.asObservable();
 
   show() {
     this._loading.next(true);

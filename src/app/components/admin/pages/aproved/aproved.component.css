@@ -1,69 +1,65 @@
-.table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 10px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.table thead th {
-    background: linear-gradient(135deg, #1e293b, #334155);
-    color: #fff;
-    font-weight: 600;
-    padding: 12px;
-    text-align: center;
-    border: none;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.table tbody tr {
-    background: #fff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.table tbody tr:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-}
-
-.table td {
-    padding: 12px;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 14px;
-    color: #333;
-}
-
+/* Images */
 .bank-account-image {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
+  max-width: 80px;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Hover effect */
+.table-hover tbody tr:hover {
+  background-color: #f1f3f5;
+  transition: background 0.2s ease;
+}
+
+/* Buttons */
+.btn-sm {
+  transition: transform 0.2s ease;
+}
+
+.btn-sm:hover {
+  transform: translateY(-2px);
+}
+
+/* Responsive tweaks for mobile */
+@media (max-width: 768px) {
+  .table thead {
+    display: none;
+  }
+
+  .table tbody tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #dee2e6;
     border-radius: 8px;
-    border: 1px solid #ddd;
-    transition: transform 0.2s ease;
-}
+    padding: 10px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
 
-.bank-account-image:hover {
-    transform: scale(1.5);
-    border-color: #1976d2;
-}
+  .table tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    white-space: normal;
+  }
 
-.btn-primary {
-    background: linear-gradient(135deg, #2563eb, #3b82f6);
-    /* أزرق أساسي */
-    border: none;
-    color: #fff;
-    font-size: 13px;
-    font-weight: 500;
-    border-radius: 6px;
-    padding: 6px 12px;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
+  .table tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    flex: 1;
+    text-align: left;
+  }
 
-.btn-primary:hover {
-    background: linear-gradient(135deg, #1d4ed8, #2563eb);
-    /* أزرق أغمق عند الـ hover */
-    transform: translateY(-2px);
+  .table tbody td:last-child {
+    justify-content: flex-end;
+  }
+
+  .bank-account-image {
+    max-width: 60px;
+  }
+
+  .btn-sm {
+    font-size: 12px;
+    padding: 3px 6px;
+  }
 }

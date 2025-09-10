@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductService, Product } from 'src/app/services/product.service';
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Product } from 'src/app/services/product.service';
 import { AdminService } from 'src/app/services/admin.service';
+
+declare var bootstrap: any; // عشان نقدر نستخدم الـ bootstrap modal برمجياً
 
 @Component({
   selector: 'app-products',
@@ -10,20 +11,40 @@ import { AdminService } from 'src/app/services/admin.service';
   styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
-  constructor(
-    private productService: ProductService,
-    private fb: FormBuilder,
-    private adminService: AdminService
-  ) {}
   products: Product[] = [];
   editForm!: FormGroup;
-  showEditModal = false;
   currentProduct!: Product;
+  editModalInstance: any; // instance للمودال
+
+  constructor(
+    private adminService: AdminService,
+    private fb: FormBuilder,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
+    this.loadProducts();
+
+    // تهيئة الفورم مرة واحدة
+    this.editForm = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      price: [0, [Validators.required, Validators.min(0)]],
+      stock: [0, [Validators.required, Validators.min(0)]],
+    });
+
+    // ربط الـ modal بالـ bootstrap instance
+    const modalEl = document.getElementById('editModal');
+    if (modalEl) {
+      this.editModalInstance = new bootstrap.Modal(modalEl);
+    }
+  }
+
+  loadProducts() {
     this.adminService.getProducts().subscribe({
       next: (products) => {
         this.products = products as Product[];
+        this.cd.detectChanges();
       },
       error: (err) => console.error('Error fetching products:', err),
     });
@@ -34,49 +55,37 @@ export class ProductsComponent implements OnInit {
       this.adminService.deleteProduct(slug).subscribe({
         next: () => {
           this.products = this.products.filter((p) => p.slug !== slug);
+          this.cd.detectChanges();
         },
-        error: (err: any) => console.error('Error deleting product', err),
+        error: (err) => console.error('Error deleting product:', err),
       });
     }
   }
+
   onEdit(product: Product) {
     this.currentProduct = product;
-    this.editForm = this.fb.group({
-      title: [product.title, Validators.required],
-      description: [product.description, Validators.required],
-      price: [product.price, [Validators.required, Validators.min(0)]],
-      stock: [product.stock, [Validators.required, Validators.min(0)]],
+    this.editForm.patchValue({
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      stock: product.stock,
     });
-    this.showEditModal = true;
+
+    // فتح المودال برمجياً
+    this.editModalInstance.show();
   }
 
   onSubmitEdit() {
     if (this.editForm.invalid) return;
 
-    const updatedProduct = {
-      ...this.currentProduct,
-      ...this.editForm.value,
-    };
- 
-    this.adminService
-      .updateProduct(this.currentProduct.slug, updatedProduct)
-      .subscribe({
-        next: () => {
-          // بعد التحديث نعمل fetch للمنتجات من جديد
-          this.adminService.getProducts().subscribe({
-            next: (products) => {
-              this.products = products as Product[];
-              this.closeModal();
-            },
-            error: (err) =>
-              console.error('Error fetching products after update:', err),
-          });
-        },
-        error: (err) => console.error('Error updating product:', err),
-      });
-  }
-  closeModal() {
-    this.showEditModal = false;
-    this.editForm.reset();
+    const updatedProduct = { ...this.currentProduct, ...this.editForm.value };
+
+    this.adminService.updateProduct(this.currentProduct.slug, updatedProduct).subscribe({
+      next: () => {
+        this.loadProducts(); // إعادة تحميل المنتجات
+        this.editModalInstance.hide(); // اغلاق المودال بعد الحفظ
+      },
+      error: (err) => console.error('Error updating product:', err),
+    });
   }
 }

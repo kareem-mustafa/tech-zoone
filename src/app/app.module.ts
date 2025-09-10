@@ -25,8 +25,6 @@ import { AuthInterceptor } from './Interceptors/auth.interceptor';
 import { ChatbotComponent } from './components/chatbot/chatbot.component';
 import { AddorderComponent } from './pages/addorder/addorder.component';
 import { OrderComponent } from './pages/order/order.component';
-import { AdminDashboardComponent } from './components/Dashboards/admin-dashboard/admin-dashboard.component';
-import { HeaderDashboardComponent } from './components/Dashboards/header-dashboard/header-dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -72,8 +70,6 @@ import { RatingComponent } from './components/rating/rating.component';
     ChatbotComponent,
     AddorderComponent,
     OrderComponent,
-    AdminDashboardComponent,
-    HeaderDashboardComponent,
     SidenavComponent,
     UsersComponent,
     ProductsComponent,

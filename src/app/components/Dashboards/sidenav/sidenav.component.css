@@ -1,16 +1,11 @@
-/* ===== Layout ===== */
 .dashboard-container {
   display: flex;
   min-height: 100vh;
-  background: #f1f5f9;
-  /* لون خلفية عام */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* ===== Sidebar ===== */
+/* Sidebar */
 .sidebar {
-  width: 220px;
-  background: #f8f9fa;
+  width: 250px;
   padding: 20px;
   border-right: 1px solid #ddd;
   position: sticky;
@@ -19,106 +14,67 @@
 }
 
 .sidebar h2 {
-  font-size: 18px;
-  font-weight: 600;
   margin-bottom: 20px;
-  color: #2563eb;
 }
 
-/* ===== List Style ===== */
 .sidebar ul {
   list-style: none;
   padding: 0;
-  margin: 0;
 }
 
 .sidebar ul li {
-  margin-bottom: 12px;
+  margin: 10px 0;
 }
 
 .sidebar ul li a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  /* مسافة بين الإيموجي والنص */
-  padding: 10px 14px;
-  border-radius: 6px;
   text-decoration: none;
   color: #333;
-  font-size: 15px;
-  transition: background 0.3s, color 0.3s, transform 0.2s;
-}
-
-.sidebar ul li a:hover {
-  background: #e9ecef;
-  color: #2563eb;
-  transform: translateX(3px);
+  display: block;
+  padding: 8px 12px;
+  border-radius: 5px;
 }
 
 .sidebar ul li a.active {
-  background: #2563eb;
+  background: #007bff;
   color: #fff;
 }
 
-/* ===== Content ===== */
+/* المحتوى */
 .content {
   flex: 1;
-  padding: 40px 20px;
-  display: flex;
-  justify-content: center;
-  /* يوسّط المحتوى أفقيًا */
-  align-items: flex-start;
-  min-height: 100vh;
+  padding: 20px;
 }
 
-/* ===== Card داخل المحتوى ===== */
-.content>* {
-  width: 100%;
-  max-width: 1000px;
-  /* أقصى عرض للكارت */
-  background: #fff;
-  border-radius: 12px;
-  padding: 25px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  overflow-x: auto;
-  /* لو الجدول واسع */
-}
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
 
-/* ===== جدول الطلبات ===== */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
 
-thead {
-  background: #2563eb;
-  color: #fff;
-}
+  .sidebar h2 {
+    display: none;
+  }
 
-th, td {
-  padding: 12px 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
+  .sidebar ul {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+  }
 
-tbody tr:hover {
-  background: #f1f5f9;
-}
+  .sidebar ul li {
+    margin: 0;
+  }
 
-button {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-button:hover {
-  transform: translateY(-2px);
-}
-
-button.delete {
-  background: #dc2626;
-  color: #fff;
+  .sidebar ul li a {
+    padding: 10px;
+    text-align: center;
+  }
 }

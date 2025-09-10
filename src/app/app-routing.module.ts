@@ -22,13 +22,13 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { DashboardComponent } from './components/seller/dashboard/dashboard.component';
-import { AdminDashboardComponent } from './components/Dashboards/admin-dashboard/admin-dashboard.component';
 import { AprovedComponent } from './components/admin/pages/aproved/aproved.component';
 import { OtpGuard } from './guards/v-otp.guard';
 import { SellerDashboardGuard } from './guards/seller-dashboard.guard';
 import { ordersComponent } from './components/seller/orders/orders.component';
 import { AddProductsComponent } from './components/seller/add-products/add-products.component';
 import { ProductsComponent as SellerProductsComponent } from './components/seller/products-seller/products.component';
+import { SidenavComponent } from './components/Dashboards/sidenav/sidenav.component';
 const routes: Routes = [
   {
     path: '',
@@ -130,7 +130,7 @@ const routes: Routes = [
 
   {
     path: 'admin/dashboard',
-    component: AdminDashboardComponent,
+    component: SidenavComponent,
     canActivate: [AuthGuard, AdminGuard],
     children: [
       { path: '', redirectTo: 'products', pathMatch: 'full' }, // ده يظهر Products تلقائي

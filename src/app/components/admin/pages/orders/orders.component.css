@@ -1,88 +1,95 @@
-/* رسالة التحميل والفارغة */
-div[ngif] {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 15px;
-  font-weight: 500;
-  color: #555;
-  text-align: center;
-  margin: 20px 0;
-  padding: 12px;
-  border-radius: 8px;
-  background: #f8fafc;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+/* Container padding */
+.container {
+  padding: 20px;
 }
 
-/* تنسيق الجدول */
-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 8px;
-  margin-top: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* Loader styling */
+.text-center .spinner-border {
+  width: 3rem;
+  height: 3rem;
 }
 
-thead th {
-  background: linear-gradient(135deg, #1e293b, #334155);
-  color: #fff;
-  font-weight: 600;
-  padding: 12px;
-  text-align: center;
-  font-size: 14px;
-  border: none;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-tbody tr {
-  background: #fff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-tbody tr:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-}
-
-td {
-  padding: 12px;
-  text-align: center;
+/* Table tweaks */
+.table th,
+.table td {
+  white-space: nowrap;
   vertical-align: middle;
-  font-size: 14px;
-  color: #333;
+  text-align: center;
 }
 
-/* المنتجات (Products) */
-td ul {
-  list-style: none;
-  padding: 0;
+.table tbody ul {
+  padding-left: 0;
   margin: 0;
+  list-style: none;
 }
 
-td ul li {
-  background: #f1f5f9;
-  padding: 6px 10px;
-  border-radius: 6px;
-  margin: 4px 0;
-  font-size: 13px;
-  color: #111827;
-  text-align: left;
+.table tbody ul li {
+  font-size: 14px;
 }
 
-/* زر الحذف */
-button {
-  background: linear-gradient(135deg, #dc2626, #ef4444);
-  border: none;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 500;
-  border-radius: 6px;
-  padding: 6px 12px;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+/* Hover effects */
+.table-hover tbody tr:hover {
+  background-color: #f1f3f5;
+  transition: background 0.2s ease;
 }
 
-button:hover {
-  background: linear-gradient(135deg, #b91c1c, #dc2626);
+/* Button tweaks */
+.btn-danger {
+  transition: transform 0.2s ease;
+}
+
+.btn-danger:hover {
   transform: translateY(-2px);
+}
+
+/* Badge styling */
+.badge {
+  font-size: 0.85rem;
+  padding: 0.4em 0.6em;
+  border-radius: 0.35rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .table thead {
+    display: none;
+  }
+
+  .table tbody tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 10px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+
+  .table tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    white-space: normal;
+  }
+
+  .table tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    flex: 1;
+    text-align: left;
+  }
+
+  .table tbody td:last-child {
+    justify-content: flex-end;
+  }
+
+  .btn-sm {
+    font-size: 12px;
+    padding: 3px 6px;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    padding: 0.3em 0.5em;
+  }
 }

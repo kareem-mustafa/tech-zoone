@@ -1,33 +1,46 @@
-<table class="table">
-    <thead>
+<div class="container my-5">
+  <h2 class="text-center mb-4 text-primary">👨‍💼 Sellers Dashboard</h2>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover align-middle">
+      <thead class="table-dark">
         <tr>
-            <th>Seller Name</th>
-            <th>Email</th>
-            <th>store name</th>
-            <th>bank account</th>
-            <th>bank account image</th>
-            <th>age</th>
-            <th>gender</th>
-            <th>Status</th>
+          <th>Seller Name</th>
+          <th>Email</th>
+          <th>Store Name</th>
+          <th>Bank Account</th>
+          <th>Bank Account Image</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Status</th>
         </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
         <tr *ngFor="let seller of sellers">
-            <td>{{ seller.username }}</td>
-            <td>{{ seller.email }}</td>
-            <td>{{ seller.storename }}</td>
-            <td>{{ seller.BankAccount }}</td>
-            <td>
-                <img [src]="seller.bankAccountImage" alt="Bank Account Image" class="bank-account-image" />
-            </td>
-            <td>{{ seller.age }}</td>
-            <td>{{ seller.gender }}</td>
-            <td>
-                <button class="btn btn-primary btn-sm" (click)="approveSeller(seller._id)"
-                    [disabled]="seller.isApproved">
-                    Approve
-                </button>
-            </td>
+          <td data-label="Seller Name">{{ seller.username }}</td>
+          <td data-label="Email">{{ seller.email }}</td>
+          <td data-label="Store Name">{{ seller.storename }}</td>
+          <td data-label="Bank Account">{{ seller.BankAccount }}</td>
+          <td data-label="Bank Account Image">
+            <img
+              [src]="seller.bankAccountImage"
+              alt="Bank Account Image"
+              class="bank-account-image img-fluid rounded"
+            />
+          </td>
+          <td data-label="Age">{{ seller.age }}</td>
+          <td data-label="Gender">{{ seller.gender }}</td>
+          <td data-label="Status">
+            <button
+              class="btn btn-success btn-sm"
+              (click)="approveSeller(seller._id)"
+              [disabled]="seller.isApproved"
+            >
+              {{ seller.isApproved ? 'Approved' : 'Approve' }}
+            </button>
+          </td>
         </tr>
-    </tbody>
-</table>
+      </tbody>
+    </table>
+  </div>
+</div>

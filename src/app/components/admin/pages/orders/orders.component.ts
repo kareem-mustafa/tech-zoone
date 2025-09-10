@@ -45,4 +45,17 @@ export class OrdersComponent {
     },
   });
 }
+getBadgeClass(status: string): string {
+  switch (status) {
+    case 'Paid':
+      return 'bg-success';
+    case 'Pending':
+      return 'bg-warning text-dark';
+    case 'Failed':
+      return 'bg-danger';
+    default:
+      return 'bg-secondary';
+  }
+}
+
 }

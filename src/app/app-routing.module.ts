@@ -130,7 +130,7 @@ const routes: Routes = [
     component: SidenavComponent,
     canActivate: [AuthGuard, AdminGuard],
     children: [
-      { path: '', redirectTo: 'products', pathMatch: 'full' }, // ده يظهر Products تلقائي
+      { path: '', redirectTo: 'products', pathMatch: 'full' },
       { path: 'products', component: ProductsComponent },
       { path: 'users', component: UsersComponent },
       { path: 'orders', component: OrdersComponent },

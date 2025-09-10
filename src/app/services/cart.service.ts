@@ -3,6 +3,7 @@ import { Injectable, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { Product } from './product.service';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 export interface cartitems {
   product: Product;
@@ -17,7 +18,7 @@ export class CartService {
 
   private baseUrl = `${environment.apiUrl}/cart`;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient , private router: Router) {
     this.loadCartFromStorage();
   }
 
@@ -39,8 +40,12 @@ export class CartService {
     this.cartItems.set([]);
     localStorage.removeItem('cartItems');
   }
-
 addToCart(productId: string, quantity: number): Observable<any> {
+  if (!this.userId) {
+    this.router.navigate(['/login']);
+    return new Observable(); // بيرجع Observable فاضي عشان الكومبوننت ميتكسرش
+  }
+
   return this.http
     .post(
       `${this.baseUrl}/add`,
@@ -73,6 +78,7 @@ addToCart(productId: string, quantity: number): Observable<any> {
       })
     );
 }
+
 
   getCartItems(): Observable<{ items: cartitems[] }> {
     return this.http.get<{ items: cartitems[] }>(

@@ -3,6 +3,7 @@ import { Observable, tap } from 'rxjs';
 import { Product } from './product.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 export interface wishlistItems {
   product: Product;
   quantity: number;
@@ -15,7 +16,7 @@ export class WishlistService {
 
   private baseUrl = `${environment.apiUrl}/wishlist`;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient , private router: Router) {
     this.loadWishlistFromStorage();
     }
 
@@ -39,6 +40,11 @@ export class WishlistService {
   }
 
   addToWishlist(product: string, quantity: number): Observable<any> {
+     // 🔹 تحقق الأول إن المستخدم مسجل دخول
+  if (!this.userId) {
+    this.router.navigate(['/login']);
+    return new Observable(); // بيرجع Observable فاضي عشان الكومبوننت ميتكسرش
+  }
     return this.http
       .post(
         `${this.baseUrl}/add`,

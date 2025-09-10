@@ -214,11 +214,11 @@ h3 {
 
 @media (max-width: 576px) {
     .product-slider .card {
-        max-width: 140px;
+        max-width: 160px;
     }
 
     .card-img-top {
-        height: 120px;
+        height: 140px;
     }
 
     .slider-btn {

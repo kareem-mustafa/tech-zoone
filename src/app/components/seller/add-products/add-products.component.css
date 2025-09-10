@@ -150,13 +150,8 @@
 }
 
 /* =============== Two-Column (Price & Stock) =============== */
-/* HTML عندك فيه grid بالفعل، هنضيف تحسينات عامة */
 .max-w-lg .grid {
     gap: 22px !important;
-}
-
-.max-w-lg .grid>div {
-    will-change: transform;
 }
 
 /* =============== Validation (Angular) =============== */
@@ -167,53 +162,53 @@
     box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.14);
 }
 
-/* =============== Subtle Raise on Focus Within =============== */
-.max-w-lg .grid>div:focus-within,
-.max-w-lg>div:has(> input:focus),
-.max-w-lg>div:has(> textarea:focus),
-.max-w-lg>div:has(> select:focus) {
-    /* :has مدعوم في أحدث المتصفحات، لو مش مدعوم هيتجاهلها */
-    transform: translateY(-1px);
-    transition: transform .12s ease;
+/* =============== Responsive تحسينات =============== */
+@media (max-width: 1024px) {
+    .max-w-lg {
+        width: 90%;
+        padding: 32px 24px;
+    }
+
+    .max-w-lg h2 {
+        font-size: 26px;
+    }
 }
 
-/* =============== Nice Select Arrow =============== */
-.max-w-lg select {
-    appearance: none;
-    background-image:
-        linear-gradient(45deg, transparent 50%, #64748b 50%),
-        linear-gradient(135deg, #64748b 50%, transparent 50%),
-        linear-gradient(to right, #d1d5db, #d1d5db);
-    background-position:
-        calc(100% - 22px) calc(50% - 4px),
-        calc(100% - 16px) calc(50% - 4px),
-        calc(100% - 40px) 50%;
-    background-size: 6px 6px, 6px 6px, 1px 22px;
-    background-repeat: no-repeat;
-    padding-right: 48px;
-}
-
-/* =============== Micro-Interactions =============== */
-.max-w-lg input,
-.max-w-lg textarea,
-.max-w-lg select {
-    transform: translateZ(0);
-}
-
-.max-w-lg input:active,
-.max-w-lg textarea:active,
-.max-w-lg select:active {
-    transform: scale(0.998);
-}
-
-/* =============== Responsive =============== */
 @media (max-width: 768px) {
     .max-w-lg {
-        padding: 26px 20px;
+        padding: 24px 18px;
         margin: 32px auto;
     }
 
     .max-w-lg h2 {
-        font-size: 24px;
+        font-size: 22px;
+    }
+
+    /* خلي Price & Stock تحت بعض */
+    .max-w-lg .grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .max-w-lg button[type="submit"] {
+        font-size: 15px;
+        padding: 12px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .max-w-lg {
+        border-radius: 14px;
+        padding: 18px 14px;
+    }
+
+    .max-w-lg h2 {
+        font-size: 20px;
+    }
+
+    .max-w-lg input,
+    .max-w-lg textarea,
+    .max-w-lg select {
+        font-size: 14px;
+        padding: 12px 14px;
     }
 }

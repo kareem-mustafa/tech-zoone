@@ -1,175 +1,123 @@
-/* General */
+/* العناوين */
 h2 {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 20px;
     color: #1f2937;
 }
 
-/* Add Product Button */
-a[routerLink] {
-    display: inline-block;
-    margin-bottom: 15px;
-    padding: 10px 20px;
-    background-color: #111827;
-    /* dark black */
-    color: #f8fafc;
-    /* light text */
-    border-radius: 8px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-a[routerLink]:hover {
-    background-color: #1f2937;
-    transform: translateY(-2px);
-}
-
-/* Table */
-table {
-    width: 100%;
-    border-collapse: collapse;
+/* جدول المنتجات */
+.table {
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
-thead tr {
-    background-color: #1f2937;
+/* الهيدر بألوان مختلفة لكل عمود */
+.table thead {
+    background-color: #f3f4f6; /* خلفية فاتحة عامة */
+}
+
+/* الهيدر Gradient كحلي-رمادي */
+.table thead th {
+    background: linear-gradient(135deg, #1e293b, #334155);
     color: white;
 }
 
-th, td {
+
+
+/* خلايا الجدول */
+.table th, .table td {
     padding: 12px 15px;
     text-align: center;
+    vertical-align: middle;
     border-bottom: 1px solid #e5e7eb;
+    white-space: normal;
+    word-break: break-word;
 }
 
-tbody tr:hover {
-    background-color: #f9fafb;
+/* Hover على الصفوف */
+.table tbody tr:hover {
+    background-color: #f3f4f6;
     transition: background-color 0.3s ease;
 }
 
-/* Buttons */
-button {
-    font-weight: 500;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
+/* الأزرار */
 
-button.bg-blue-500 {
+.btn-primary{
     background-color: #3b82f6;
+    border: none;
     color: white;
 }
-
-button.bg-blue-500:hover {
+.btn-primary:hover {
     background-color: #2563eb;
     transform: translateY(-1px);
 }
 
-button.bg-red-500 {
+.btn-danger {
     background-color: #ef4444;
+    border: none;
     color: white;
 }
 
-button.bg-red-500:hover {
+.btn-danger:hover {
     background-color: #dc2626;
     transform: translateY(-1px);
 }
 
-/* Modal Overlay */
-.fixed.inset-0 {
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.btn-success {
+    background-color: #22c55e;
+    border: none;
+    color: white;
 }
 
-/* Modal Box */
-.fixed.inset-0>div {
-    background-color: white;
-    padding: 30px;
+.btn-success:hover {
+    background-color: #16a34a;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: #d1d5db;
+    border: none;
+    color: #1f2937;
+}
+
+.btn-secondary:hover {
+    background-color: #9ca3af;
+    transform: translateY(-1px);
+}
+
+/* Modal */
+.modal-content {
     border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    width: 50%;
-    max-width: 600px;
-    animation: modalFadeIn 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-/* Modal Animation */
-@keyframes modalFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.modal-title {
+    font-weight: bold;
 }
 
-/* Form Inputs */
-input, textarea {
-    width: 100%;
-    padding: 10px;
+/* Inputs */
+.form-control {
     border-radius: 8px;
     border: 1px solid #d1d5db;
     transition: all 0.3s ease;
 }
 
-input:focus, textarea:focus {
+.form-control:focus {
     border-color: #3b82f6;
-    outline: none;
-    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+    box-shadow: 0 0 5px rgba(59,130,246,0.5);
 }
 
-/* Form Buttons */
-button[type="submit"] {
-    background-color: #22c55e;
-    color: white;
-}
-
-button[type="submit"]:hover {
-    background-color: #16a34a;
-    transform: translateY(-1px);
-}
-
-button[type="button"] {
-    background-color: #d1d5db;
-    color: #1f2937;
-}
-
-button[type="button"]:hover {
-    background-color: #9ca3af;
-    transform: translateY(-1px);
-}
-
-/* Responsive Table */
+/* Responsive adjustments */
 @media (max-width: 768px) {
-    table, thead, tbody, th, td, tr {
-        display: block;
+    .btn {
+        width: 100%;
+        margin-bottom: 5px;
     }
 
-    thead tr {
-        display: none;
-    }
-
-    td {
-        text-align: right;
-        padding-left: 50%;
-        position: relative;
-    }
-
-    td::before {
-        content: attr(data-label);
-        position: absolute;
-        left: 15px;
-        font-weight: bold;
-        text-transform: capitalize;
+    .modal-dialog {
+        max-width: 95%;
+        margin: 1.75rem auto;
     }
 }

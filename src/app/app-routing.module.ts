@@ -63,12 +63,10 @@ const routes: Routes = [
   {
     path: 'category/:categoryName',
     component: CategoryProductsComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: 'products/:slug',
     component: ProductDetailsComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: 'forgot-password',

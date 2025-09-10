@@ -32,8 +32,12 @@ import { SidenavComponent } from './components/Dashboards/sidenav/sidenav.compon
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'home',
     pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
   },
   {
     path: 'login',
@@ -56,11 +60,6 @@ const routes: Routes = [
     canActivate: [OtpGuard],
   },
 
-  {
-    path: 'home',
-    component: HomeComponent,
-    canActivate: [AuthGuard],
-  },
   {
     path: 'category/:categoryName',
     component: CategoryProductsComponent,

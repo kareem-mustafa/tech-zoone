@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class OrderService {
   private apiUrl = `${environment.apiUrl}/order`;
-  private apiUrl2 = `${environment.apiUrl}/order`;
+  private apiUrl2 = `${environment.apiUrl}`;
 
 
   constructor(private http: HttpClient, private productService: ProductService) { }
@@ -75,7 +75,7 @@ export class OrderService {
     return this.http.get<IOrder[]>(`${this.apiUrl}/${id}`, this.headers);
   }
   getInvoice(orderId: string): Observable<Blob> {
-    return this.http.get(`invoice/${orderId}/pdf`, {
+    return this.http.get(`${this.apiUrl2}invoice/${orderId}/pdf`, {
       responseType: 'blob'  // هنا مش لازم as 'json'
     });
   }

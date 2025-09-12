@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { IOrder } from '../models/iorder';
 import { Product, ProductService } from './product.service';
 import { environment } from 'src/environments/environment';
+import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class OrderService {
   private apiUrl2 = `${environment.apiUrl}`;
 
 
-  constructor(private http: HttpClient, private productService: ProductService) { }
+  constructor(private http: HttpClient, private productService: ProductService,private cartService:CartService) { }
 
   get userId(): string {
     const userStr = localStorage.getItem('user');
@@ -54,7 +55,10 @@ export class OrderService {
       `${this.apiUrl}/add`,
       { ...orderData, userId: this.userId },
       this.headers
-    );
+    ).pipe(
+    tap(() => {
+      this.cartService.clearLocalCart();
+  }) )
   }
   deleteOrder(id: string = this.orderId): Observable<any> {
     if (!id) throw new Error('Order ID not found in localStorage');

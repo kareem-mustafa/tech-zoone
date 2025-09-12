@@ -75,7 +75,7 @@ export class OrderService {
     return this.http.get<IOrder[]>(`${this.apiUrl}/${id}`, this.headers);
   }
   getInvoice(orderId: string): Observable<Blob> {
-    return this.http.get(`${this.apiUrl2}/invoice/${orderId}/pdf`, {
+    return this.http.get(`invoice/${orderId}/pdf`, {
       responseType: 'blob'  // هنا مش لازم as 'json'
     });
   }

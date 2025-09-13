@@ -47,38 +47,37 @@ export class CartService {
     }
 
     return this.http
-      .post(
-        `${this.baseUrl}/add`,
-        { productId, quantity, userId: this.userId },
-        { headers: this.headers }
-      )
-      .pipe(
-        tap(() => {
-          this.cartItems.update((items) => {
-            const safeItems = items ?? []; // حماية
-            const existing = safeItems.find((i) => i.product._id === productId);
+  .post(
+    `${this.baseUrl}/add`,
+    { productId, quantity, userId: this.userId },
+    { headers: this.headers }
+  )
+  .pipe(
+    tap((res) => {
+      console.log('Add to cart response:', res);  // 👀
+      this.cartItems.update((items) => {
+        const safeItems = items ?? [];
+        const existing = safeItems.find((i) => i.product._id === productId);
 
-            let newItems;
-            if (existing) {
-              newItems = safeItems.map((i) =>
-                i.product._id === productId
-                  ? { ...i, quantity: i.quantity + quantity }
-                  : i
-              );
-            } else {
-              newItems = [
-                ...safeItems,
-                { product: { _id: productId } as Product, quantity },
-              ];
-            }
+        let newItems;
+        if (existing) {
+          newItems = safeItems.map((i) =>
+            i.product._id === productId
+              ? { ...i, quantity: i.quantity + quantity }
+              : i
+          );
+        } else {
+          newItems = [
+            ...safeItems,
+            { product: { _id: productId } as Product, quantity },
+          ];
+        }
 
-            localStorage.setItem('cartItems', JSON.stringify(newItems));
-            return newItems;
-          });
-        })
-      );
-  }
-
+        localStorage.setItem('cartItems', JSON.stringify(newItems));
+        return newItems;
+      });
+    })
+  );}
   getCartItems(): Observable<{ items: cartitems[] }> {
     return this.http
       .get<{ items: cartitems[] }>(`${this.baseUrl}/${this.userId}`, {

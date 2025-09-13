@@ -22,19 +22,13 @@ export class CartComponent implements OnInit {
   }
 
   loadCart(): void {
-  this.cartService.getCartItems().subscribe({
-    next: (res) => {
-      if (Array.isArray(res.items)) {
-        this.cartItems = res.items;
-      } else {
-        this.cartItems = [];
-      }
-    },
-    error: (err) => console.error('Error loading cart items:', err),
-  });
-  console.log('Loading cart...');
-}
-
+    this.cartService.getCartItems().subscribe({
+      next: (cart) => {
+        this.cartItems = cart.items ?? [];
+      },
+      error: (err) => console.error('Error loading cart items:', err),
+    });
+  }
   increaseQuantity(item: cartitems): void {
     const newQty = item.quantity + 1;
     this.cartService.updateCart(item.product._id, newQty).subscribe({

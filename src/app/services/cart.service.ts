@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { Product } from './product.service';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
@@ -8,6 +8,15 @@ import { Router } from '@angular/router';
 export interface cartitems {
   product: Product;
   quantity: number;
+}
+export interface Cart {
+  _id: string;
+  user: string;
+  items: cartitems[];
+  totalPrice: number;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
 }
 
 @Injectable({
@@ -47,47 +56,47 @@ export class CartService {
     }
 
     return this.http
-  .post(
-    `${this.baseUrl}/add`,
-    { productId, quantity, userId: this.userId },
-    { headers: this.headers }
-  )
-  .pipe(
-    tap((res) => {
-      console.log('Add to cart response:', res);  // 👀
-      this.cartItems.update((items) => {
-        const safeItems = items ?? [];
-        const existing = safeItems.find((i) => i.product._id === productId);
+      .post(
+        `${this.baseUrl}/add`,
+        { productId, quantity, userId: this.userId },
+        { headers: this.headers }
+      )
+      .pipe(
+        tap((res) => {
+          this.cartItems.update((items) => {
+            const safeItems = items ?? [];
+            const existing = safeItems.find((i) => i.product._id === productId);
 
-        let newItems;
-        if (existing) {
-          newItems = safeItems.map((i) =>
-            i.product._id === productId
-              ? { ...i, quantity: i.quantity + quantity }
-              : i
-          );
-        } else {
-          newItems = [
-            ...safeItems,
-            { product: { _id: productId } as Product, quantity },
-          ];
-        }
+            let newItems;
+            if (existing) {
+              newItems = safeItems.map((i) =>
+                i.product._id === productId
+                  ? { ...i, quantity: i.quantity + quantity }
+                  : i
+              );
+            } else {
+              newItems = [
+                ...safeItems,
+                { product: { _id: productId } as Product, quantity },
+              ];
+            }
 
-        localStorage.setItem('cartItems', JSON.stringify(newItems));
-        return newItems;
-      });
-    })
-  );}
-  getCartItems(): Observable<{ items: cartitems[] }> {
+            localStorage.setItem('cartItems', JSON.stringify(newItems));
+            return newItems;
+          });
+        })
+      );
+  }
+  getCartItems(): Observable<Cart> {
     return this.http
-      .get<{ items: cartitems[] }>(`${this.baseUrl}/${this.userId}`, {
+      .get<{ message: string; cart: Cart }>(`${this.baseUrl}/${this.userId}`, {
         headers: this.headers,
       })
       .pipe(
         tap((res) => {
-           console.log('Cart response from server:', res);
-          this.cartItems.set(res.items);
-        })
+          this.cartItems.set(res.cart?.items ?? []);
+        }),
+        map((res) => res.cart)
       );
   }
 

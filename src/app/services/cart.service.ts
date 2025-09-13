@@ -18,7 +18,7 @@ export class CartService {
 
   private baseUrl = `${environment.apiUrl}/cart`;
 
-  constructor(private http: HttpClient , private router: Router) {
+  constructor(private http: HttpClient, private router: Router) {
     this.loadCartFromStorage();
   }
 
@@ -40,53 +40,55 @@ export class CartService {
     this.cartItems.set([]);
     localStorage.removeItem('cartItems');
   }
-addToCart(productId: string, quantity: number): Observable<any> {
-  if (!this.userId) {
-    this.router.navigate(['/login']);
-    return new Observable(); // بيرجع Observable فاضي عشان الكومبوننت ميتكسرش
+  addToCart(productId: string, quantity: number): Observable<any> {
+    if (!this.userId) {
+      this.router.navigate(['/login']);
+      return new Observable(); // بيرجع Observable فاضي عشان الكومبوننت ميتكسرش
+    }
+
+    return this.http
+      .post(
+        `${this.baseUrl}/add`,
+        { productId, quantity, userId: this.userId },
+        { headers: this.headers }
+      )
+      .pipe(
+        tap(() => {
+          this.cartItems.update((items) => {
+            const safeItems = items ?? []; // حماية
+            const existing = safeItems.find((i) => i.product._id === productId);
+
+            let newItems;
+            if (existing) {
+              newItems = safeItems.map((i) =>
+                i.product._id === productId
+                  ? { ...i, quantity: i.quantity + quantity }
+                  : i
+              );
+            } else {
+              newItems = [
+                ...safeItems,
+                { product: { _id: productId } as Product, quantity },
+              ];
+            }
+
+            localStorage.setItem('cartItems', JSON.stringify(newItems));
+            return newItems;
+          });
+        })
+      );
   }
 
-  return this.http
-    .post(
-      `${this.baseUrl}/add`,
-      { productId, quantity, userId: this.userId },
-      { headers: this.headers }
-    )
-    .pipe(
-      tap(() => {
-        this.cartItems.update((items) => {
-          // شوف المنتج موجود ولا لا
-          const existing = items.find((i) => i.product._id === productId);
-          let newItems;
-          if (existing) {
-            // لو موجود زود الكمية بدل ما تضيف جديد
-            newItems = items.map((i) =>
-              i.product._id === productId
-                ? { ...i, quantity: i.quantity + quantity }
-                : i
-            );
-          } else {
-            // لو مش موجود ضيفه جديد
-            newItems = [
-              ...items,
-              { product: { _id: productId } as Product, quantity },
-            ];
-          }
-          localStorage.setItem('cartItems', JSON.stringify(newItems));
-          return newItems;
-        });
-      })
-    );
-}
-
-
   getCartItems(): Observable<{ items: cartitems[] }> {
-    return this.http.get<{ items: cartitems[] }>(
-      `${this.baseUrl}/${this.userId}`,
-      { headers: this.headers }
-    ).pipe(tap(res => {
-      this.cartItems.set(res.items);
-    }));
+    return this.http
+      .get<{ items: cartitems[] }>(`${this.baseUrl}/${this.userId}`, {
+        headers: this.headers,
+      })
+      .pipe(
+        tap((res) => {
+          this.cartItems.set(res?.items ?? []);
+        })
+      );
   }
 
   removeFromCart(productId: string): Observable<any> {

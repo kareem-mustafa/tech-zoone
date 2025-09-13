@@ -17,10 +17,10 @@ import { WishlistService } from 'src/app/services/wishlist.service';
 })
 export class HeaderComponent implements OnInit {
   // Signal للسلة
-  cartCount = computed(() => this.cartService.cartItems().length);
+cartCount = computed(() => this.cartService.cartItems()?.length ?? 0);
 
   // Signal للـ wishlist عبر الـ service
-  wishlistCount = computed(() => this.wishlistService.wishlistItems().length);
+  wishlistCount = computed(() => this.wishlistService.wishlistItems()?.length ?? 0);
 
   role: string | null = null;
   userId: string = '';

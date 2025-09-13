@@ -32,6 +32,7 @@ export class CartComponent implements OnInit {
     },
     error: (err) => console.error('Error loading cart items:', err),
   });
+  console.log('Loading cart...');
 }
 
   increaseQuantity(item: cartitems): void {

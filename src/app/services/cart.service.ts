@@ -86,6 +86,7 @@ export class CartService {
       })
       .pipe(
         tap((res) => {
+           console.log('Cart response from server:', res);
           this.cartItems.set(res.items);
         })
       );

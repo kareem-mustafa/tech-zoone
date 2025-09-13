@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Product } from './product.service';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
@@ -8,15 +8,6 @@ import { Router } from '@angular/router';
 export interface cartitems {
   product: Product;
   quantity: number;
-}
-export interface Cart {
-  _id: string;
-  user: string;
-  items: cartitems[];
-  totalPrice: number;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
 }
 
 @Injectable({
@@ -27,7 +18,7 @@ export class CartService {
 
   private baseUrl = `${environment.apiUrl}/cart`;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient , private router: Router) {
     this.loadCartFromStorage();
   }
 
@@ -49,55 +40,53 @@ export class CartService {
     this.cartItems.set([]);
     localStorage.removeItem('cartItems');
   }
-  addToCart(productId: string, quantity: number): Observable<any> {
-    if (!this.userId) {
-      this.router.navigate(['/login']);
-      return new Observable(); // بيرجع Observable فاضي عشان الكومبوننت ميتكسرش
-    }
-
-    return this.http
-      .post(
-        `${this.baseUrl}/add`,
-        { productId, quantity, userId: this.userId },
-        { headers: this.headers }
-      )
-      .pipe(
-        tap((res) => {
-          this.cartItems.update((items) => {
-            const safeItems = items ?? [];
-            const existing = safeItems.find((i) => i.product._id === productId);
-
-            let newItems;
-            if (existing) {
-              newItems = safeItems.map((i) =>
-                i.product._id === productId
-                  ? { ...i, quantity: i.quantity + quantity }
-                  : i
-              );
-            } else {
-              newItems = [
-                ...safeItems,
-                { product: { _id: productId } as Product, quantity },
-              ];
-            }
-
-            localStorage.setItem('cartItems', JSON.stringify(newItems));
-            return newItems;
-          });
-        })
-      );
+addToCart(productId: string, quantity: number): Observable<any> {
+  if (!this.userId) {
+    this.router.navigate(['/login']);
+    return new Observable(); // بيرجع Observable فاضي عشان الكومبوننت ميتكسرش
   }
-  getCartItems(): Observable<Cart> {
-    return this.http
-      .get<{ message: string; cart: Cart }>(`${this.baseUrl}/${this.userId}`, {
-        headers: this.headers,
+
+  return this.http
+    .post(
+      `${this.baseUrl}/add`,
+      { productId, quantity, userId: this.userId },
+      { headers: this.headers }
+    )
+    .pipe(
+      tap(() => {
+        this.cartItems.update((items) => {
+          // شوف المنتج موجود ولا لا
+          const existing = items.find((i) => i.product._id === productId);
+          let newItems;
+          if (existing) {
+            // لو موجود زود الكمية بدل ما تضيف جديد
+            newItems = items.map((i) =>
+              i.product._id === productId
+                ? { ...i, quantity: i.quantity + quantity }
+                : i
+            );
+          } else {
+            // لو مش موجود ضيفه جديد
+            newItems = [
+              ...items,
+              { product: { _id: productId } as Product, quantity },
+            ];
+          }
+          localStorage.setItem('cartItems', JSON.stringify(newItems));
+          return newItems;
+        });
       })
-      .pipe(
-        tap((res) => {
-          this.cartItems.set(res.cart?.items ?? []);
-        }),
-        map((res) => res.cart)
-      );
+    );
+}
+
+
+  getCartItems(): Observable<{ items: cartitems[] }> {
+    return this.http.get<{ items: cartitems[] }>(
+      `${this.baseUrl}/${this.userId}`,
+      { headers: this.headers }
+    ).pipe(tap(res => {
+      this.cartItems.set(res.items);
+    }));
   }
 
   removeFromCart(productId: string): Observable<any> {

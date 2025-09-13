@@ -86,7 +86,7 @@ export class CartService {
       })
       .pipe(
         tap((res) => {
-          this.cartItems.set(res?.items ?? []);
+          this.cartItems.set(res.items);
         })
       );
   }

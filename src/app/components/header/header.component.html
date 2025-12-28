@@ -24,6 +24,12 @@
       <li *ngIf="role === 'admin'"><a routerLink="/admin/dashboard" (click)="closeMobileMenu()">Admin Dashboard</a></li>
       <li *ngIf="role === 'seller' && isApproved"><a routerLink="/seller/dashboard" (click)="closeMobileMenu()">Seller Dashboard</a></li>
       <li *ngIf="role === 'user'"><a routerLink="/profile" (click)="closeMobileMenu()">My Profile</a></li>
+      <li *ngIf="role === 'user'">
+  <a routerLink="/order" (click)="closeMobileMenu()">
+    <i class="fa-solid fa-box"></i> My Orders
+  </a>
+</li>
+
 
       <li>
         <a [routerLink]="['/cart', userId]" (click)="closeMobileMenu()"><i class="fa-solid fa-cart-shopping"></i>

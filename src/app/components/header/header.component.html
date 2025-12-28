@@ -2,7 +2,11 @@
   <div class="header-row">
     <div class="logo" routerLink="/">Tech Zone</div>
 
-    <div class="hamburger" (click)="toggleMobileMenu()" [class.open]="mobileMenuOpen">
+    <div
+      class="hamburger"
+      (click)="toggleMobileMenu()"
+      [class.open]="mobileMenuOpen"
+    >
       <span></span>
       <span></span>
       <span></span>
@@ -12,41 +16,70 @@
       <li><a routerLink="/" (click)="closeMobileMenu()">Home</a></li>
       <li><a routerLink="/about" (click)="closeMobileMenu()">About Us</a></li>
 
-      <li class="dropdown-wrapper" [class.open]="dropdownOpen" (click)="toggleDropdown($event)">
+      <li
+        class="dropdown-wrapper"
+        [class.open]="dropdownOpen"
+        (click)="toggleDropdown($event)"
+      >
         <a href="javascript:void(0)">Category</a>
         <ul class="dropdown">
           <li *ngFor="let cat of categories">
-            <a (click)="viewCategory(cat); closeMobileMenu()">{{ cat | titlecase }}</a>
+            <a (click)="viewCategory(cat); closeMobileMenu()">{{
+              cat | titlecase
+            }}</a>
           </li>
         </ul>
       </li>
 
-      <li *ngIf="role === 'admin'"><a routerLink="/admin/dashboard" (click)="closeMobileMenu()">Admin Dashboard</a></li>
-      <li *ngIf="role === 'seller' && isApproved"><a routerLink="/seller/dashboard" (click)="closeMobileMenu()">Seller Dashboard</a></li>
-      <li *ngIf="role === 'user'"><a routerLink="/profile" (click)="closeMobileMenu()">My Profile</a></li>
+      <li *ngIf="role === 'admin'">
+        <a routerLink="/admin/dashboard" (click)="closeMobileMenu()"
+          >Admin Dashboard</a
+        >
+      </li>
+      <li *ngIf="role === 'seller' && isApproved">
+        <a routerLink="/seller/dashboard" (click)="closeMobileMenu()"
+          >Seller Dashboard</a
+        >
+      </li>
       <li *ngIf="role === 'user'">
-  <a routerLink="/order" (click)="closeMobileMenu()">
-    <i class="fa-solid fa-box"></i> My Orders
-  </a>
-</li>
-
+        <a routerLink="/profile" (click)="closeMobileMenu()">My Profile</a>
+      </li>
+      <li *ngIf="role === 'user'">
+        <a routerLink="/order" (click)="closeMobileMenu()"> My Orders </a>
+      </li>
 
       <li>
-        <a [routerLink]="['/cart', userId]" (click)="closeMobileMenu()"><i class="fa-solid fa-cart-shopping"></i>
-          <span class="cart-count" *ngIf="cartCount() > 0">{{ cartCount() }}</span>
+        <a [routerLink]="['/cart', userId]" (click)="closeMobileMenu()"
+          ><i class="fa-solid fa-cart-shopping"></i>
+          <span class="cart-count" *ngIf="cartCount() > 0">{{
+            cartCount()
+          }}</span>
         </a>
       </li>
       <li>
-        <a [routerLink]="['/wishlist', userId]" (click)="closeMobileMenu()"><i class="fa-solid fa-heart"></i> 
-          <span class="cart-count" *ngIf="wishlistCount() > 0">{{ wishlistCount() }}</span>
+        <a [routerLink]="['/wishlist', userId]" (click)="closeMobileMenu()"
+          ><i class="fa-solid fa-heart"></i>
+          <span class="cart-count" *ngIf="wishlistCount() > 0">{{
+            wishlistCount()
+          }}</span>
         </a>
       </li>
 
-      <li *ngIf="!role"><a routerLink="/login" class="login-btn" (click)="closeMobileMenu()">Login</a></li>
-      <li *ngIf="role"><a (click)="logout(); closeMobileMenu()" class="logout-btn">Logout</a></li>
+      <li *ngIf="!role">
+        <a routerLink="/login" class="login-btn" (click)="closeMobileMenu()"
+          >Login</a
+        >
+      </li>
+      <li *ngIf="role">
+        <a (click)="logout(); closeMobileMenu()" class="logout-btn">Logout</a>
+      </li>
     </ul>
   </div>
 
   <!-- Overlay -->
-  <div class="nav-overlay" [class.active]="mobileMenuOpen" (click)="closeMobileMenu()"></div>
+  <div
+    class="nav-overlay"
+    [class.active]="mobileMenuOpen"
+    (click)="closeMobileMenu()"
+  ></div>
 </nav>
